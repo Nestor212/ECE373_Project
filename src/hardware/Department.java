@@ -9,14 +9,12 @@ public abstract class Department
 	private String location;
 	private int idNum;
 	private ArrayList<Account> accounts;
-	private ArrayList<Item> inventory;
 	
 	public Department()
 	{
 		location = "unknown";
 		idNum = 0;
 		accounts = new ArrayList<Account>();
-		inventory = new ArrayList<Item>();
 	}
 	
 	public void setLocation(String aLocation)
@@ -44,14 +42,5 @@ public abstract class Department
 	public ArrayList<Account> getAccountList()
 	{
 		return accounts;
-	}
-	
-	public void addToInventory(Item aItem)
-	{
-		inventory.add(aItem);
-	}
-	public ArrayList<Item> getInventory()
-	{
-		return inventory;
 	}
 }
