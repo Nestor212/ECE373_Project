@@ -55,4 +55,9 @@ public abstract class Partner
 	{
 		return accounts;
 	}
+	
+	public void addSupplier()
+	{
+		
+	}
 }
