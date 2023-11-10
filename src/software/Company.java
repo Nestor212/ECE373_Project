@@ -85,6 +85,18 @@ public class Company
 	{
 		return orderList;
 	}
+	public Order findOrder(int orderNum)
+	{
+		for(int i = 0; i < orderList.size(); i++)
+		{
+			if(orderList.get(i).getOrderNum() == orderNum)
+			{
+				return orderList.get(i);
+			}
+		}
+		System.out.println("Order: " + orderNum + " not found.");
+		return null;
+	}
 	
 	public void addSupplier(Supplier aSupplier)
 	{
@@ -102,11 +114,29 @@ public class Company
 			{
 				return supplierList.get(i);
 			}
-			else
+		}
+		System.out.println("Supplier: " + aName + " not found.");
+		return null;
+	}
+	
+	public void addTransport(Transport aTransport)
+	{
+		transportList.add(aTransport);
+	}
+	public void removeTransport(Transport aTransport)
+	{
+		transportList.remove(aTransport);
+	}
+	public Transport findTransport(String aName)
+	{
+		for(int i = 0; i < transportList.size(); i++)
+		{
+			if(transportList.get(i).getName() == aName)
 			{
-				System.out.println("Supplier: " + aName + " not found."); 
-				break;
+				return transportList.get(i);
 			}
 		}
+		System.out.println("Transport: " + aName + " not found.");
+		return null;
 	}
 }

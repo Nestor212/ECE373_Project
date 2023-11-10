@@ -19,6 +19,51 @@ public abstract class Account {
 		accessLevel = 0;
 	}
 	
+	public void setName(String aName)
+	{
+		name = aName;
+	}
+	public String getName()
+	{
+		return name;
+	}
+	
+	public void setUsername(String aName)
+	{
+		username = aName;
+	}
+	public String getUsername()
+	{
+		return username;
+	}
+	
+	public void setPassword(String aPassword)
+	{
+		//TO DO: Add password restrictions 
+		password = aPassword;
+	}
+	
+	public String emailPassword()
+	{
+		// TO DO: Figure out secure way to deliver or reset password
+		return password;
+	}
+	
+	public int getAccountNumber()
+	{
+		return accountNum;
+	}
+	
+	public void setAccessLevel(int aLevel)
+	{
+		accessLevel = aLevel;
+	}
+	public int getAccessLevel()
+	{
+		return accessLevel;
+	}
+	
+	
 	
 }
 

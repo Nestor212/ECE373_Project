@@ -59,4 +59,9 @@ public class Item
 	{
 		return qty;
 	}
+	
+	public String toString()
+	{
+		return(this.itemNum + " " + this.name + " " + this.qty + " $" + this.retailPrice);
+	}
 }
