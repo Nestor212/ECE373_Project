@@ -97,7 +97,7 @@ public class LoginFrame extends JFrame implements ActionListener
                         break;
                 }
                 homeFrame.setVisible(true);
-                homeFrame.setBounds(150, 150, 1344, 840);
+                homeFrame.setBounds(150, 150, 1344, 400); //840
                 homeFrame.setDefaultCloseOperation(HomeFrame.EXIT_ON_CLOSE);
                 homeFrame.setResizable(true);            
             } 

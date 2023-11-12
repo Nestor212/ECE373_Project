@@ -15,16 +15,11 @@ public class AccountsFrame extends JFrame implements ActionListener
     private ArrayList<JLabel> accountNumbers;
     private ArrayList<JLabel> accountNames;
     private ArrayList<JLabel> accountLocations;
-    
     private ArrayList<JButton> editButton;
-
         
     JLabel accountLabel = new JLabel("Account Number");
     JLabel nameLabel = new JLabel("Name");
     JLabel locationLabel = new JLabel("Location");
-
-    
-
     
     Container container = getContentPane();
   
@@ -35,6 +30,7 @@ public class AccountsFrame extends JFrame implements ActionListener
         accountLocations = new ArrayList<JLabel>(20);
         editButton = new ArrayList<JButton>();
         
+    	populateAccounts();
         setLayoutManager();
         setLocationAndSize();
         addComponentsToContainer();
@@ -104,7 +100,6 @@ public class AccountsFrame extends JFrame implements ActionListener
     	locationLabel.setBounds(600, 80,  200, 20);
     	locationLabel.setFont(new Font("Lucida", Font.BOLD, 18));
     	
-    	populateAccounts();
     	for(int i = 1; i <= accountNumbers.size(); i++)
     	{
     		accountNumbers.get(i - 1).setBounds(200, (i * 20) + 100,  600, 20);

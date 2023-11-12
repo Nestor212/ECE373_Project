@@ -5,13 +5,12 @@ import software.*;
 import test_client.GUI;
 
 public class InventoryStaff extends Account 
-{
-	private Department department;
-	
+{	
 	public InventoryStaff(Store aStore) 
 	{
 		this.accessLevel = 20;
 		department = aStore;
+		partner = null;
 	}
 	
 	public InventoryStaff(Warehouse aWarehouse) 

@@ -6,4 +6,9 @@ public class Corporate extends Department
 	{
 	
 	}
+	
+	public String toString()
+	{
+		return ("Corporate Office - " + this.getLocation());
+	}
 }

@@ -9,73 +9,149 @@ public class HomeFrame extends JFrame implements ActionListener
 {
     Container container = getContentPane();
 	
-	JButton accountsButton = new JButton("Manage Accounts");
-	JButton ordersButton = new JButton("Manage Orders");
-	JButton reportsButton = new JButton("Reports");
+	JButton accountsButton;
+	JButton departmentsButton;
+	JButton partnersButton;
+	JButton ordersButton;
+	JButton reportsButton;
+	JButton inventoryButton;
+	JButton logoutButton;
 	
-	JLabel departmentNumber = new JLabel( GUI.getSession().getSessionAccount().getDepartment().toString());
+	JLabel homeTitle;
 	
 	public HomeFrame()
 	{
-        setLayoutManager();
-        setLocationAndSize();
-        addComponentsToContainer();
-        addActionEvent();
+		homeTitle = new JLabel(GUI.getSession().getSessionAccount().getDepartment().toString());
+		logoutButton = new JButton("Logout");
+		
+    	switch(GUI.session.getSessionAccessLevel())
+    	{
+    		case 10: // Admin Account
+    			accountsButton = new JButton("Manage Accounts");
+    			departmentsButton = new JButton("Manage Departments");
+    			partnersButton = new JButton("Manage Partners");
+    	    	ordersButton = new JButton("Manage Orders");
+    	    	reportsButton = new JButton("Reports");
+    			setAdminHomepage();
+    			break;
+    		case 20: // Store/Warehouse Staff Account
+    			inventoryButton = new JButton("Manage Inventory");
+    	    	ordersButton = new JButton("Manage Orders");
+    	    	reportsButton = new JButton("Reports");
+    			setInventoryStaffHomepage();
+    			break;    			
+    		case 30: // Driver Account
+    	    	ordersButton = new JButton("Manage Orders");
+    	    	reportsButton = new JButton("Reports");
+    			setDriverHomepage();
+    			break;
+    		case 40: // Supplier Account
+    	    	ordersButton = new JButton("Manage Inventory");
+    	    	reportsButton = new JButton("Reports");
+    			setSupplierHomepage();
+    			break;
+    		default:
+    			break;
+    	}
+		setLayoutManager();
     }
 	
     public void setLayoutManager() 
     {
         container.setLayout(null);
+        
+        logoutButton.setBounds(SwingConstants.RIGHT,SwingConstants.TOP, 100, 25);
+        container.add(logoutButton);
+        logoutButton.addActionListener(this);
+		
+        homeTitle.setSize(1344, 50);
+        homeTitle.setFont(new Font("Lucida", Font.BOLD, 30));
+        homeTitle.setHorizontalAlignment(SwingConstants.CENTER);
+        homeTitle.setVerticalAlignment(SwingConstants.TOP);
+		container.add(homeTitle);
     }
     
-    public void setLocationAndSize() 
+    public void setAdminHomepage()
     {
-        accountsButton.setBounds(200, 150, 200, 50);
-        ordersButton.setBounds(600, 150, 200, 50);  
-        reportsButton.setBounds(1000, 150, 200, 50);
+    	JOptionPane.showMessageDialog(this, "TODO: Dislpay Action items needing admin attention.");
+
+    	// Set item bounds
+        accountsButton.setBounds(100, 100, 200, 50);
+        departmentsButton.setBounds(330, 100, 200, 50);
+        partnersButton.setBounds(560, 100, 200, 50);
+        ordersButton.setBounds(790, 100, 200, 50);  
+        reportsButton.setBounds(1020, 100, 200, 50);
         
-        //departmentNumber.setBounds(10, 10, 1000, 50);
-        
-
-        departmentNumber.setSize(1344, 50);
-        departmentNumber.setFont(new Font("Lucida", Font.BOLD, 30));
-        departmentNumber.setHorizontalAlignment(SwingConstants.CENTER);
-        departmentNumber.setVerticalAlignment(SwingConstants.TOP);
-
-    }
-
-    public void addComponentsToContainer() 
-    {
-    	switch(GUI.session.getSessionAccessLevel())
-    	{
-    		case 10: // Admin Account
-    			container.add(accountsButton);
-    			break;
-    		case 20: // Store/Warehouse Staff Account
-    			container.add(departmentNumber);
-    			break;    			
-    		case 30: // Driver Account
-    			
-    			break;
-    		case 40: // Supplier Account
-    			
-    			break;
-    		default:
-    			
-    			break;
-    	}	
+        // Add items to container
+		container.add(accountsButton);
+		container.add(departmentsButton);
+		container.add(partnersButton);
         container.add(ordersButton);
         container.add(reportsButton);
-    }
-
-    public void addActionEvent() 
-    {
+        
+        // Add action events to relevant items
         ordersButton.addActionListener(this);
         reportsButton.addActionListener(this);
         accountsButton.addActionListener(this);
+        departmentsButton.addActionListener(this);
+        partnersButton.addActionListener(this);    
     }
+    
+    public void setInventoryStaffHomepage()
+    {
+    	JOptionPane.showMessageDialog(this, "TODO: List all orders active orders and status for location.");
 
-	@Override
+    	// Set item bounds
+    	inventoryButton.setBounds(300, 100, 200, 50);  
+    	ordersButton.setBounds(600, 100, 200, 50); 
+        reportsButton.setBounds(900, 100, 200, 50);
+        
+        // Add items to container
+		container.add(ordersButton);
+		container.add(reportsButton);
+		container.add(inventoryButton);
+        
+        // Add action events to relevant items
+        ordersButton.addActionListener(this);
+        reportsButton.addActionListener(this);
+        inventoryButton.addActionListener(this);
+    }
+    
+    public void setDriverHomepage()
+    {
+    	JOptionPane.showMessageDialog(this, "TODO: List all orders active orders and location status.");
+
+    	// Set item bounds
+        ordersButton.setBounds(350, 100, 200, 50);  
+        reportsButton.setBounds(800, 100, 200, 50);
+        
+        // Add items to container
+        container.add(ordersButton);
+        container.add(reportsButton);
+        
+        // Add action events to relevant items
+        ordersButton.addActionListener(this);
+        reportsButton.addActionListener(this);   
+    }
+    
+    public void setSupplierHomepage()
+    {
+    	JOptionPane.showMessageDialog(this, "TODO: List all orders pending fulfillment from this supplier.");
+
+    	// Set item bounds
+        ordersButton.setBounds(350, 100, 200, 50);  
+        reportsButton.setBounds(800, 100, 200, 50);
+        
+        // Add items to container
+        container.add(ordersButton);
+        container.add(reportsButton);
+        
+        // Add action events to relevant items
+        ordersButton.addActionListener(this);
+        reportsButton.addActionListener(this);
+    }
+     
+   	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
 		if(e.getSource() == ordersButton)
@@ -104,7 +180,54 @@ public class HomeFrame extends JFrame implements ActionListener
             accountsFrame.setBounds(100, 100, 1152, 720);
             accountsFrame.setDefaultCloseOperation(AccountsFrame.DISPOSE_ON_CLOSE);
             accountsFrame.setResizable(true);  
-			
+		}
+		else if(e.getSource() == departmentsButton)
+		{
+            DepartmentsFrame departmentsFrame = new DepartmentsFrame();
+            departmentsFrame.setTitle("Department Manager - Arizona Incorporated");
+            departmentsFrame.setVisible(true);
+            departmentsFrame.setBounds(100, 100, 1152, 600);
+            departmentsFrame.setDefaultCloseOperation(ReportsFrame.DISPOSE_ON_CLOSE);
+            departmentsFrame.setResizable(true);   
+		}
+		else if(e.getSource() == partnersButton)
+		{
+            PartnersFrame partnersFrame = new PartnersFrame();
+            partnersFrame.setTitle("Account Manager - Arizona Incorporated");
+            partnersFrame.setVisible(true);
+            partnersFrame.setBounds(100, 100, 1152, 720);
+            partnersFrame.setDefaultCloseOperation(AccountsFrame.DISPOSE_ON_CLOSE);
+            partnersFrame.setResizable(true);  
+		}
+		else if(e.getSource() == inventoryButton)
+		{
+            InventoryFrame inventoryFrame = new InventoryFrame();
+            inventoryFrame.setTitle("Account Manager - Arizona Incorporated");
+            inventoryFrame.setVisible(true);
+            inventoryFrame.setBounds(100, 100, 1152, 720);
+            inventoryFrame.setDefaultCloseOperation(AccountsFrame.DISPOSE_ON_CLOSE);
+            inventoryFrame.setResizable(true);  
+		}
+		else if(e.getSource() == logoutButton)
+		{
+            int result = JOptionPane.showConfirmDialog(this,"Are you sure you want to logout?", "Logout",
+                    								   JOptionPane.YES_NO_OPTION,
+                    								   JOptionPane.QUESTION_MESSAGE);
+	        if(result == JOptionPane.YES_OPTION)
+	        {
+                JOptionPane.showMessageDialog(this, "Logout Successful");
+                this.dispose();
+                
+		        LoginFrame loginFrame = new LoginFrame();
+		        loginFrame.setTitle("Login - Arizona Incorporated");
+		        loginFrame.setVisible(true);
+		        loginFrame.setBounds(600, 200, 370, 600);
+		        loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		        loginFrame.setResizable(false);
+	        }
+	        else if (result == JOptionPane.NO_OPTION)
+	        {
+	        }
 		}
 	}
 }

@@ -1,13 +1,14 @@
 package users;
 
-import hardware.Department;
-import software.Order;
+import hardware.*;
+import software.*;
 
 public class TransportStaff extends Account
 {
-	public TransportStaff() 
+	public TransportStaff(Transport aTransport) 
 	{
 		this.accessLevel = 30;
+		partner = aTransport;
 	}
 	
 	public void confirmPickup(Order aOrder)
@@ -19,9 +20,8 @@ public class TransportStaff extends Account
 		// TO DO update order status
 	}
 
-	@Override
-	public Department getDepartment() {
-		// TODO Auto-generated method stub
-		return null;
+	public Partner getDepartment() 
+	{
+		return partner;
 	}
 }

@@ -1,17 +1,20 @@
 package users;
 
-import hardware.Department;
+import hardware.*;
+
 
 public class SupplierStaff extends Account
 {
-	public SupplierStaff()
+	public SupplierStaff(Supplier aSupplier)
 	{
 		this.accessLevel = 40;
+		partner = aSupplier;
+		department = null;		
 	}
 
-	@Override
-	public Department getDepartment() {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public Partner getDepartment() 
+	{
+		return partner;
 	}
 }

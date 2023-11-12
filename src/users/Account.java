@@ -1,6 +1,7 @@
 package users;
 
 import hardware.Department;
+import hardware.Partner;
 
 public abstract class Account {
 
@@ -10,7 +11,9 @@ public abstract class Account {
 	private int accountNum;
 	protected int accessLevel;
 	private static int accounts;
-	
+	protected Department department;
+	protected Partner partner;
+
 	public Account() 
 	{
 		name = "unknown";
@@ -69,10 +72,8 @@ public abstract class Account {
 	{
 		return accessLevel;
 	}
-	
-	public abstract Department getDepartment();
-	
-	
+
+	public abstract Object getDepartment();
 	
 }
 

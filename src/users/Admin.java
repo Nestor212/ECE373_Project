@@ -1,14 +1,17 @@
 package users;
 
+import hardware.Corporate;
 import hardware.Department;
 import hardware.Partner;
 
 public class Admin extends Account 
 {
 	
-	public Admin() 
+	public Admin(Corporate aCorporate) 
 	{
 		this.accessLevel = 10;
+		department = aCorporate;
+		partner = null;
 	}
 	
 	public void addAccount(Department aDepartment, Account aAccount) 
@@ -54,10 +57,9 @@ public class Admin extends Account
 		return null;
 	}
 
-	@Override
-	public Department getDepartment() {
-		// TODO Auto-generated method stub
-		return null;
+	public Department getDepartment() 
+	{
+		return department;
 	}
 	
 	

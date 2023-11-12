@@ -5,7 +5,11 @@ import hardware.*;
 import users.*;
 
 /*
- * TODO: Create a database to store all Account and session information 
+ * Client creates data for the system to utilize. 
+ * 
+ * 
+ * TODO: Create a database to store all Account and session information, at which point the client will extract the 
+ * 		 data for the company for the user to access. 
  */
 
 public class Client 
@@ -58,10 +62,10 @@ public class Client
 		ArizonaInc.addTransport(MohammedFreight);
 				
 		// Admin Account Created - Belongs to Corporate
-		master = new Admin();
+		master = new Admin(c1);
 		master.setName("Nestor Garcia");
 		master.setUsername("master");
-		master.setPassword("password");
+		master.setPassword("test");
 		c1.addAccount(master);
 		
 		// Staff Account Created - Belongs to Store
@@ -79,13 +83,17 @@ public class Client
 		wh1.addAccount(staff2);
 		
 		// Supplier Staff Account Created - Belongs to Supplier
-		supplyStaff1 = new SupplierStaff();
+		supplyStaff1 = new SupplierStaff(TaraManufacturing);
 		supplyStaff1.setName("Tom Smith");
+		supplyStaff1.setUsername("supplytest");
+		supplyStaff1.setPassword("test");
 		TaraManufacturing.addAccount(supplyStaff1);
 		
 		// Transport Staff Account Created - Belongs to Transport
-		transportStaff1 = new TransportStaff();
+		transportStaff1 = new TransportStaff(MohammedFreight);
 		transportStaff1.setName("Andrew Jones");
+		transportStaff1.setUsername("transporttest");
+		transportStaff1.setPassword("test");
 		MohammedFreight.addAccount(transportStaff1);
 	}	
 	
@@ -199,12 +207,12 @@ public class Client
 		case "Suppliers":
 			for(int i = 0; i < ArizonaInc.getSupplierList().size(); i++)
 			{
-				System.out.println(ArizonaInc.getSupplierList().get(i).getAccountNum() + " " + ArizonaInc.getSupplierList().get(i).getName());
+				System.out.println(ArizonaInc.getSupplierList().get(i).getPartnerID() + " " + ArizonaInc.getSupplierList().get(i).getName());
 			}
 		case "Transportation":
 			for(int i = 0; i < ArizonaInc.getTransportList().size(); i++)
 			{
-				System.out.println(ArizonaInc.getTransportList().get(i).getAccountNum() + " " + ArizonaInc.getTransportList().get(i).getName());
+				System.out.println(ArizonaInc.getTransportList().get(i).getPartnerID() + " " + ArizonaInc.getTransportList().get(i).getName());
 			}
 		case "Stores":
 			for(int i = 0; i < ArizonaInc.getStoreList().size(); i++)

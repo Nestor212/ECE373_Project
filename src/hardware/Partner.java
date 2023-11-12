@@ -7,7 +7,7 @@ import users.Account;
 public abstract class Partner 
 {
 	private String name;
-	private int accountNum;
+	private int partnerID;
 	private double accountBalance;
 	private ArrayList<Account> accounts;
 	private static int partners;
@@ -15,7 +15,7 @@ public abstract class Partner
 	public Partner()
 	{
 		name = "unknown";
-		accountNum = partners;
+		partnerID = partners;
 		accountBalance = 0.0;
 		accounts = new ArrayList<Account>();
 		partners++;
@@ -30,13 +30,13 @@ public abstract class Partner
 		return name;
 	}
 	
-	public void setAccountNum(int aNum)
+	public void setPartnerID(int aNum)
 	{
-		accountNum = aNum;
+		partnerID = aNum;
 	}
-	public int getAccountNum()
+	public int getPartnerID()
 	{
-		return accountNum;
+		return partnerID;
 	}
 	
 	public void addToBalance(double dollars)
@@ -61,5 +61,10 @@ public abstract class Partner
 	public void addSupplier()
 	{
 		
+	}
+	
+	public String toString()
+	{
+		return(this.getName());
 	}
 }
