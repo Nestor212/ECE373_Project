@@ -9,12 +9,14 @@ public abstract class Department
 	private String location;
 	private int idNum;
 	private ArrayList<Account> accounts;
+	private static int departments;
 	
 	public Department()
 	{
 		location = "unknown";
-		idNum = 0;
+		idNum = departments;
 		accounts = new ArrayList<Account>();
+		departments++;
 	}
 	
 	public void setLocation(String aLocation)

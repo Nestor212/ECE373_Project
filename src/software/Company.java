@@ -51,7 +51,7 @@ public class Company
 		return storeList;
 	}
 
-	public void addSWarehouse(Warehouse aWarehouse)
+	public void addWarehouse(Warehouse aWarehouse)
 	{
 		warehouseList.add(aWarehouse);
 	}
@@ -118,6 +118,10 @@ public class Company
 		System.out.println("Supplier: " + aName + " not found.");
 		return null;
 	}
+	public ArrayList<Supplier> getSupplierList()
+	{
+		return supplierList;
+	}
 	
 	public void addTransport(Transport aTransport)
 	{
@@ -138,5 +142,9 @@ public class Company
 		}
 		System.out.println("Transport: " + aName + " not found.");
 		return null;
+	}
+	public ArrayList<Transport> getTransportList()
+	{
+		return transportList;
 	}
 }

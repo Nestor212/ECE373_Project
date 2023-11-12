@@ -6,7 +6,10 @@ import hardware.Partner;
 public class Admin extends Account 
 {
 	
-	public Admin() {}
+	public Admin() 
+	{
+		this.accessLevel = 10;
+	}
 	
 	public void addAccount(Department aDepartment, Account aAccount) 
 	{
@@ -50,5 +53,7 @@ public class Admin extends Account
 		}
 		return null;
 	}
+	
+	
 	
 }

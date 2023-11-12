@@ -6,7 +6,7 @@ public abstract class Account {
 	private String username;
 	private String password;
 	private int accountNum;
-	private int accessLevel;
+	protected int accessLevel;
 	private static int accounts;
 	
 	public Account() 
@@ -41,6 +41,11 @@ public abstract class Account {
 	{
 		//TO DO: Add password restrictions 
 		password = aPassword;
+	}
+	public String getPassword()
+	{
+		// TO DO: Figure out secure way to deliver or reset password
+		return password;
 	}
 	
 	public String emailPassword()

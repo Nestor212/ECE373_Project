@@ -10,13 +10,15 @@ public abstract class Partner
 	private int accountNum;
 	private double accountBalance;
 	private ArrayList<Account> accounts;
+	private static int partners;
 	
 	public Partner()
 	{
 		name = "unknown";
-		accountNum = 0;
+		accountNum = partners;
 		accountBalance = 0.0;
 		accounts = new ArrayList<Account>();
+		partners++;
 	}
 	
 	public void setName(String aName)
