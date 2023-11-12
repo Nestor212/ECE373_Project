@@ -13,6 +13,8 @@ public class HomeFrame extends JFrame implements ActionListener
 	JButton ordersButton = new JButton("Manage Orders");
 	JButton reportsButton = new JButton("Reports");
 	
+	JLabel departmentNumber = new JLabel( GUI.getSession().getSessionAccount().getDepartment().toString());
+	
 	public HomeFrame()
 	{
         setLayoutManager();
@@ -28,9 +30,17 @@ public class HomeFrame extends JFrame implements ActionListener
     
     public void setLocationAndSize() 
     {
-        accountsButton.setBounds(200, 50, 200, 50);
-        ordersButton.setBounds(600, 50, 200, 50);  
-        reportsButton.setBounds(1000, 50, 200, 50);
+        accountsButton.setBounds(200, 150, 200, 50);
+        ordersButton.setBounds(600, 150, 200, 50);  
+        reportsButton.setBounds(1000, 150, 200, 50);
+        
+        //departmentNumber.setBounds(10, 10, 1000, 50);
+        
+
+        departmentNumber.setSize(1344, 50);
+        departmentNumber.setFont(new Font("Lucida", Font.BOLD, 30));
+        departmentNumber.setHorizontalAlignment(SwingConstants.CENTER);
+        departmentNumber.setVerticalAlignment(SwingConstants.TOP);
 
     }
 
@@ -42,7 +52,7 @@ public class HomeFrame extends JFrame implements ActionListener
     			container.add(accountsButton);
     			break;
     		case 20: // Store/Warehouse Staff Account
-    			
+    			container.add(departmentNumber);
     			break;    			
     		case 30: // Driver Account
     			

@@ -1,5 +1,7 @@
 package users;
 
+import hardware.Department;
+
 public abstract class Account {
 
 	private String name;
@@ -67,6 +69,8 @@ public abstract class Account {
 	{
 		return accessLevel;
 	}
+	
+	public abstract Department getDepartment();
 	
 	
 	

@@ -23,5 +23,10 @@ public class Warehouse extends Department
 	{
 		return inventory;
 	}
+	
+	public String toString()
+	{
+		return ("Warehouse # " + this.getID() + " - " + this.getLocation());
+	}
 
 }

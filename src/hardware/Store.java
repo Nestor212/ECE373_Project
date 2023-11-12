@@ -23,5 +23,9 @@ public class Store extends Department
 	{
 		return inventory;
 	}
-
+	
+	public String toString()
+	{
+		return ("Store # " + this.getID() + " - " + this.getLocation());
+	}
 }

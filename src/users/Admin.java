@@ -53,6 +53,12 @@ public class Admin extends Account
 		}
 		return null;
 	}
+
+	@Override
+	public Department getDepartment() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 	

@@ -67,13 +67,15 @@ public class Client
 		// Staff Account Created - Belongs to Store
 		staff1 = new InventoryStaff(s1);
 		staff1.setName("John Doe");
-		staff1.setUsername("stafftest");
+		staff1.setUsername("storetest");
 		staff1.setPassword("test");
 		s1.addAccount(staff1);
 		
 		// Staff Account Created - Belongs to Warehouse
 		staff2 = new InventoryStaff(wh1);
 		staff2.setName("Jane Doe");
+		staff2.setUsername("whtest");
+		staff2.setPassword("test");
 		wh1.addAccount(staff2);
 		
 		// Supplier Staff Account Created - Belongs to Supplier
