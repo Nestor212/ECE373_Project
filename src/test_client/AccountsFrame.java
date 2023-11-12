@@ -143,8 +143,19 @@ public class AccountsFrame extends JFrame implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		// TODO Auto-generated method stub
+		for(int i = 0; i < editButton.size(); i++)
+		{
+			if(e.getSource() == editButton.get(i))
+			{
+				editAccount(accountNames.get(i).getText());
+			}
+		}
 		
+	}
+	
+	public void editAccount(String name)
+	{
+		System.out.println("TO DO: Find account for user: " + name + ", and allow for edits.");
 	}
 
 }

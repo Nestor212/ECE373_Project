@@ -11,6 +11,7 @@ import users.*;
 public class Client 
 {
 	private int sessionAccessLevel;
+	private Account sessionAccount;
 	
 	private Company ArizonaInc;
 	private Store s1;
@@ -27,9 +28,12 @@ public class Client
 	private SupplierStaff supplyStaff1;
 	private TransportStaff transportStaff1;
 	
+
+	
 	public Client()
 	{
 		sessionAccessLevel = 0;
+		
 		ArizonaInc = new Company();
 		
 		c1 = new Corporate();
@@ -61,12 +65,14 @@ public class Client
 		c1.addAccount(master);
 		
 		// Staff Account Created - Belongs to Store
-		staff1 = new InventoryStaff();
+		staff1 = new InventoryStaff(s1);
 		staff1.setName("John Doe");
+		staff1.setUsername("stafftest");
+		staff1.setPassword("test");
 		s1.addAccount(staff1);
 		
 		// Staff Account Created - Belongs to Warehouse
-		staff2 = new InventoryStaff();
+		staff2 = new InventoryStaff(wh1);
 		staff2.setName("Jane Doe");
 		wh1.addAccount(staff2);
 		
@@ -92,6 +98,7 @@ public class Client
 			{
 				if(ArizonaInc.getCorporateOffice().getAccountList().get(i).getPassword().equals(password))
 				{
+					sessionAccount = ArizonaInc.getCorporateOffice().getAccountList().get(i);
 					return ArizonaInc.getCorporateOffice().getAccountList().get(i).getAccessLevel();
 				}
 			}
@@ -101,10 +108,11 @@ public class Client
 		{
 			for(int j = 0; j < ArizonaInc.getStoreList().get(i).getAccountList().size(); j++)
 			{
-				if(ArizonaInc.getStoreList().get(i).getAccountList().get(j).getUsername() == username)
+				if(ArizonaInc.getStoreList().get(i).getAccountList().get(j).getUsername().equals(username))
 				{
-					if(ArizonaInc.getStoreList().get(i).getAccountList().get(j).getPassword() == password)
+					if(ArizonaInc.getStoreList().get(i).getAccountList().get(j).getPassword().equals(password))
 					{
+						sessionAccount = ArizonaInc.getStoreList().get(i).getAccountList().get(j);
 						return ArizonaInc.getStoreList().get(i).getAccountList().get(j).getAccessLevel();
 					}
 				}		
@@ -115,10 +123,11 @@ public class Client
 		{
 			for(int j = 0; j < ArizonaInc.getWarehouseList().get(i).getAccountList().size(); j++)
 			{
-				if(ArizonaInc.getWarehouseList().get(i).getAccountList().get(j).getUsername() == username)
+				if(ArizonaInc.getWarehouseList().get(i).getAccountList().get(j).getUsername().equals(username))
 				{
-					if(ArizonaInc.getWarehouseList().get(i).getAccountList().get(j).getPassword() == password)
+					if(ArizonaInc.getWarehouseList().get(i).getAccountList().get(j).getPassword().equals(password))
 					{
+						sessionAccount = ArizonaInc.getWarehouseList().get(i).getAccountList().get(j);
 						return ArizonaInc.getWarehouseList().get(i).getAccountList().get(j).getAccessLevel();
 					}
 				}			
@@ -129,10 +138,11 @@ public class Client
 		{
 			for(int j = 0; j < ArizonaInc.getSupplierList().get(i).getAccountList().size(); j++)
 			{
-				if(ArizonaInc.getSupplierList().get(i).getAccountList().get(j).getUsername() == username)
+				if(ArizonaInc.getSupplierList().get(i).getAccountList().get(j).getUsername().equals(username))
 				{
-					if(ArizonaInc.getSupplierList().get(i).getAccountList().get(j).getPassword() == password)
+					if(ArizonaInc.getSupplierList().get(i).getAccountList().get(j).getPassword().equals(password))
 					{
+						sessionAccount = ArizonaInc.getSupplierList().get(i).getAccountList().get(j);
 						return ArizonaInc.getSupplierList().get(i).getAccountList().get(j).getAccessLevel();
 					}
 				}			
@@ -143,10 +153,11 @@ public class Client
 		{
 			for(int j = 0; j < ArizonaInc.getTransportList().get(i).getAccountList().size(); j++)
 			{
-				if(ArizonaInc.getTransportList().get(i).getAccountList().get(j).getUsername() == username)
+				if(ArizonaInc.getTransportList().get(i).getAccountList().get(j).getUsername().equals(username))
 				{
-					if(ArizonaInc.getTransportList().get(i).getAccountList().get(j).getPassword() == password)
+					if(ArizonaInc.getTransportList().get(i).getAccountList().get(j).getPassword().equals(password))
 					{
+						sessionAccount = ArizonaInc.getTransportList().get(i).getAccountList().get(j);
 						return ArizonaInc.getTransportList().get(i).getAccountList().get(j).getAccessLevel();
 					}
 				}				
@@ -167,6 +178,11 @@ public class Client
 	public Company getCompany()
 	{
 		return ArizonaInc;
+	}
+	
+	public Account getSessionAccount()
+	{
+		return sessionAccount;
 	}
 	
 	public void generateReport(String aType)

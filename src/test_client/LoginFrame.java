@@ -7,7 +7,8 @@ import java.awt.event.ActionListener;
 
 public class LoginFrame extends JFrame implements ActionListener 
 {	
-    Container container = getContentPane();
+    private static final long serialVersionUID = 1L;
+	Container container = getContentPane();
     JLabel userLabel = new JLabel("USERNAME");
     JLabel passwordLabel = new JLabel("PASSWORD");
     JTextField userTextField = new JTextField();

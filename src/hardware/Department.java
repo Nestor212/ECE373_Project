@@ -2,6 +2,7 @@ package hardware;
 
 import java.util.ArrayList;
 
+import software.Order;
 import users.Account;
 
 public abstract class Department 
@@ -9,6 +10,7 @@ public abstract class Department
 	private String location;
 	private int idNum;
 	private ArrayList<Account> accounts;
+	protected ArrayList<Order> orders;
 	private static int departments;
 	
 	public Department()
