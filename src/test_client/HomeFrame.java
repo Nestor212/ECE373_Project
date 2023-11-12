@@ -88,12 +88,12 @@ public class HomeFrame extends JFrame implements ActionListener
 		}
 		else if(e.getSource() == accountsButton)
 		{
-            ReportsFrame reportsFrame = new ReportsFrame();
-            reportsFrame.setTitle("Account Manager - Arizona Incorporated");
-            reportsFrame.setVisible(true);
-            reportsFrame.setBounds(100, 100, 1152, 720);
-            reportsFrame.setDefaultCloseOperation(AccountsFrame.DISPOSE_ON_CLOSE);
-            reportsFrame.setResizable(true);  
+            AccountsFrame accountsFrame = new AccountsFrame();
+            accountsFrame.setTitle("Account Manager - Arizona Incorporated");
+            accountsFrame.setVisible(true);
+            accountsFrame.setBounds(100, 100, 1152, 720);
+            accountsFrame.setDefaultCloseOperation(AccountsFrame.DISPOSE_ON_CLOSE);
+            accountsFrame.setResizable(true);  
 			
 		}
 	}

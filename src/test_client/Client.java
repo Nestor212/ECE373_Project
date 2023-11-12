@@ -10,19 +10,26 @@ import users.*;
 
 public class Client 
 {
+	private int sessionAccessLevel;
+	
 	private Company ArizonaInc;
 	private Store s1;
 	private Warehouse wh1;
 	private Corporate c1;
 	
-	private Supplier Nestor;
-	private Transport Mohammed;
-	private Admin master;
+	private Supplier TaraManufacturing;
+	private Transport MohammedFreight;
 	
-	private int sessionAccessLevel;
+	// User Accounts
+	private Admin master;
+	private InventoryStaff staff1;
+	private InventoryStaff staff2;
+	private SupplierStaff supplyStaff1;
+	private TransportStaff transportStaff1;
 	
 	public Client()
 	{
+		sessionAccessLevel = 0;
 		ArizonaInc = new Company();
 		
 		c1 = new Corporate();
@@ -34,25 +41,44 @@ public class Client
 		wh1 = new Warehouse();
 		wh1.setLocation("Some Address, Phoenix, AZ");
 		
-		Nestor = new Supplier();
-		Nestor.setName("Nestor Manufacturing");
+		TaraManufacturing = new Supplier();
+		TaraManufacturing.setName("Tara Manufacturing");
 		
-		Mohammed = new Transport();
-		Mohammed.setName("Mohammed Freight");
+		MohammedFreight = new Transport();
+		MohammedFreight.setName("Mohammed Freight");
 				
 		ArizonaInc.setCorporateoffice(c1);
 		ArizonaInc.addStore(s1);
 		ArizonaInc.addWarehouse(wh1);
-		ArizonaInc.addSupplier(Nestor);
-		ArizonaInc.addTransport(Mohammed);
+		ArizonaInc.addSupplier(TaraManufacturing);
+		ArizonaInc.addTransport(MohammedFreight);
 				
+		// Admin Account Created - Belongs to Corporate
 		master = new Admin();
+		master.setName("Nestor Garcia");
 		master.setUsername("master");
 		master.setPassword("password");
-		
 		c1.addAccount(master);
 		
-		sessionAccessLevel = 0;
+		// Staff Account Created - Belongs to Store
+		staff1 = new InventoryStaff();
+		staff1.setName("John Doe");
+		s1.addAccount(staff1);
+		
+		// Staff Account Created - Belongs to Warehouse
+		staff2 = new InventoryStaff();
+		staff2.setName("Jane Doe");
+		wh1.addAccount(staff2);
+		
+		// Supplier Staff Account Created - Belongs to Supplier
+		supplyStaff1 = new SupplierStaff();
+		supplyStaff1.setName("Tom Smith");
+		TaraManufacturing.addAccount(supplyStaff1);
+		
+		// Transport Staff Account Created - Belongs to Transport
+		transportStaff1 = new TransportStaff();
+		transportStaff1.setName("Andrew Jones");
+		MohammedFreight.addAccount(transportStaff1);
 	}	
 	
 	// Return boolean based on results, then GUI will redirect based on response
@@ -136,6 +162,11 @@ public class Client
 	public int getSessionAccessLevel()
 	{
 		return sessionAccessLevel;
+	}
+	
+	public Company getCompany()
+	{
+		return ArizonaInc;
 	}
 	
 	public void generateReport(String aType)

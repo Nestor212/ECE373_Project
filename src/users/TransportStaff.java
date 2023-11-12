@@ -2,9 +2,9 @@ package users;
 
 import software.Order;
 
-public class Driver extends Account
+public class TransportStaff extends Account
 {
-	public Driver() 
+	public TransportStaff() 
 	{
 		this.accessLevel = 30;
 	}

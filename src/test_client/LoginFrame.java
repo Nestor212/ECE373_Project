@@ -77,7 +77,6 @@ public class LoginFrame extends JFrame implements ActionListener
                 this.dispose();
                 
                 HomeFrame homeFrame = new HomeFrame();
-                System.out.println(GUI.session.getSessionAccessLevel());
                 switch(GUI.session.getSessionAccessLevel())
                 {
                 	case 10:
