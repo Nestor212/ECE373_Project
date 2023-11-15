@@ -21,4 +21,10 @@ public class Transport extends Partner
 	{
 		// TO DO; how will we handle orders
 	}
+
+	@Override
+	public ArrayList<Order> getOrders() {
+		// TODO Auto-generated method stub
+		return orders;
+	}
 }

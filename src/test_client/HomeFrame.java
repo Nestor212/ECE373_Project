@@ -13,6 +13,7 @@ public class HomeFrame extends JFrame implements ActionListener
 	JButton departmentsButton;
 	JButton partnersButton;
 	JButton ordersButton;
+	JButton ordersButton1;
 	JButton reportsButton;
 	JButton inventoryButton;
 	JButton logoutButton;
@@ -45,13 +46,13 @@ public class HomeFrame extends JFrame implements ActionListener
     			break;    			
     		case 30: // Driver Account
     			homeTitle = new JLabel(GUI.getSession().getSessionAccount().getPartner().toString());
-    	    	ordersButton = new JButton("Manage Orders");
+    	    	ordersButton1 = new JButton("Manage Orders");
     	    	reportsButton = new JButton("Reports");
     			setDriverHomepage();
     			break;
     		case 40: // Supplier Account
     			homeTitle = new JLabel(GUI.getSession().getSessionAccount().getPartner().toString());
-    	    	ordersButton = new JButton("Manage Inventory");
+    	    	ordersButton1 = new JButton("Manage Orders");
     	    	reportsButton = new JButton("Reports");
     			setSupplierHomepage();
     			break;
@@ -127,15 +128,15 @@ public class HomeFrame extends JFrame implements ActionListener
     	JOptionPane.showMessageDialog(this, "TODO: List all orders active orders and location status.");
 
     	// Set item bounds
-        ordersButton.setBounds(350, 100, 200, 50);  
+        ordersButton1.setBounds(350, 100, 200, 50);  
         reportsButton.setBounds(800, 100, 200, 50);
         
         // Add items to container
-        container.add(ordersButton);
+        container.add(ordersButton1);
         container.add(reportsButton);
         
         // Add action events to relevant items
-        ordersButton.addActionListener(this);
+        ordersButton1.addActionListener(this);
         reportsButton.addActionListener(this);   
     }
     
@@ -144,15 +145,15 @@ public class HomeFrame extends JFrame implements ActionListener
     	JOptionPane.showMessageDialog(this, "TODO: List all orders pending fulfillment from this supplier.");
 
     	// Set item bounds
-        ordersButton.setBounds(350, 100, 200, 50);  
+        ordersButton1.setBounds(350, 100, 200, 50);  
         reportsButton.setBounds(800, 100, 200, 50);
         
         // Add items to container
-        container.add(ordersButton);
+        container.add(ordersButton1);
         container.add(reportsButton);
         
         // Add action events to relevant items
-        ordersButton.addActionListener(this);
+        ordersButton1.addActionListener(this);
         reportsButton.addActionListener(this);
     }
      
@@ -161,12 +162,22 @@ public class HomeFrame extends JFrame implements ActionListener
 	{
 		if(e.getSource() == ordersButton)
 		{
-            OrdersFrame ordersFrame = new OrdersFrame();
+            DepartmentOrdersFrame ordersFrame = new DepartmentOrdersFrame();
             ordersFrame.setTitle("Orders Manager - Arizona Incorporated");
             ordersFrame.setVisible(true);
             ordersFrame.setBounds(200, 100, 1152, 720);
             ordersFrame.setPreferredSize(defaultSize);
-            ordersFrame.setDefaultCloseOperation(OrdersFrame.DISPOSE_ON_CLOSE);
+            ordersFrame.setDefaultCloseOperation(DepartmentOrdersFrame.DISPOSE_ON_CLOSE);
+            ordersFrame.setResizable(true);     
+		}
+		if(e.getSource() == ordersButton1)
+		{
+			PartnerOrdersFrame ordersFrame = new PartnerOrdersFrame();
+            ordersFrame.setTitle("Orders Manager - Arizona Incorporated");
+            ordersFrame.setVisible(true);
+            ordersFrame.setBounds(200, 100, 1152, 720);
+            ordersFrame.setPreferredSize(defaultSize);
+            ordersFrame.setDefaultCloseOperation(DepartmentOrdersFrame.DISPOSE_ON_CLOSE);
             ordersFrame.setResizable(true);     
 		}
 		else if(e.getSource() == reportsButton)

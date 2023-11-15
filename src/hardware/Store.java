@@ -5,11 +5,14 @@ import java.util.ArrayList;
 public class Store extends Department 
 {
 	private ArrayList<Item> inventory;
+	private static int storeCount;
 	
 	public Store()
 	{
 		inventory = new ArrayList<Item>();
 		identifier = "S";
+		idNum = storeCount + 1;
+		storeCount++;
 	}
 	
 	public void addItemToInventory(Item aItem)
@@ -33,6 +36,6 @@ public class Store extends Department
 	
 	public String toString()
 	{
-		return ("Store # " + this.getID() + " - " + this.getLocation());
+		return ("Store # " + this.getID());
 	}
 }

@@ -9,20 +9,17 @@ import users.Account;
 public abstract class Department 
 {
 	private String location;
-	private int idNum;
+	protected int idNum;
 	protected String identifier;
 	private ArrayList<Account> accounts;
 	protected ArrayList<Order> orders;
-	private static int departments;
 	
 	public Department()
 	{
 		location = "unknown";
 		identifier = "unknown";
-		idNum = departments;
 		accounts = new ArrayList<Account>();
 		orders = new ArrayList<Order>();
-		departments++;
 	}
 	
 	public void setLocation(String aLocation)

@@ -2,6 +2,7 @@ package hardware;
 
 import java.util.ArrayList;
 
+import software.Order;
 import users.Account;
 
 public abstract class Partner 
@@ -62,6 +63,8 @@ public abstract class Partner
 	{
 		
 	}
+	
+	public abstract ArrayList<Order> getOrders();
 	
 	public String toString()
 	{

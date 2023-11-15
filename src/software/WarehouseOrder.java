@@ -15,6 +15,7 @@ public class WarehouseOrder extends Order
 		orderedBy = orderedByWH;
 		orderedBy.addOrder(this);
 		fulfilledBy = fulfilledBySupplier;
+		fulfilledBySupplier.addOrder(this);
 	}
 	
 	public void setOrderedBy(Warehouse aWH)

@@ -7,12 +7,12 @@ import software.WarehouseOrder;
 
 public class Supplier extends Partner
 {
-	private ArrayList<WarehouseOrder> orders;
+	private ArrayList<Order> orders;
 	private ArrayList<Item> itemList;
 	
 	public Supplier()
 	{
-		orders = new ArrayList<WarehouseOrder>();
+		orders = new ArrayList<Order>();
 		itemList = new ArrayList<Item>();
 	}
 	
@@ -39,6 +39,10 @@ public class Supplier extends Partner
 	public void addOrder(WarehouseOrder aOrder)
 	{
 		orders.add(aOrder);
+	}
+	public ArrayList<Order> getOrders()
+	{
+		return orders;
 	}
 	
 }

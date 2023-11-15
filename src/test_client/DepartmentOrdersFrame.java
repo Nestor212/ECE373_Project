@@ -18,9 +18,11 @@ import hardware.*;
 import software.Order;
 import software.StoreOrder;
 
-public class OrdersFrame extends JFrame implements ActionListener
+public class DepartmentOrdersFrame extends JFrame implements ActionListener
 {
     Container container = getContentPane();
+    
+    String accountIdentifier; // Use to taylor visual settings of page. "S" - Store Employee, "WH" - Warehouse Employee
     
     JLabel orderHomeTitleLabel;
     JLabel newOrderTitleLabel;
@@ -41,20 +43,19 @@ public class OrdersFrame extends JFrame implements ActionListener
 
     ArrayList<JButton> viewOrderButtons;
 
-	public OrdersFrame()
+	public DepartmentOrdersFrame()
 	{
+		accountIdentifier = GUI.getSession().getSessionAccount().getDepartment().getIdentifier();
+		
 		newOrderButton = new JButton("New Order");
 		
 	    goBackButton = new JButton("Go Back");
 	    goBackButton.setBounds(JButton.RIGHT, JButton.SOUTH, 80, 20);
 	    goBackButton.addActionListener(this);
 		
-		populateArrays();
         setLayoutManager(); 
 		setUniversalPageSettings();
     }
-	
-
 	
 	public void populateArrays()
 	{
@@ -67,6 +68,32 @@ public class OrdersFrame extends JFrame implements ActionListener
 			viewOrderButtons.add(new JButton("View"));
 		}
 	}
+	
+	ArrayList<Order> allOrders;
+	
+	public void populateArraysCorporate()
+	{
+		int numberOfOrders = 0;
+		
+		for(int i = 0; i < GUI.getSession().getCompany().getWarehouseList().size(); i++)
+		{
+			numberOfOrders = numberOfOrders + GUI.getSession().getCompany().getWarehouseList().get(i).getOrders().size();
+		}
+		
+		allOrders = new ArrayList<Order>(numberOfOrders);
+		orders = new ArrayList<JLabel>(numberOfOrders);		
+		viewOrderButtons = new ArrayList<JButton>(numberOfOrders);
+
+
+		for(int i = 0; i < GUI.getSession().getCompany().getWarehouseList().size(); i++)
+		{
+			for(int j = 0; j < GUI.getSession().getCompany().getWarehouseList().get(i).getOrders().size(); j++)
+			{
+				allOrders.add(GUI.getSession().getCompany().getWarehouseList().get(i).getOrders().get(i));
+			}
+		}
+	}
+	
 	public void clearArrays()
 	{
 		orders.clear();
@@ -80,19 +107,29 @@ public class OrdersFrame extends JFrame implements ActionListener
     
     public void setUniversalPageSettings()
     {
-		switch(GUI.getSession().getSessionAccount().getDepartment().getIdentifier())
+		switch(accountIdentifier)
 		{
 			case "S":
 				storeOrderLabel = new JLabel("From Store to Warehouse");
+				populateArrays();
 				setStoreOrderPage();
 				break;
 			case "WH":
-		    	this.setSize(getPreferredSize());
 				storeOrderLabel = new JLabel("From Store to Warehouse");
 				whOrderLabel = new JLabel("From Warehouse to Supplier");
+				populateArrays();
 				setWarehouseOrderPage();
 				break;
+			case ("C"):
+				storeOrderLabel = new JLabel("Store Orders");
+				whOrderLabel = new JLabel("Warehouse Orders");
+				populateArrays();
+				setWarehouseOrderPage();
+//				populateArraysCorporate();
+//				setCorporateOrderPage();
+				break;
 			default:
+
 				break;
 		}
 		
@@ -117,7 +154,6 @@ public class OrdersFrame extends JFrame implements ActionListener
     
 	public void setStoreOrderPage()
 	{	
-		this.setSize(800, 720);
 		for(int i = 0; i < GUI.getSession().getSessionAccount().getDepartment().getOrders().size(); i++)
 		{
 			// Set bounds for order labels
@@ -132,27 +168,64 @@ public class OrdersFrame extends JFrame implements ActionListener
 		whOrderLabel.setBounds(550, 100, 1000, 30);
 		whOrderLabel.setFont(new Font("Lucida", Font.BOLD, 22));
 		
-		orderNumberlabel1.setBounds(550, 150, 1000, 22);
+		orderNumberlabel1.setBounds(550, 150, 1000, 30);
 		orderNumberlabel1.setFont(new Font("Lucida", Font.BOLD, 16));
 
-		orderStatuslabel1.setBounds(700, 150, 1000, 22);
+		orderStatuslabel1.setBounds(700, 150, 1000, 30);
 		orderStatuslabel1.setFont(new Font("Lucida", Font.BOLD, 16));
 	
 		// Set bounds for order labels
-		int count = 0;
+		int leftPos = 0;
+		int rightPos = 0;
 		for(int i = 0; i < GUI.getSession().getSessionAccount().getDepartment().getOrders().size(); i++)
 		{
 			if(GUI.getSession().getSessionAccount().getDepartment().getOrders().get(i).getOrderIdentifier().equals("S"))
 			{
-				orders.get(i).setBounds(50, (i * 20) + 200,  600, 20);
-				viewOrderButtons.get(i).setBounds(400, (i * 20) + 200, 50, 20);
-
-				count++;
+				orders.get(i).setBounds(50, (leftPos * 20) + 200,  600, 20);
+				viewOrderButtons.get(i).setBounds(400, (leftPos * 20) + 200, 50, 20);
+				leftPos++;
 			}
 			else if(GUI.getSession().getSessionAccount().getDepartment().getOrders().get(i).getOrderIdentifier().equals("WH"))
 			{
-				orders.get(i).setBounds(550, ((i - count) * 20) + 200,  600, 20);
-				viewOrderButtons.get(i).setBounds(950, ((i - count) * 20) + 200, 50, 20);
+				orders.get(i).setBounds(550, (rightPos * 20) + 200,  600, 20);
+				viewOrderButtons.get(i).setBounds(950, (rightPos * 20) + 200, 50, 20);
+				rightPos++;
+			}
+			viewOrderButtons.get(i).addActionListener(this);
+		}
+	}
+	
+	public void setCorporateOrderPage()
+	{
+		whOrderLabel.setBounds(550, 100, 1000, 30);
+		whOrderLabel.setFont(new Font("Lucida", Font.BOLD, 22));
+		
+		orderNumberlabel1.setBounds(550, 150, 1000, 30);
+		orderNumberlabel1.setFont(new Font("Lucida", Font.BOLD, 16));
+
+		orderStatuslabel1.setBounds(700, 150, 1000, 30);
+		orderStatuslabel1.setFont(new Font("Lucida", Font.BOLD, 16));
+	
+		// Set bounds for order labels
+		int leftPos = 0;
+		int rightPos = 0;
+		for(int i = 0; i < allOrders.size(); i++)
+		{
+			if(allOrders.get(i).getOrderIdentifier().equals("S"))
+			{
+				orders.add(new JLabel(allOrders.get(i).getOrderID()));
+				orders.get(i).setBounds(50, (leftPos * 20) + 200,  600, 20);
+				viewOrderButtons.add(new JButton("View"));
+				viewOrderButtons.get(i).setBounds(400, (leftPos * 20) + 200, 50, 20);
+				leftPos++;
+			}
+			else if(allOrders.get(i).getOrderIdentifier().equals("WH"))
+			{
+				orders.add(new JLabel(allOrders.get(i).getOrderID()));
+				orders.get(i).setBounds(550, (rightPos * 20) + 200,  600, 20);
+				viewOrderButtons.add(new JButton("View"));
+				viewOrderButtons.get(i).setBounds(950, (rightPos * 20) + 200, 50, 20);
+				rightPos++;
 			}
 			viewOrderButtons.get(i).addActionListener(this);
 		}
@@ -184,7 +257,6 @@ public class OrdersFrame extends JFrame implements ActionListener
 	
 	public void newOrderPage()
 	{
-		this.setSize(800, 720);
 		orderFromLabel = new JLabel("Order From Selection: ");
 		orderFromComboBox = new JComboBox<String>();
 		orderFromComboBox.addActionListener(this);
@@ -194,18 +266,19 @@ public class OrdersFrame extends JFrame implements ActionListener
 		newOrderTitleLabel.setBounds(50, 40, 1000, 30);
 		newOrderTitleLabel.setFont(new Font("Lucida", Font.BOLD, 22));
 
-		switch(GUI.getSession().getSessionAccount().getDepartment().getIdentifier())
+		switch(accountIdentifier)
 		{
 			case "S":				
 				for(int i = 0; i < GUI.getSession().getCompany().getWarehouseList().size(); i++)
 				{
 					orderFromComboBox.addItem(GUI.getSession().getCompany().getWarehouseList().get(i).getID());
 				}
-				//aOrder = GUI.getSession().getSessionAccount().createStoreOrder();
 				break;
 			case "WH":
-				
-				//aOrder = GUI.getSession().getSessionAccount().createWarehouseOrder((Supplier)GUI.getSession().getSessionAccount().getPartner());;
+				for(int i = 0; i < GUI.getSession().getCompany().getSupplierList().size(); i++)
+				{
+					orderFromComboBox.addItem(GUI.getSession().getCompany().getSupplierList().get(i).getName());
+				}
 				break;
 			default:
 				break;
@@ -227,47 +300,83 @@ public class OrdersFrame extends JFrame implements ActionListener
 	JLabel itemNameLabel;
 	JLabel availableQtyLabel;
 	JLabel desiredQtyLabel;
+	
+	Warehouse aWH;
+	hardware.Supplier aSupp;
 			
-	public void displayInventoryForOrder(Warehouse aWH)
+	public void displayInventoryForOrder()
 	{
-		orderLabel = new JLabel("Ordering from: " + aWH.toString());
+		int yPos = 0;
+		
+		switch(accountIdentifier)
+		{
+		case "S":
+			for(int i = 0; i < GUI.getSession().getCompany().getWarehouseList().size(); i++)
+			{
+				if(GUI.getSession().getCompany().getWarehouseList().get(i).getID().equals(orderFromComboBox.getSelectedItem())) 
+				{
+					aWH = GUI.getSession().getCompany().getWarehouseList().get(i);
+				}
+			}
+			orderLabel = new JLabel("Ordering from: " + aWH.toString());
+			itemNameList = new ArrayList<JLabel>(aWH.getInventory().size());
+			itemQtyList = new ArrayList<JLabel>(aWH.getInventory().size());
+			orderQty = new ArrayList<JTextField>(aWH.getInventory().size());	
+			
+			for(int i = 0; i < aWH.getInventory().size(); i++) 
+			{
+				yPos = (i * 20) + 200;
+				itemNameList.add(new JLabel(aWH.getInventory().get(i).getName()));
+				itemQtyList.add(new JLabel(String.valueOf(aWH.getInventory().get(i).getQty())));
+				orderQty.add(new JTextField());
+				
+				itemNameList.get(i).setBounds(50, yPos, 100, 30);
+				itemQtyList.get(i).setBounds(200, yPos, 100, 30);
+				orderQty.get(i).setBounds(350, yPos, 100, 30);
+			}
+			break;
+		case "WH":
+			for(int i = 0; i < GUI.getSession().getCompany().getSupplierList().size(); i++)
+			{
+				if(GUI.getSession().getCompany().getSupplierList().get(i).getName().equals(orderFromComboBox.getSelectedItem())) 
+				{
+					aSupp = GUI.getSession().getCompany().getSupplierList().get(i);
+				}
+			}
+			orderLabel = new JLabel("Ordering from: " + aSupp.toString());
+			itemNameList = new ArrayList<JLabel>(aSupp.getItemList().size());
+			itemQtyList = new ArrayList<JLabel>(aSupp.getItemList().size());
+			orderQty = new ArrayList<JTextField>(aSupp.getItemList().size());	
+			
+			for(int i = 0; i < aSupp.getItemList().size(); i++) 
+			{
+				yPos = (i * 20) + 200;
+				itemNameList.add(new JLabel(aSupp.getItemList().get(i).getName()));
+				itemQtyList.add(new JLabel(String.valueOf(aSupp.getItemList().get(i).getQty())));
+				orderQty.add(new JTextField());
+				
+				itemNameList.get(i).setBounds(50, yPos, 100, 30);
+				itemQtyList.get(i).setBounds(200, yPos, 100, 30);
+				orderQty.get(i).setBounds(350, yPos, 100, 30);
+			}
+			break;
+		default:
+			break;
+		}
 		orderLabel.setBounds(50, 130, 1000, 30);
     	orderLabel.setFont(new Font("Lucida", Font.BOLD, 18));
-
 		itemNameLabel = new JLabel("Item Name");
 		itemNameLabel.setBounds(50, 175, 200, 30);
 		itemNameLabel.setFont(new Font("Lucida", Font.BOLD, 14));
-		
 		availableQtyLabel = new JLabel("Available Qty");
 		availableQtyLabel.setBounds(200, 175, 200, 30);
 		availableQtyLabel.setFont(new Font("Lucida", Font.BOLD, 14));
-		
 		desiredQtyLabel = new JLabel("Desired Qty");
 		desiredQtyLabel.setBounds(350, 175, 200, 30);
 		desiredQtyLabel.setFont(new Font("Lucida", Font.BOLD, 14));
-		
 		submitOrderButton = new JButton("Submit Order");
 		submitOrderButton.addActionListener(this);
-		
-		itemNameList = new ArrayList<JLabel>(aWH.getInventory().size());
-		itemQtyList = new ArrayList<JLabel>(aWH.getInventory().size());
-		orderQty = new ArrayList<JTextField>(aWH.getInventory().size());		
-		
-		int yPos = 0;
-		
-		for(int i = 0; i < aWH.getInventory().size(); i++) 
-		{
-			yPos = (i * 20) + 200;
-			itemNameList.add(new JLabel(aWH.getInventory().get(i).getName()));
-			itemQtyList.add(new JLabel(String.valueOf(aWH.getInventory().get(i).getQty())));
-			orderQty.add(new JTextField());
-			
-			itemNameList.get(i).setBounds(50, yPos, 100, 30);
-			itemQtyList.get(i).setBounds(200, yPos, 100, 30);
-			orderQty.get(i).setBounds(350, yPos, 100, 30);
-		}
 		submitOrderButton.setBounds(330, yPos + 40, 150, 30);
-		
 		addToContainer("NewOrder");
 		addToContainer("DisplayInventory");
 	}
@@ -277,6 +386,7 @@ public class OrdersFrame extends JFrame implements ActionListener
 		switch(page) 
 		{
 		case "NewOrder":
+			this.setSize(800, 720);
 			container.add(newOrderTitleLabel);
 			container.add(orderFromLabel);
 			container.add(goBackButton);		
@@ -284,7 +394,7 @@ public class OrdersFrame extends JFrame implements ActionListener
 			container.add(orderFromButton);
 			break;
 		case "OrderHome":
-			// Univeral Items
+			this.setSize(getPreferredSize());
 	    	container.add(orderHomeTitleLabel);
 			container.add(storeOrderLabel);
 			container.add(orderNumberlabel);
@@ -295,14 +405,17 @@ public class OrdersFrame extends JFrame implements ActionListener
 				container.add(orders.get(i));
 				container.add(viewOrderButtons.get(i));
 			}
-			
-			if(GUI.getSession().getSessionAccount().getDepartment().getIdentifier().equals("WH"))
+			if(accountIdentifier.equals("WH") ||accountIdentifier.equals("C"))
 			{
-				// Add remaining labels to container
+				// Add additional labels to container
 				container.add(orderNumberlabel1);
 				container.add(orderStatuslabel1);
 				container.add(whOrderLabel);	
 			}		
+			if(accountIdentifier.equals("C"))
+			{
+				container.remove(newOrderButton);
+			}
 			break;
 		case "DisplayInventory":
 			for(int i = 0; i < itemNameList.size(); i++)
@@ -324,39 +437,70 @@ public class OrdersFrame extends JFrame implements ActionListener
 	}
 	
 	
-	public void generateOrder(Warehouse aWH)
+	public void generateOrder()
 	{
-		ArrayList<Item> orderList = new ArrayList<Item>(orderQty.size());
-		StoreOrder newOrder;
-		
-		for(int i = 0; i < orderQty.size(); i++)
-		{
-			if(orderQty.get(i).getText().equals(""))
-			{
-				//empty qty field - do nothing
-			}
-			else 
-			{
-				orderList.add(aWH.getInventory().get(i).cloneItem(Integer.parseInt(orderQty.get(i).getText())));
-			}
-		}
-		newOrder = GUI.getSession().getSessionAccount().createStoreOrder(aWH);
-		newOrder.addItemsToOrder(orderList);
-		
-        JOptionPane.showMessageDialog(this, "Order " + newOrder.getOrderID() + " Created");
-        
         container.removeAll();
 		clearArrays();
-		populateArrays();
-		if(GUI.getSession().getSessionAccount().getDepartment().getIdentifier().equals("WH"))
+
+		ArrayList<Item> orderList = new ArrayList<Item>(orderQty.size());
+		Order newOrder;
+				
+		switch(accountIdentifier)
 		{
-			setWarehouseOrderPage();
+			case ("S"):
+				newOrder = GUI.getSession().getSessionAccount().createStoreOrder(aWH);
+				for(int i = 0; i < orderQty.size(); i++)
+				{
+					if(orderQty.get(i).getText().equals(""))
+					{
+						//empty qty field - do nothing
+					}
+					else 
+					{
+						orderList.add(aWH.getInventory().get(i).cloneItem(Integer.parseInt(orderQty.get(i).getText())));
+					}
+				}
+				if(orderList.isEmpty()) 
+				{
+			        JOptionPane.showMessageDialog(this, "No items selected.");
+				}
+				else
+				{
+					newOrder.addItemsToOrder(orderList);
+			        JOptionPane.showMessageDialog(this, "Order " + newOrder.getOrderID() + " Created");
+					populateArrays();
+					setStoreOrderPage();
+				}
+				break;
+			case ("WH"):
+				newOrder = GUI.getSession().getSessionAccount().createWarehouseOrder(aSupp);
+				for(int i = 0; i < orderQty.size(); i++)
+				{
+					if(orderQty.get(i).getText().equals(""))
+					{
+						//empty qty field - do nothing
+					}
+					else 
+					{
+						orderList.add(aSupp.getItemList().get(i).cloneItem(Integer.parseInt(orderQty.get(i).getText())));
+					}
+				}
+				if(orderList.isEmpty()) 
+				{
+			        JOptionPane.showMessageDialog(this, "No items selected.");
+				}
+				else
+				{
+					newOrder.addItemsToOrder(orderList);
+			        JOptionPane.showMessageDialog(this, "Order " + newOrder.getOrderID() + " Created");
+					populateArrays();
+					setWarehouseOrderPage();
+				}
+				break;
+			default:
+				break;
 		}
-		else
-		{
-			setStoreOrderPage();
-		}
-		addToContainer("OrderHome");		
+		addToContainer("OrderHome");	
 	}
 	
 	@Override
@@ -370,8 +514,7 @@ public class OrdersFrame extends JFrame implements ActionListener
 				viewOrderPage(GUI.getSession().getSessionAccount().getDepartment().getOrders().get(i));
 				super.update(getGraphics());
 			}	
-		}
-						
+		}			
 		if(e.getSource() == goBackButton)
 		{
 			container.removeAll();
@@ -381,7 +524,6 @@ public class OrdersFrame extends JFrame implements ActionListener
 		else if(e.getSource() == newOrderButton)
 		{
 			container.removeAll();
-			
 			if(orderFromLabel == null)
 			{
 				newOrderPage();
@@ -395,24 +537,12 @@ public class OrdersFrame extends JFrame implements ActionListener
 		else if(e.getSource() == orderFromButton)
 		{
 			container.removeAll();
-			for(int i = 0; i < GUI.getSession().getCompany().getWarehouseList().size(); i++)
-			{
-				if(GUI.getSession().getCompany().getWarehouseList().get(i).getID().equals(orderFromComboBox.getSelectedItem())) 
-				{
-					displayInventoryForOrder(GUI.getSession().getCompany().getWarehouseList().get(i));
-				}
-			}
+			displayInventoryForOrder();
 			super.update(getGraphics());
 		}
 		else if (e.getSource() == submitOrderButton)
 		{
-			for(int i = 0; i < GUI.getSession().getCompany().getWarehouseList().size(); i++)
-			{
-				if(GUI.getSession().getCompany().getWarehouseList().get(i).getID().equals(orderFromComboBox.getSelectedItem())) 
-				{
-					generateOrder(GUI.getSession().getCompany().getWarehouseList().get(i));
-				}
-			}		
+			generateOrder();				
 		}
 	}
 }
