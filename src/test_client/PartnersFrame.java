@@ -40,15 +40,15 @@ public class PartnersFrame extends JFrame implements ActionListener
 	
 	public void populateArrays()
 	{
-		for(int i = 0; i < GUI.session.getCompany().getSupplierList().size(); i++)
+		for(int i = 0; i < SupplyManagerGUI.session.getCompany().getSupplierList().size(); i++)
 		{
-			partnerLabels.add(new JLabel(GUI.session.getCompany().getSupplierList().get(i).getName()));
-			partnerID.add(GUI.session.getCompany().getSupplierList().get(i).getPartnerID());
+			partnerLabels.add(new JLabel(SupplyManagerGUI.session.getCompany().getSupplierList().get(i).getName()));
+			partnerID.add(SupplyManagerGUI.session.getCompany().getSupplierList().get(i).getPartnerID());
 		}
-		for(int i = 0; i < GUI.session.getCompany().getTransportList().size(); i++)
+		for(int i = 0; i < SupplyManagerGUI.session.getCompany().getTransportList().size(); i++)
 		{
-			partnerLabels.add(new JLabel(GUI.session.getCompany().getTransportList().get(i).getName()));
-			partnerID.add(GUI.session.getCompany().getTransportList().get(i).getPartnerID());
+			partnerLabels.add(new JLabel(SupplyManagerGUI.session.getCompany().getTransportList().get(i).getName()));
+			partnerID.add(SupplyManagerGUI.session.getCompany().getTransportList().get(i).getPartnerID());
 		}
 	}
 	

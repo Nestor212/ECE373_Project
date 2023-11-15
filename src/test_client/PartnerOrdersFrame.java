@@ -45,12 +45,12 @@ public class PartnerOrdersFrame extends JFrame implements ActionListener
 	
 	public void populateArrays()
 	{
-		orders = new ArrayList<JLabel>(GUI.getSession().getSessionAccount().getPartner().getOrders().size());
-		viewOrderButtons = new ArrayList<JButton>(GUI.getSession().getSessionAccount().getPartner().getOrders().size());
+		orders = new ArrayList<JLabel>(SupplyManagerGUI.getSession().getSessionAccount().getPartner().getOrders().size());
+		viewOrderButtons = new ArrayList<JButton>(SupplyManagerGUI.getSession().getSessionAccount().getPartner().getOrders().size());
 		
-		for(int i = 0; i < GUI.getSession().getSessionAccount().getPartner().getOrders().size(); i++)
+		for(int i = 0; i < SupplyManagerGUI.getSession().getSessionAccount().getPartner().getOrders().size(); i++)
 		{
-			orders.add(new JLabel(GUI.getSession().getSessionAccount().getPartner().getOrders().get(i).toString()));
+			orders.add(new JLabel(SupplyManagerGUI.getSession().getSessionAccount().getPartner().getOrders().get(i).toString()));
 			viewOrderButtons.add(new JButton("View"));
 		}
 	}
@@ -68,7 +68,7 @@ public class PartnerOrdersFrame extends JFrame implements ActionListener
     
     public void setUniversalPageSettings()
     {
-		orderHomeTitleLabel = new JLabel("Orders - " + GUI.getSession().getSessionAccount().getPartner().toString());
+		orderHomeTitleLabel = new JLabel("Orders - " + SupplyManagerGUI.getSession().getSessionAccount().getPartner().toString());
 		orderHomeTitleLabel.setBounds(50, 40, 1000, 30);
 		orderHomeTitleLabel.setFont(new Font("Lucida", Font.BOLD, 22));
 		
@@ -86,9 +86,9 @@ public class PartnerOrdersFrame extends JFrame implements ActionListener
 	public void setSupplierOrderPage()
 	{
 		// Set bounds for labels
-		for(int i = 0; i < GUI.getSession().getSessionAccount().getPartner().getOrders().size(); i++)
+		for(int i = 0; i < SupplyManagerGUI.getSession().getSessionAccount().getPartner().getOrders().size(); i++)
 		{
-			orders.add(new JLabel(GUI.getSession().getSessionAccount().getPartner().getOrders().get(i).getOrderID()));
+			orders.add(new JLabel(SupplyManagerGUI.getSession().getSessionAccount().getPartner().getOrders().get(i).getOrderID()));
 			orders.get(i).setBounds(50, (i * 20) + 200,  600, 20);
 			viewOrderButtons.add(new JButton("View"));
 			viewOrderButtons.get(i).setBounds(400, (i * 20) + 200, 50, 20);
@@ -147,7 +147,7 @@ public class PartnerOrdersFrame extends JFrame implements ActionListener
 			if(e.getSource() == viewOrderButtons.get(i))
 			{
 				container.removeAll();
-				viewOrderPage(GUI.getSession().getSessionAccount().getPartner().getOrders().get(i));
+				viewOrderPage(SupplyManagerGUI.getSession().getSessionAccount().getPartner().getOrders().get(i));
 				super.update(getGraphics());
 			}	
 		}			

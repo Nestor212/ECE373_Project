@@ -71,14 +71,14 @@ public class LoginFrame extends JFrame implements ActionListener
             //char[] pwdText = passwordField.getPassword();
             userText = userTextField.getText();
             pwdText = passwordField.getText(); 
-            GUI.session.setSessionAccessLevel(GUI.session.login(userText, pwdText));
-            if (GUI.session.getSessionAccessLevel() != -1) 
+            SupplyManagerGUI.session.setSessionAccessLevel(SupplyManagerGUI.session.login(userText, pwdText));
+            if (SupplyManagerGUI.session.getSessionAccessLevel() != -1) 
             {
                 JOptionPane.showMessageDialog(this, "Login Successful");
                 this.dispose();
                 
                 HomeFrame homeFrame = new HomeFrame();
-                switch(GUI.session.getSessionAccessLevel())
+                switch(SupplyManagerGUI.session.getSessionAccessLevel())
                 {
                 	case 10:
                         homeFrame.setTitle("Administrator Home - Arizona Incorporated");

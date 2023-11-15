@@ -40,47 +40,47 @@ public class AccountsFrame extends JFrame implements ActionListener
 	public void populateAccounts()
 	{
 		
-		for(int i = 0; i < GUI.session.getCompany().getCorporateOffice().getAccountList().size(); i++)
+		for(int i = 0; i < SupplyManagerGUI.session.getCompany().getCorporateOffice().getAccountList().size(); i++)
 		{
-			accountNumbers.add(new JLabel(String.valueOf(GUI.session.getCompany().getCorporateOffice().getAccountList().get(i).getAccountNumber())));
-			accountNames.add(new JLabel(GUI.session.getCompany().getCorporateOffice().getAccountList().get(i).getName()));
+			accountNumbers.add(new JLabel(String.valueOf(SupplyManagerGUI.session.getCompany().getCorporateOffice().getAccountList().get(i).getAccountNumber())));
+			accountNames.add(new JLabel(SupplyManagerGUI.session.getCompany().getCorporateOffice().getAccountList().get(i).getName()));
 			accountLocations.add(new JLabel("Corporate Office"));						 
 
 		}
-		for(int i = 0; i < GUI.session.getCompany().getStoreList().size(); i++)
+		for(int i = 0; i < SupplyManagerGUI.session.getCompany().getStoreList().size(); i++)
 		{
-			for(int j = 0; j < GUI.session.getCompany().getStoreList().get(i).getAccountList().size(); j++)
+			for(int j = 0; j < SupplyManagerGUI.session.getCompany().getStoreList().get(i).getAccountList().size(); j++)
 			{
-				accountNumbers.add(new JLabel(String.valueOf(GUI.session.getCompany().getStoreList().get(i).getAccountList().get(i).getAccountNumber())));
-				accountNames.add(new JLabel(GUI.session.getCompany().getStoreList().get(i).getAccountList().get(i).getName()));
-				accountLocations.add(new JLabel("Store ID: " + GUI.session.getCompany().getStoreList().get(i).getID()));						 
+				accountNumbers.add(new JLabel(String.valueOf(SupplyManagerGUI.session.getCompany().getStoreList().get(i).getAccountList().get(i).getAccountNumber())));
+				accountNames.add(new JLabel(SupplyManagerGUI.session.getCompany().getStoreList().get(i).getAccountList().get(i).getName()));
+				accountLocations.add(new JLabel("Store ID: " + SupplyManagerGUI.session.getCompany().getStoreList().get(i).getID()));						 
 			}
 		}
-		for(int i = 0; i < GUI.session.getCompany().getWarehouseList().size(); i++)
+		for(int i = 0; i < SupplyManagerGUI.session.getCompany().getWarehouseList().size(); i++)
 		{
-			for(int j = 0; j < GUI.session.getCompany().getWarehouseList().get(i).getAccountList().size(); j++)
+			for(int j = 0; j < SupplyManagerGUI.session.getCompany().getWarehouseList().get(i).getAccountList().size(); j++)
 			{
-				accountNumbers.add(new JLabel(String.valueOf(GUI.session.getCompany().getWarehouseList().get(i).getAccountList().get(i).getAccountNumber())));
-				accountNames.add(new JLabel(GUI.session.getCompany().getWarehouseList().get(i).getAccountList().get(i).getName()));
-				accountLocations.add(new JLabel("Warehouse ID: " + GUI.session.getCompany().getWarehouseList().get(i).getID()));
+				accountNumbers.add(new JLabel(String.valueOf(SupplyManagerGUI.session.getCompany().getWarehouseList().get(i).getAccountList().get(i).getAccountNumber())));
+				accountNames.add(new JLabel(SupplyManagerGUI.session.getCompany().getWarehouseList().get(i).getAccountList().get(i).getName()));
+				accountLocations.add(new JLabel("Warehouse ID: " + SupplyManagerGUI.session.getCompany().getWarehouseList().get(i).getID()));
 			}
 		}
-		for(int i = 0; i < GUI.session.getCompany().getSupplierList().size(); i++)
+		for(int i = 0; i < SupplyManagerGUI.session.getCompany().getSupplierList().size(); i++)
 		{
-			for(int j = 0; j < GUI.session.getCompany().getSupplierList().get(i).getAccountList().size(); j++)
+			for(int j = 0; j < SupplyManagerGUI.session.getCompany().getSupplierList().get(i).getAccountList().size(); j++)
 			{
-				accountNumbers.add(new JLabel(String.valueOf(GUI.session.getCompany().getSupplierList().get(i).getAccountList().get(i).getAccountNumber())));
-				accountNames.add(new JLabel(GUI.session.getCompany().getSupplierList().get(i).getAccountList().get(i).getName()));
-				accountLocations.add(new JLabel(GUI.session.getCompany().getSupplierList().get(i).getName()));
+				accountNumbers.add(new JLabel(String.valueOf(SupplyManagerGUI.session.getCompany().getSupplierList().get(i).getAccountList().get(i).getAccountNumber())));
+				accountNames.add(new JLabel(SupplyManagerGUI.session.getCompany().getSupplierList().get(i).getAccountList().get(i).getName()));
+				accountLocations.add(new JLabel(SupplyManagerGUI.session.getCompany().getSupplierList().get(i).getName()));
 			}
 		}
-		for(int i = 0; i < GUI.session.getCompany().getTransportList().size(); i++)
+		for(int i = 0; i < SupplyManagerGUI.session.getCompany().getTransportList().size(); i++)
 		{
-			for(int j = 0; j < GUI.session.getCompany().getTransportList().get(i).getAccountList().size(); j++)
+			for(int j = 0; j < SupplyManagerGUI.session.getCompany().getTransportList().get(i).getAccountList().size(); j++)
 			{
-				accountNumbers.add(new JLabel(String.valueOf(GUI.session.getCompany().getTransportList().get(i).getAccountList().get(i).getAccountNumber())));
-				accountNames.add(new JLabel(GUI.session.getCompany().getTransportList().get(i).getAccountList().get(i).getName()));
-				accountLocations.add(new JLabel(GUI.session.getCompany().getTransportList().get(i).getName()));
+				accountNumbers.add(new JLabel(String.valueOf(SupplyManagerGUI.session.getCompany().getTransportList().get(i).getAccountList().get(i).getAccountNumber())));
+				accountNames.add(new JLabel(SupplyManagerGUI.session.getCompany().getTransportList().get(i).getAccountList().get(i).getName()));
+				accountLocations.add(new JLabel(SupplyManagerGUI.session.getCompany().getTransportList().get(i).getName()));
 			}
 		}
 	}

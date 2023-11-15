@@ -21,7 +21,7 @@ public class InventoryFrame extends JFrame implements ActionListener
 	
 	//JScrollBar sb  = new JScrollBar(JScrollBar.VERTICAL);
 	
-   	JLabel titleLabel = new JLabel("Inventory - " + GUI.getSession().getSessionAccount().getDepartment().toString());
+   	JLabel titleLabel = new JLabel("Inventory - " + SupplyManagerGUI.getSession().getSessionAccount().getDepartment().toString());
 	JLabel itemNumLabel = new JLabel("Item Number");
 	JLabel itemNameLabel = new JLabel("Name");
 	JLabel QtyLabel = new JLabel("Qty");
@@ -55,13 +55,13 @@ public class InventoryFrame extends JFrame implements ActionListener
 	
 	public void populateInventoryArray()
 	{
-		for(int i = 0; i < GUI.getSession().getSessionAccount().getDepartment().getInventory().size(); i++)
+		for(int i = 0; i < SupplyManagerGUI.getSession().getSessionAccount().getDepartment().getInventory().size(); i++)
 		{
-			itemNumbers.add(new JLabel(String.valueOf(GUI.getSession().getSessionAccount().getDepartment().getInventory().get(i).getItemNum())));
-			itemNames.add(new JLabel(GUI.getSession().getSessionAccount().getDepartment().getInventory().get(i).getName()));
-			itemQtys.add(new JLabel(String.valueOf(GUI.getSession().getSessionAccount().getDepartment().getInventory().get(i).getQty())));
-			retailPrices.add(new JLabel("$" + GUI.getSession().getSessionAccount().getDepartment().getInventory().get(i).getRetailPrice()));
-			supplierPrices.add(new JLabel("$" + GUI.getSession().getSessionAccount().getDepartment().getInventory().get(i).getSupplierPrice()));
+			itemNumbers.add(new JLabel(String.valueOf(SupplyManagerGUI.getSession().getSessionAccount().getDepartment().getInventory().get(i).getItemNum())));
+			itemNames.add(new JLabel(SupplyManagerGUI.getSession().getSessionAccount().getDepartment().getInventory().get(i).getName()));
+			itemQtys.add(new JLabel(String.valueOf(SupplyManagerGUI.getSession().getSessionAccount().getDepartment().getInventory().get(i).getQty())));
+			retailPrices.add(new JLabel("$" + SupplyManagerGUI.getSession().getSessionAccount().getDepartment().getInventory().get(i).getRetailPrice()));
+			supplierPrices.add(new JLabel("$" + SupplyManagerGUI.getSession().getSessionAccount().getDepartment().getInventory().get(i).getSupplierPrice()));
 		}
 	}
     public void setLayoutManager() 
@@ -85,7 +85,7 @@ public class InventoryFrame extends JFrame implements ActionListener
     	retailPriceLabel.setBounds(800, 80,  200, 20);
     	retailPriceLabel.setFont(new Font("Lucida", Font.BOLD, 18));
     	
-		for(int i = 1; i <= GUI.getSession().getSessionAccount().getDepartment().getInventory().size(); i++)
+		for(int i = 1; i <= SupplyManagerGUI.getSession().getSessionAccount().getDepartment().getInventory().size(); i++)
 		{
 			itemNumbers.get(i - 1).setBounds(50, (i * 20) + 100,  600, 20);
 			itemNames.get(i - 1).setBounds(250, (i * 20) + 100,  600, 20);
@@ -105,7 +105,7 @@ public class InventoryFrame extends JFrame implements ActionListener
     	scrollPane.add(supplierPriceLabel);
     	scrollPane.add(retailPriceLabel);
         
-		for(int i = 0; i < GUI.getSession().getSessionAccount().getDepartment().getInventory().size(); i++)
+		for(int i = 0; i < SupplyManagerGUI.getSession().getSessionAccount().getDepartment().getInventory().size(); i++)
 		{
 			scrollPane.add(itemNumbers.get(i));
 			scrollPane.add(itemNames.get(i));
@@ -125,7 +125,7 @@ public class InventoryFrame extends JFrame implements ActionListener
         container.add(supplierPriceLabel);
         container.add(retailPriceLabel);
         
-		for(int i = 0; i < GUI.getSession().getSessionAccount().getDepartment().getInventory().size(); i++)
+		for(int i = 0; i < SupplyManagerGUI.getSession().getSessionAccount().getDepartment().getInventory().size(); i++)
 		{
 	        container.add(itemNumbers.get(i));
 	        container.add(itemNames.get(i));

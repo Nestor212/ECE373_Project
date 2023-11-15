@@ -2,7 +2,7 @@ package test_client;
 
 import javax.swing.*;
 
-public class GUI 
+public class SupplyManagerGUI 
 {
 	static Client session;
 	

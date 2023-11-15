@@ -2,7 +2,7 @@ package users;
 
 import hardware.*;
 import software.*;
-import test_client.GUI;
+import test_client.SupplyManagerGUI;
 
 public class InventoryStaff extends Account 
 {	

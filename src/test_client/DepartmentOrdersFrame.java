@@ -45,7 +45,7 @@ public class DepartmentOrdersFrame extends JFrame implements ActionListener
 
 	public DepartmentOrdersFrame()
 	{
-		accountIdentifier = GUI.getSession().getSessionAccount().getDepartment().getIdentifier();
+		accountIdentifier = SupplyManagerGUI.getSession().getSessionAccount().getDepartment().getIdentifier();
 		
 		newOrderButton = new JButton("New Order");
 		
@@ -59,12 +59,12 @@ public class DepartmentOrdersFrame extends JFrame implements ActionListener
 	
 	public void populateArrays()
 	{
-		orders = new ArrayList<JLabel>(GUI.getSession().getSessionAccount().getDepartment().getOrders().size());
-		viewOrderButtons = new ArrayList<JButton>(GUI.getSession().getSessionAccount().getDepartment().getOrders().size());
+		orders = new ArrayList<JLabel>(SupplyManagerGUI.getSession().getSessionAccount().getDepartment().getOrders().size());
+		viewOrderButtons = new ArrayList<JButton>(SupplyManagerGUI.getSession().getSessionAccount().getDepartment().getOrders().size());
 		
-		for(int i = 0; i < GUI.getSession().getSessionAccount().getDepartment().getOrders().size(); i++)
+		for(int i = 0; i < SupplyManagerGUI.getSession().getSessionAccount().getDepartment().getOrders().size(); i++)
 		{
-			orders.add(new JLabel(GUI.getSession().getSessionAccount().getDepartment().getOrders().get(i).toString()));
+			orders.add(new JLabel(SupplyManagerGUI.getSession().getSessionAccount().getDepartment().getOrders().get(i).toString()));
 			viewOrderButtons.add(new JButton("View"));
 		}
 	}
@@ -75,9 +75,9 @@ public class DepartmentOrdersFrame extends JFrame implements ActionListener
 	{
 		int numberOfOrders = 0;
 		
-		for(int i = 0; i < GUI.getSession().getCompany().getWarehouseList().size(); i++)
+		for(int i = 0; i < SupplyManagerGUI.getSession().getCompany().getWarehouseList().size(); i++)
 		{
-			numberOfOrders = numberOfOrders + GUI.getSession().getCompany().getWarehouseList().get(i).getOrders().size();
+			numberOfOrders = numberOfOrders + SupplyManagerGUI.getSession().getCompany().getWarehouseList().get(i).getOrders().size();
 		}
 		
 		allOrders = new ArrayList<Order>(numberOfOrders);
@@ -85,11 +85,11 @@ public class DepartmentOrdersFrame extends JFrame implements ActionListener
 		viewOrderButtons = new ArrayList<JButton>(numberOfOrders);
 
 
-		for(int i = 0; i < GUI.getSession().getCompany().getWarehouseList().size(); i++)
+		for(int i = 0; i < SupplyManagerGUI.getSession().getCompany().getWarehouseList().size(); i++)
 		{
-			for(int j = 0; j < GUI.getSession().getCompany().getWarehouseList().get(i).getOrders().size(); j++)
+			for(int j = 0; j < SupplyManagerGUI.getSession().getCompany().getWarehouseList().get(i).getOrders().size(); j++)
 			{
-				allOrders.add(GUI.getSession().getCompany().getWarehouseList().get(i).getOrders().get(i));
+				allOrders.add(SupplyManagerGUI.getSession().getCompany().getWarehouseList().get(i).getOrders().get(i));
 			}
 		}
 	}
@@ -133,7 +133,7 @@ public class DepartmentOrdersFrame extends JFrame implements ActionListener
 				break;
 		}
 		
-		orderHomeTitleLabel = new JLabel("Orders - " + GUI.getSession().getSessionAccount().getDepartment().toString());
+		orderHomeTitleLabel = new JLabel("Orders - " + SupplyManagerGUI.getSession().getSessionAccount().getDepartment().toString());
 		orderHomeTitleLabel.setBounds(50, 40, 1000, 30);
 		orderHomeTitleLabel.setFont(new Font("Lucida", Font.BOLD, 22));
     	
@@ -154,7 +154,7 @@ public class DepartmentOrdersFrame extends JFrame implements ActionListener
     
 	public void setStoreOrderPage()
 	{	
-		for(int i = 0; i < GUI.getSession().getSessionAccount().getDepartment().getOrders().size(); i++)
+		for(int i = 0; i < SupplyManagerGUI.getSession().getSessionAccount().getDepartment().getOrders().size(); i++)
 		{
 			// Set bounds for order labels
 			orders.get(i).setBounds(50, (i * 20) + 200,  600, 20);
@@ -177,15 +177,15 @@ public class DepartmentOrdersFrame extends JFrame implements ActionListener
 		// Set bounds for order labels
 		int leftPos = 0;
 		int rightPos = 0;
-		for(int i = 0; i < GUI.getSession().getSessionAccount().getDepartment().getOrders().size(); i++)
+		for(int i = 0; i < SupplyManagerGUI.getSession().getSessionAccount().getDepartment().getOrders().size(); i++)
 		{
-			if(GUI.getSession().getSessionAccount().getDepartment().getOrders().get(i).getOrderIdentifier().equals("S"))
+			if(SupplyManagerGUI.getSession().getSessionAccount().getDepartment().getOrders().get(i).getOrderIdentifier().equals("S"))
 			{
 				orders.get(i).setBounds(50, (leftPos * 20) + 200,  600, 20);
 				viewOrderButtons.get(i).setBounds(400, (leftPos * 20) + 200, 50, 20);
 				leftPos++;
 			}
-			else if(GUI.getSession().getSessionAccount().getDepartment().getOrders().get(i).getOrderIdentifier().equals("WH"))
+			else if(SupplyManagerGUI.getSession().getSessionAccount().getDepartment().getOrders().get(i).getOrderIdentifier().equals("WH"))
 			{
 				orders.get(i).setBounds(550, (rightPos * 20) + 200,  600, 20);
 				viewOrderButtons.get(i).setBounds(950, (rightPos * 20) + 200, 50, 20);
@@ -269,15 +269,15 @@ public class DepartmentOrdersFrame extends JFrame implements ActionListener
 		switch(accountIdentifier)
 		{
 			case "S":				
-				for(int i = 0; i < GUI.getSession().getCompany().getWarehouseList().size(); i++)
+				for(int i = 0; i < SupplyManagerGUI.getSession().getCompany().getWarehouseList().size(); i++)
 				{
-					orderFromComboBox.addItem(GUI.getSession().getCompany().getWarehouseList().get(i).getID());
+					orderFromComboBox.addItem(SupplyManagerGUI.getSession().getCompany().getWarehouseList().get(i).getID());
 				}
 				break;
 			case "WH":
-				for(int i = 0; i < GUI.getSession().getCompany().getSupplierList().size(); i++)
+				for(int i = 0; i < SupplyManagerGUI.getSession().getCompany().getSupplierList().size(); i++)
 				{
-					orderFromComboBox.addItem(GUI.getSession().getCompany().getSupplierList().get(i).getName());
+					orderFromComboBox.addItem(SupplyManagerGUI.getSession().getCompany().getSupplierList().get(i).getName());
 				}
 				break;
 			default:
@@ -311,11 +311,11 @@ public class DepartmentOrdersFrame extends JFrame implements ActionListener
 		switch(accountIdentifier)
 		{
 		case "S":
-			for(int i = 0; i < GUI.getSession().getCompany().getWarehouseList().size(); i++)
+			for(int i = 0; i < SupplyManagerGUI.getSession().getCompany().getWarehouseList().size(); i++)
 			{
-				if(GUI.getSession().getCompany().getWarehouseList().get(i).getID().equals(orderFromComboBox.getSelectedItem())) 
+				if(SupplyManagerGUI.getSession().getCompany().getWarehouseList().get(i).getID().equals(orderFromComboBox.getSelectedItem())) 
 				{
-					aWH = GUI.getSession().getCompany().getWarehouseList().get(i);
+					aWH = SupplyManagerGUI.getSession().getCompany().getWarehouseList().get(i);
 				}
 			}
 			orderLabel = new JLabel("Ordering from: " + aWH.toString());
@@ -336,11 +336,11 @@ public class DepartmentOrdersFrame extends JFrame implements ActionListener
 			}
 			break;
 		case "WH":
-			for(int i = 0; i < GUI.getSession().getCompany().getSupplierList().size(); i++)
+			for(int i = 0; i < SupplyManagerGUI.getSession().getCompany().getSupplierList().size(); i++)
 			{
-				if(GUI.getSession().getCompany().getSupplierList().get(i).getName().equals(orderFromComboBox.getSelectedItem())) 
+				if(SupplyManagerGUI.getSession().getCompany().getSupplierList().get(i).getName().equals(orderFromComboBox.getSelectedItem())) 
 				{
-					aSupp = GUI.getSession().getCompany().getSupplierList().get(i);
+					aSupp = SupplyManagerGUI.getSession().getCompany().getSupplierList().get(i);
 				}
 			}
 			orderLabel = new JLabel("Ordering from: " + aSupp.toString());
@@ -439,16 +439,12 @@ public class DepartmentOrdersFrame extends JFrame implements ActionListener
 	
 	public void generateOrder()
 	{
-        container.removeAll();
-		clearArrays();
-
 		ArrayList<Item> orderList = new ArrayList<Item>(orderQty.size());
 		Order newOrder;
 				
 		switch(accountIdentifier)
 		{
 			case ("S"):
-				newOrder = GUI.getSession().getSessionAccount().createStoreOrder(aWH);
 				for(int i = 0; i < orderQty.size(); i++)
 				{
 					if(orderQty.get(i).getText().equals(""))
@@ -466,14 +462,17 @@ public class DepartmentOrdersFrame extends JFrame implements ActionListener
 				}
 				else
 				{
+			        container.removeAll();
+					newOrder = SupplyManagerGUI.getSession().getSessionAccount().createStoreOrder(aWH);
 					newOrder.addItemsToOrder(orderList);
 			        JOptionPane.showMessageDialog(this, "Order " + newOrder.getOrderID() + " Created");
+			        clearArrays();
 					populateArrays();
 					setStoreOrderPage();
+					addToContainer("OrderHome");	
 				}
 				break;
 			case ("WH"):
-				newOrder = GUI.getSession().getSessionAccount().createWarehouseOrder(aSupp);
 				for(int i = 0; i < orderQty.size(); i++)
 				{
 					if(orderQty.get(i).getText().equals(""))
@@ -491,16 +490,18 @@ public class DepartmentOrdersFrame extends JFrame implements ActionListener
 				}
 				else
 				{
+					newOrder = SupplyManagerGUI.getSession().getSessionAccount().createWarehouseOrder(aSupp);
 					newOrder.addItemsToOrder(orderList);
 			        JOptionPane.showMessageDialog(this, "Order " + newOrder.getOrderID() + " Created");
+			        clearArrays();
 					populateArrays();
 					setWarehouseOrderPage();
+					addToContainer("OrderHome");	
 				}
 				break;
 			default:
 				break;
 		}
-		addToContainer("OrderHome");	
 	}
 	
 	@Override
@@ -511,7 +512,7 @@ public class DepartmentOrdersFrame extends JFrame implements ActionListener
 			if(e.getSource() == viewOrderButtons.get(i))
 			{
 				container.removeAll();
-				viewOrderPage(GUI.getSession().getSessionAccount().getDepartment().getOrders().get(i));
+				viewOrderPage(SupplyManagerGUI.getSession().getSessionAccount().getDepartment().getOrders().get(i));
 				super.update(getGraphics());
 			}	
 		}			
@@ -519,7 +520,6 @@ public class DepartmentOrdersFrame extends JFrame implements ActionListener
 		{
 			container.removeAll();
 			addToContainer("OrderHome");
-			super.update(getGraphics());
 		}	
 		else if(e.getSource() == newOrderButton)
 		{

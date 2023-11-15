@@ -35,17 +35,17 @@ public class DepartmentsFrame extends JFrame implements ActionListener
 	
 	public void populateArrays()
 	{
-		corporateLabel = new JLabel(GUI.session.getCompany().getCorporateOffice().toString());
+		corporateLabel = new JLabel(SupplyManagerGUI.session.getCompany().getCorporateOffice().toString());
 
-		for(int i = 0; i < GUI.session.getCompany().getStoreList().size(); i++)
+		for(int i = 0; i < SupplyManagerGUI.session.getCompany().getStoreList().size(); i++)
 		{
-			departmentLabels.add(new JLabel("Store # " + GUI.session.getCompany().getStoreList().get(i).getID()));
-			departmentLocations.add(new JLabel(GUI.session.getCompany().getStoreList().get(i).getLocation()));						 
+			departmentLabels.add(new JLabel("Store # " + SupplyManagerGUI.session.getCompany().getStoreList().get(i).getID()));
+			departmentLocations.add(new JLabel(SupplyManagerGUI.session.getCompany().getStoreList().get(i).getLocation()));						 
 		}
-		for(int i = 0; i < GUI.session.getCompany().getWarehouseList().size(); i++)
+		for(int i = 0; i < SupplyManagerGUI.session.getCompany().getWarehouseList().size(); i++)
 		{
-			departmentLabels.add(new JLabel("Warehouse # " + GUI.session.getCompany().getWarehouseList().get(i).getID()));
-			departmentLocations.add(new JLabel(GUI.session.getCompany().getWarehouseList().get(i).getLocation()));	
+			departmentLabels.add(new JLabel("Warehouse # " + SupplyManagerGUI.session.getCompany().getWarehouseList().get(i).getID()));
+			departmentLocations.add(new JLabel(SupplyManagerGUI.session.getCompany().getWarehouseList().get(i).getLocation()));	
 		}
 	}
 	

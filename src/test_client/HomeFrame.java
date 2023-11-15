@@ -26,10 +26,10 @@ public class HomeFrame extends JFrame implements ActionListener
 	{
 		logoutButton = new JButton("Logout");
 		
-    	switch(GUI.session.getSessionAccessLevel())
+    	switch(SupplyManagerGUI.session.getSessionAccessLevel())
     	{
     		case 10: // Admin Account
-    			homeTitle = new JLabel(GUI.getSession().getSessionAccount().getDepartment().toString());
+    			homeTitle = new JLabel(SupplyManagerGUI.getSession().getSessionAccount().getDepartment().toString());
     			accountsButton = new JButton("Manage Accounts");
     			departmentsButton = new JButton("Manage Departments");
     			partnersButton = new JButton("Manage Partners");
@@ -38,20 +38,20 @@ public class HomeFrame extends JFrame implements ActionListener
     			setAdminHomepage();
     			break;
     		case 20: // Store/Warehouse Staff Account
-    			homeTitle = new JLabel(GUI.getSession().getSessionAccount().getDepartment().toString());
+    			homeTitle = new JLabel(SupplyManagerGUI.getSession().getSessionAccount().getDepartment().toString());
     			inventoryButton = new JButton("Manage Inventory");
     	    	ordersButton = new JButton("Manage Orders");
     	    	reportsButton = new JButton("Reports");
     			setInventoryStaffHomepage();
     			break;    			
     		case 30: // Driver Account
-    			homeTitle = new JLabel(GUI.getSession().getSessionAccount().getPartner().toString());
+    			homeTitle = new JLabel(SupplyManagerGUI.getSession().getSessionAccount().getPartner().toString());
     	    	ordersButton1 = new JButton("Manage Orders");
     	    	reportsButton = new JButton("Reports");
     			setDriverHomepage();
     			break;
     		case 40: // Supplier Account
-    			homeTitle = new JLabel(GUI.getSession().getSessionAccount().getPartner().toString());
+    			homeTitle = new JLabel(SupplyManagerGUI.getSession().getSessionAccount().getPartner().toString());
     	    	ordersButton1 = new JButton("Manage Orders");
     	    	reportsButton = new JButton("Reports");
     			setSupplierHomepage();
