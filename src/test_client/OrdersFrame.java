@@ -22,7 +22,10 @@ public class OrdersFrame extends JFrame implements ActionListener
 {
     Container container = getContentPane();
     
-    JLabel titleLabel;
+    JLabel orderHomeTitleLabel;
+    JLabel newOrderTitleLabel;
+    JLabel viewOrderTitleLabel;
+
     JLabel storeOrderLabel;
     JLabel whOrderLabel;  
     JLabel orderNumberlabel = new JLabel("Order Number");
@@ -80,7 +83,6 @@ public class OrdersFrame extends JFrame implements ActionListener
 		switch(GUI.getSession().getSessionAccount().getDepartment().getIdentifier())
 		{
 			case "S":
-				this.setSize(800, 720);
 				storeOrderLabel = new JLabel("From Store to Warehouse");
 				setStoreOrderPage();
 				break;
@@ -94,10 +96,9 @@ public class OrdersFrame extends JFrame implements ActionListener
 				break;
 		}
 		
-		titleLabel = new JLabel("Orders - " + GUI.getSession().getSessionAccount().getDepartment().toString());
-    	titleLabel.setBounds(50, 40, 1000, 30);
-    	titleLabel.setFont(new Font("Lucida", Font.BOLD, 22));
-    	container.add(titleLabel);
+		orderHomeTitleLabel = new JLabel("Orders - " + GUI.getSession().getSessionAccount().getDepartment().toString());
+		orderHomeTitleLabel.setBounds(50, 40, 1000, 30);
+		orderHomeTitleLabel.setFont(new Font("Lucida", Font.BOLD, 22));
     	
 		storeOrderLabel.setBounds(50, 100, 1000, 30);
 		storeOrderLabel.setFont(new Font("Lucida", Font.BOLD, 22));
@@ -116,6 +117,7 @@ public class OrdersFrame extends JFrame implements ActionListener
     
 	public void setStoreOrderPage()
 	{	
+		this.setSize(800, 720);
 		for(int i = 0; i < GUI.getSession().getSessionAccount().getDepartment().getOrders().size(); i++)
 		{
 			// Set bounds for order labels
@@ -159,9 +161,9 @@ public class OrdersFrame extends JFrame implements ActionListener
 	public void viewOrderPage(Order aOrder)
 	{	
 		this.setSize(800, 720);
-		titleLabel = new JLabel("Order # " + aOrder.toString());
-    	titleLabel.setBounds(50, 50, 1000, 30);
-    	titleLabel.setFont(new Font("Lucida", Font.BOLD, 22));
+		viewOrderTitleLabel = new JLabel("Order # " + aOrder.toString());
+		viewOrderTitleLabel.setBounds(50, 50, 1000, 30);
+		viewOrderTitleLabel.setFont(new Font("Lucida", Font.BOLD, 22));
 		
 		ArrayList<JLabel> orderItems = new ArrayList<JLabel>(aOrder.getItemList().size());
 		
@@ -172,7 +174,7 @@ public class OrdersFrame extends JFrame implements ActionListener
 			container.add(orderItems.get(i));
 		}
 		
-    	container.add(titleLabel);
+    	container.add(viewOrderTitleLabel);
 		container.add(goBackButton);		
 	}
 	
@@ -188,7 +190,9 @@ public class OrdersFrame extends JFrame implements ActionListener
 		orderFromComboBox.addActionListener(this);
 		orderFromButton = new JButton("Okay");
 		
-		titleLabel.setText("New Order");
+		newOrderTitleLabel = new JLabel("New Order");
+		newOrderTitleLabel.setBounds(50, 40, 1000, 30);
+		newOrderTitleLabel.setFont(new Font("Lucida", Font.BOLD, 22));
 
 		switch(GUI.getSession().getSessionAccount().getDepartment().getIdentifier())
 		{
@@ -273,7 +277,7 @@ public class OrdersFrame extends JFrame implements ActionListener
 		switch(page) 
 		{
 		case "NewOrder":
-			container.add(titleLabel);
+			container.add(newOrderTitleLabel);
 			container.add(orderFromLabel);
 			container.add(goBackButton);		
 			container.add(orderFromComboBox);
@@ -281,6 +285,7 @@ public class OrdersFrame extends JFrame implements ActionListener
 			break;
 		case "OrderHome":
 			// Univeral Items
+	    	container.add(orderHomeTitleLabel);
 			container.add(storeOrderLabel);
 			container.add(orderNumberlabel);
 			container.add(orderStatuslabel);
@@ -311,7 +316,7 @@ public class OrdersFrame extends JFrame implements ActionListener
 			container.add(desiredQtyLabel);
 			container.add(orderLabel);
 			container.add(submitOrderButton);
-			break;
+			break; 
 		default:
 			break;
 		}
@@ -376,15 +381,16 @@ public class OrdersFrame extends JFrame implements ActionListener
 		else if(e.getSource() == newOrderButton)
 		{
 			container.removeAll();
+			
 			if(orderFromLabel == null)
 			{
 				newOrderPage();
+				super.update(getGraphics());
 			}
 			else
 			{
-				addToContainer("NewOrder");
+				addToContainer("NewOrder");	
 			}
-			super.update(getGraphics());
 		}
 		else if(e.getSource() == orderFromButton)
 		{
