@@ -19,6 +19,8 @@ public class HomeFrame extends JFrame implements ActionListener
 	
 	JLabel homeTitle;
 	
+	Dimension defaultSize = new Dimension(1152, 720);
+	
 	public HomeFrame()
 	{
 		logoutButton = new JButton("Logout");
@@ -162,7 +164,8 @@ public class HomeFrame extends JFrame implements ActionListener
             OrdersFrame ordersFrame = new OrdersFrame();
             ordersFrame.setTitle("Orders Manager - Arizona Incorporated");
             ordersFrame.setVisible(true);
-            ordersFrame.setBounds(100, 100, 1152, 720);
+            ordersFrame.setBounds(200, 100, 1152, 720);
+            ordersFrame.setPreferredSize(defaultSize);
             ordersFrame.setDefaultCloseOperation(OrdersFrame.DISPOSE_ON_CLOSE);
             ordersFrame.setResizable(true);     
 		}
@@ -171,7 +174,7 @@ public class HomeFrame extends JFrame implements ActionListener
             ReportsFrame reportsFrame = new ReportsFrame();
             reportsFrame.setTitle("Reports Manager - Arizona Incorporated");
             reportsFrame.setVisible(true);
-            reportsFrame.setBounds(100, 100, 370, 600);
+            reportsFrame.setBounds(200, 100, 370, 600);
             reportsFrame.setDefaultCloseOperation(ReportsFrame.DISPOSE_ON_CLOSE);
             reportsFrame.setResizable(true);   
 		}
@@ -180,7 +183,7 @@ public class HomeFrame extends JFrame implements ActionListener
             AccountsFrame accountsFrame = new AccountsFrame();
             accountsFrame.setTitle("Accounts Manager - Arizona Incorporated");
             accountsFrame.setVisible(true);
-            accountsFrame.setBounds(100, 100, 1152, 720);
+            accountsFrame.setBounds(200, 100, 1152, 720);
             accountsFrame.setDefaultCloseOperation(AccountsFrame.DISPOSE_ON_CLOSE);
             accountsFrame.setResizable(true);  
 		}
@@ -189,7 +192,7 @@ public class HomeFrame extends JFrame implements ActionListener
             DepartmentsFrame departmentsFrame = new DepartmentsFrame();
             departmentsFrame.setTitle("Departments Manager - Arizona Incorporated");
             departmentsFrame.setVisible(true);
-            departmentsFrame.setBounds(100, 100, 1152, 600);
+            departmentsFrame.setBounds(200, 100, 1152, 600);
             departmentsFrame.setDefaultCloseOperation(DepartmentsFrame.DISPOSE_ON_CLOSE);
             departmentsFrame.setResizable(true);   
 		}
@@ -198,7 +201,7 @@ public class HomeFrame extends JFrame implements ActionListener
             PartnersFrame partnersFrame = new PartnersFrame();
             partnersFrame.setTitle("Partners Manager - Arizona Incorporated");
             partnersFrame.setVisible(true);
-            partnersFrame.setBounds(100, 100, 1152, 720);
+            partnersFrame.setBounds(200, 100, 1152, 720);
             partnersFrame.setDefaultCloseOperation(PartnersFrame.DISPOSE_ON_CLOSE);
             partnersFrame.setResizable(true);  
 		}
@@ -207,7 +210,7 @@ public class HomeFrame extends JFrame implements ActionListener
             InventoryFrame inventoryFrame = new InventoryFrame();
             inventoryFrame.setTitle("Inventory Manager - Arizona Incorporated");
             inventoryFrame.setVisible(true);
-            inventoryFrame.setBounds(100, 100, 1152, 720);
+            inventoryFrame.setBounds(200, 100, 1152, 720);
             inventoryFrame.setDefaultCloseOperation(InventoryFrame.DISPOSE_ON_CLOSE);
             inventoryFrame.setResizable(true);  
 

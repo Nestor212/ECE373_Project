@@ -2,6 +2,10 @@ package users;
 
 import hardware.Department;
 import hardware.Partner;
+import hardware.Supplier;
+import hardware.Warehouse;
+import software.StoreOrder;
+import software.WarehouseOrder;
 
 public abstract class Account {
 
@@ -82,5 +86,8 @@ public abstract class Account {
 		return partner;
 	}
 	
+	
+	abstract public StoreOrder createStoreOrder(Warehouse aWH);
+	abstract public WarehouseOrder createWarehouseOrder(Supplier aSupplier);
 }
 

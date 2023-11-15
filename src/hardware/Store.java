@@ -12,7 +12,7 @@ public class Store extends Department
 		identifier = "S";
 	}
 	
-	public void addItemInventory(Item aItem)
+	public void addItemToInventory(Item aItem)
 	{
 		inventory.add(aItem);
 	}

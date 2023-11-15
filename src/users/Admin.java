@@ -3,6 +3,10 @@ package users;
 import hardware.Corporate;
 import hardware.Department;
 import hardware.Partner;
+import hardware.Supplier;
+import hardware.Warehouse;
+import software.StoreOrder;
+import software.WarehouseOrder;
 
 public class Admin extends Account 
 {
@@ -61,7 +65,16 @@ public class Admin extends Account
 	{
 		return department;
 	}
-	
-	
-	
+
+	@Override
+	public StoreOrder createStoreOrder(Warehouse aWH) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public WarehouseOrder createWarehouseOrder(Supplier aSupplier) {
+		// TODO Auto-generated method stub
+		return null;
+	}	
 }

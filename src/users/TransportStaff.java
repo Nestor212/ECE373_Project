@@ -19,4 +19,16 @@ public class TransportStaff extends Account
 	{
 		// TO DO update order status
 	}
+
+	@Override
+	public StoreOrder createStoreOrder(Warehouse aWH) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public WarehouseOrder createWarehouseOrder(Supplier aSupplier) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

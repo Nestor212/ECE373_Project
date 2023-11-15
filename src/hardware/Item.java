@@ -18,8 +18,8 @@ public class Item
 		name = "unknown";
 		itemNum = count;
 		count++;
-		retailPrice = 0.0;
-		supplierPrice = 0.0;
+		retailPrice = 0.00;
+		supplierPrice = 0.00;
 		qty = 0;
 	}
 	
@@ -28,6 +28,15 @@ public class Item
 		name = aName;
 		itemNum = count;
 		count++;
+		retailPrice = aRetailPrice;
+		supplierPrice = aSupplierPrice;
+		qty = qtyOnHand;
+	}
+	
+	public Item(int aItemNum, String aName, double aRetailPrice, double aSupplierPrice, int qtyOnHand)
+	{
+		name = aName;
+		itemNum = aItemNum;
 		retailPrice = aRetailPrice;
 		supplierPrice = aSupplierPrice;
 		qty = qtyOnHand;
@@ -74,8 +83,14 @@ public class Item
 		return qty;
 	}
 	
+	public Item cloneItem(int aQty)
+	{
+		Item itemClone = new Item(this.itemNum, this.name, this.retailPrice, this.supplierPrice, aQty); 	
+		return itemClone;
+	}
+	
 	public String toString()
 	{
-		return(this.itemNum + " " + this.name + " " + this.qty + " $" + this.retailPrice);
+		return(this.itemNum + " " + this.name + " " + this.qty + " $" + priceFormat.format(retailPrice));
 	}
 }

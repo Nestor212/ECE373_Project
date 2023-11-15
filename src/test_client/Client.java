@@ -23,6 +23,7 @@ public class Client
 	private Company ArizonaInc;
 	private Store s1;
 	private Warehouse wh1;
+	private Warehouse wh2;
 	private Corporate c1;
 	
 	private Supplier TaraManufacturing;
@@ -52,6 +53,9 @@ public class Client
 		wh1 = new Warehouse();
 		wh1.setLocation("Some Address, Phoenix, AZ");
 		
+		wh2 = new Warehouse();
+		wh2.setLocation("Some Address, Dallas, TX");
+
 		TaraManufacturing = new Supplier();
 		TaraManufacturing.setName("Tara Manufacturing");
 		
@@ -61,6 +65,7 @@ public class Client
 		ArizonaInc.setCorporateoffice(c1);
 		ArizonaInc.addStore(s1);
 		ArizonaInc.addWarehouse(wh1);
+		ArizonaInc.addWarehouse(wh2);
 		ArizonaInc.addSupplier(TaraManufacturing);
 		ArizonaInc.addTransport(MohammedFreight);
 				
@@ -99,24 +104,39 @@ public class Client
 		transportStaff1.setPassword("test");
 		MohammedFreight.addAccount(transportStaff1);
 		
-		// Generate virtual item list
-		virtualItems.addAll(generateItems(6, 5));
-		
+		// Create Items available from supplier
+		TaraManufacturing.addItems(generateItems(6, 1200));
+
 		// Add to Store Inventory
-		s1.addItemsToInventory(virtualItems);
 		
-		// Add to Warehouse Inventory
-		wh1.addItemsToInventory(virtualItems);
+		for(int i = 0; i < TaraManufacturing.getItemList().size(); i++)
+		{
+			// Add to store inventory
+			s1.addItemToInventory(TaraManufacturing.getItemList().get(i).cloneItem(15));	
+			
+			// Add to warehouse 1 inventory
+			wh1.addItemToInventory(TaraManufacturing.getItemList().get(i).cloneItem(100));
+			
+			// Add to warehouse 1 inventory
+			wh2.addItemToInventory(TaraManufacturing.getItemList().get(i).cloneItem(300));			
+		}
 		
-		// Create Store Order
-		StoreOrder order1 = staff1.createOrder(wh1);
-		order1.addItemsToOrder(generateItems(4,10));
+		//Create new store order
+		StoreOrder order1 = staff1.createStoreOrder(wh1);
 		order1.setOrderStatus("New Order - Pending");
-		
-		// Create Warehouse Order 
-		WarehouseOrder order2 = staff2.createOrder(TaraManufacturing);
-		order2.addItemsToOrder(generateItems(4,10));
+
+		// Create new warehouse order
+		WarehouseOrder order2 = staff2.createWarehouseOrder(TaraManufacturing);
 		order2.setOrderStatus("Fulfillment in progress");	
+
+		for(int i = 0; i < s1.getInventory().size(); i = i + 2)
+		{
+			// Add to Store Order
+			order1.addItemToOrder(s1.getInventory().get(i).cloneItem(5));
+			
+			// Add to warehouse inventory
+			order2.addItemToOrder(s1.getInventory().get(i).cloneItem(20));
+		}		
 	}	
 	
 	// Return boolean based on results, then GUI will redirect based on response
@@ -217,6 +237,7 @@ public class Client
 		return sessionAccount;
 	}
 	
+	
 	public void generateReport(String aType)
 	{
 		switch(aType)
@@ -293,7 +314,7 @@ public class Client
 	{
 		ArrayList<Item> virtualItems = new ArrayList<Item>(20); 
 		
-		for( int i = 0; i < 10; i++)
+		for( int i = 0; i < numItems; i++)
 		{
 			String itemName1 = "T-Shirt # " + (i + 1);
 			Item item1 = new Item(itemName1, 11.99 + i, 2.99 + i, qtyEA + i);

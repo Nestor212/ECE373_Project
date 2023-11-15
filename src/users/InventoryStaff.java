@@ -20,14 +20,14 @@ public class InventoryStaff extends Account
 		partner = null;
 	}
 		
-	public StoreOrder createOrder(Warehouse aWH)
+	public StoreOrder createStoreOrder(Warehouse aWH)
 	{
 	// TO DO: How will we manage data input for an order
 		StoreOrder o1 = new StoreOrder((Store) this.department, aWH);
 		return o1;
 	}
 	
-	public WarehouseOrder createOrder(Supplier aSupplier)
+	public WarehouseOrder createWarehouseOrder(Supplier aSupplier)
 	{
 	// TO DO: How will we manage data input for an order
 		WarehouseOrder o1 = new WarehouseOrder((Warehouse) this.department, aSupplier);

@@ -26,6 +26,11 @@ public abstract class Order
 		return orderNumber;
 	}
 	
+	public String getOrderID()
+	{
+		return (orderIdentifier + "-" + orderNumber);
+	}
+	
 	public void setOrderStatus(String aStatus)
 	{
 		orderStatus = aStatus;
