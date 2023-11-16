@@ -24,6 +24,7 @@ public class LoginFrame extends JFrame implements ActionListener
         setLocationAndSize();
         addComponentsToContainer();
         addActionEvent();
+        
     }
 
     public void setLayoutManager() 

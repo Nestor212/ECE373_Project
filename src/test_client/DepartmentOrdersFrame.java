@@ -490,6 +490,7 @@ public class DepartmentOrdersFrame extends JFrame implements ActionListener
 				}
 				else
 				{
+					container.removeAll();
 					newOrder = SupplyManagerGUI.getSession().getSessionAccount().createWarehouseOrder(aSupp);
 					newOrder.addItemsToOrder(orderList);
 			        JOptionPane.showMessageDialog(this, "Order " + newOrder.getOrderID() + " Created");

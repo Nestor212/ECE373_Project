@@ -237,6 +237,7 @@ public class Client
 		return sessionAccount;
 	}
 	
+
 	
 	public void generateReport(String aType)
 	{
