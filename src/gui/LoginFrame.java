@@ -1,21 +1,14 @@
 package gui;
 
 import javax.swing.*;
-
-import software.Company;
-import users.Account;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class LoginFrame extends JFrame implements ActionListener 
 {		
-    private static final long serialVersionUID = 1L;
-//    protected Company company;
-//	protected Account sessionAccount;
+	private static final long serialVersionUID = -5971805714815431922L;
 	SupplyManagerGUI session;
-
     
 	Container container = getContentPane();
     JLabel userLabel = new JLabel("USERNAME");

@@ -1,13 +1,13 @@
 package users;
 
 import java.io.Serializable;
-
-import gui.SupplyManagerGUI;
 import hardware.*;
 import software.*;
 
 public class InventoryStaff extends Account implements Serializable 
 {	
+	private static final long serialVersionUID = -5983588149750260311L;
+
 	public InventoryStaff(Store aStore) 
 	{
 		this.accessLevel = 20;

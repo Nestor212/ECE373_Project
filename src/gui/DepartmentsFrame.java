@@ -5,18 +5,13 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import software.Company;
-import users.Account;
-
 public class DepartmentsFrame extends JFrame implements ActionListener
 {
-    protected Company company;
-	protected Account sessionAccount;
+	private static final long serialVersionUID = 7585464666756410571L;
 	SupplyManagerGUI session;
 	
 	JLabel titleLabel = new JLabel("Departments: ");
@@ -29,8 +24,6 @@ public class DepartmentsFrame extends JFrame implements ActionListener
   
 	public DepartmentsFrame(SupplyManagerGUI aSession)
 	{
-//		company = aCompany;
-//		sessionAccount = aAccount;
     	session = aSession;
 
 	
@@ -47,17 +40,17 @@ public class DepartmentsFrame extends JFrame implements ActionListener
 	
 	public void populateArrays()
 	{
-		corporateLabel = new JLabel(company.getCorporateOffice().toString());
+		corporateLabel = new JLabel(session.company.getCorporateOffice().toString());
 
-		for(int i = 0; i < company.getStoreList().size(); i++)
+		for(int i = 0; i < session.company.getStoreList().size(); i++)
 		{
-			departmentLabels.add(new JLabel("Store # " + company.getStoreList().get(i).getID()));
-			departmentLocations.add(new JLabel(company.getStoreList().get(i).getLocation()));						 
+			departmentLabels.add(new JLabel("Store # " + session.company.getStoreList().get(i).getID()));
+			departmentLocations.add(new JLabel(session.company.getStoreList().get(i).getLocation()));						 
 		}
-		for(int i = 0; i < company.getWarehouseList().size(); i++)
+		for(int i = 0; i < session.company.getWarehouseList().size(); i++)
 		{
-			departmentLabels.add(new JLabel("Warehouse # " + company.getWarehouseList().get(i).getID()));
-			departmentLocations.add(new JLabel(company.getWarehouseList().get(i).getLocation()));	
+			departmentLabels.add(new JLabel("Warehouse # " + session.company.getWarehouseList().get(i).getID()));
+			departmentLocations.add(new JLabel(session.company.getWarehouseList().get(i).getLocation()));	
 		}
 	}
 	

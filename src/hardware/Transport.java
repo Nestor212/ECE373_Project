@@ -7,6 +7,7 @@ import software.Order;
 
 public class Transport extends Partner implements Serializable 
 {
+	private static final long serialVersionUID = 6334604795818632620L;
 	private ArrayList<Order> orders;
 	
 	public Transport()

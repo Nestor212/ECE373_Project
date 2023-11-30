@@ -5,20 +5,14 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import software.Company;
-import users.Account;
-
 public class PartnersFrame extends JFrame implements ActionListener
 {
-    protected Company company;
-	protected Account sessionAccount;
+	private static final long serialVersionUID = -4939456472059373172L;
 	SupplyManagerGUI session;
-	
 	
 	JLabel titleLabel = new JLabel("Partners: ");
 	JLabel supplierLabel = new JLabel("Suppliers: ");
@@ -35,10 +29,7 @@ public class PartnersFrame extends JFrame implements ActionListener
   
 	public PartnersFrame(SupplyManagerGUI aSession)
 	{
-//		company = aCompany;
-//		sessionAccount = aAccount;
 		session = aSession;
-
 		
 		partnerLabels = new ArrayList<JLabel>(20);
 		partnerID= new ArrayList<Integer>(20);
@@ -53,15 +44,15 @@ public class PartnersFrame extends JFrame implements ActionListener
 	
 	public void populateArrays()
 	{
-		for(int i = 0; i < company.getSupplierList().size(); i++)
+		for(int i = 0; i < session.company.getSupplierList().size(); i++)
 		{
-			partnerLabels.add(new JLabel(company.getSupplierList().get(i).getName()));
-			partnerID.add(company.getSupplierList().get(i).getPartnerID());
+			partnerLabels.add(new JLabel(session.company.getSupplierList().get(i).getName()));
+			partnerID.add(session.company.getSupplierList().get(i).getPartnerID());
 		}
-		for(int i = 0; i < company.getTransportList().size(); i++)
+		for(int i = 0; i < session.company.getTransportList().size(); i++)
 		{
-			partnerLabels.add(new JLabel(company.getTransportList().get(i).getName()));
-			partnerID.add(company.getTransportList().get(i).getPartnerID());
+			partnerLabels.add(new JLabel(session.company.getTransportList().get(i).getName()));
+			partnerID.add(session.company.getTransportList().get(i).getPartnerID());
 		}
 	}
 	

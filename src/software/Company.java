@@ -17,6 +17,7 @@ import users.Account;
 
 public class Company implements Serializable 
 {
+	private static final long serialVersionUID = -5713405951321122768L;
 	private String name;
 	private ArrayList<Store> storeList;
 	private ArrayList<Warehouse> warehouseList;
@@ -176,17 +177,17 @@ public class Company implements Serializable
 	// Return boolean based on results, then GUI will redirect based on response
 	public Account login(String username, String password)
 	{
-		if (findAccount(username) != null)
+		if (findAccountUsername(username) != null)
 		{
-			if (findAccount(username).getPassword().equals(password))
+			if (findAccountUsername(username).getPassword().equals(password))
 			{
-				return findAccount(username);
+				return findAccountUsername(username);
 			}
 		}
 		return null;	
 	}
 	
-	public Account findAccount(String username)
+	public Account findAccountUsername(String username)
 	{
 		// Parse through accounts to find 
 		// Parse Corporate Accounts
@@ -236,6 +237,64 @@ public class Company implements Serializable
 			for(int j = 0; j < this.getTransportList().get(i).getAccountList().size(); j++)
 			{
 				if(this.getTransportList().get(i).getAccountList().get(j).getUsername().equals(username))
+				{
+					return this.getTransportList().get(i).getAccountList().get(j);
+				}				
+			}
+		}
+		return null;
+	}
+	
+	public Account findAccountName(String name)
+	{
+		// Parse through accounts to find 
+		// Parse Corporate Accounts
+		for(int i = 0; i < this.getCorporateOffice().getAccountList().size(); i++)
+		{
+			if(this.getCorporateOffice().getAccountList().get(i).getName().equals(name))
+			{
+				return this.getCorporateOffice().getAccountList().get(i);
+			}
+		}
+		// Parse Store Accounts
+		for(int i = 0; i < this.getStoreList().size(); i++)
+		{
+			for(int j = 0; j < this.getStoreList().get(i).getAccountList().size(); j++)
+			{
+				if(this.getStoreList().get(i).getAccountList().get(j).getName().equals(name))
+				{
+					return this.getStoreList().get(i).getAccountList().get(j);
+				}		
+			}
+		}
+		// Parse Warehouse Accounts
+		for(int i = 0; i < this.getWarehouseList().size(); i++)
+		{
+			for(int j = 0; j < this.getWarehouseList().get(i).getAccountList().size(); j++)
+			{
+				if(this.getWarehouseList().get(i).getAccountList().get(j).getName().equals(name))
+				{
+					return this.getWarehouseList().get(i).getAccountList().get(j);
+				}			
+			}
+		}
+		// Parse Supplier Accounts
+		for(int i = 0; i < this.getSupplierList().size(); i++)
+		{
+			for(int j = 0; j < this.getSupplierList().get(i).getAccountList().size(); j++)
+			{
+				if(this.getSupplierList().get(i).getAccountList().get(j).getName().equals(name))
+				{
+					return this.getSupplierList().get(i).getAccountList().get(j);
+				}			
+			}
+		}
+		// Parse Transport Accounts
+		for(int i = 0; i < this.getTransportList().size(); i++)
+		{
+			for(int j = 0; j < this.getTransportList().get(i).getAccountList().size(); j++)
+			{
+				if(this.getTransportList().get(i).getAccountList().get(j).getName().equals(name))
 				{
 					return this.getTransportList().get(i).getAccountList().get(j);
 				}				

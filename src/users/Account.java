@@ -11,9 +11,11 @@ import software.WarehouseOrder;
 
 public abstract class Account implements Serializable 
 {
+	private static final long serialVersionUID = 2460363224194696666L;
 	private String name;
 	private String username;
 	private String password;
+	private String email;
 	private int accountNum;
 	protected int accessLevel;
 	private static int accounts;
@@ -28,6 +30,7 @@ public abstract class Account implements Serializable
 		accountNum = accounts;
 		accounts++;
 		accessLevel = 0;
+		email = "unknown@unknown.com";
 	}
 	
 	public void setName(String aName)
@@ -37,6 +40,14 @@ public abstract class Account implements Serializable
 	public String getName()
 	{
 		return name;
+	}
+	public void setEmail(String aEmail)
+	{
+		email = aEmail;
+	}
+	public String getEmail()
+	{
+		return email;
 	}
 	
 	public void setUsername(String aName)

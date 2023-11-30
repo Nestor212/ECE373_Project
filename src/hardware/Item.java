@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 
 public class Item implements Serializable
 {
+	private static final long serialVersionUID = 2836030970999633739L;
 	private String name;
 	private int itemNum;
 	private double retailPrice;

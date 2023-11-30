@@ -8,6 +8,7 @@ import users.Account;
 
 public abstract class Partner implements Serializable
 {
+	private static final long serialVersionUID = 4992597619140668060L;
 	private String name;
 	private int partnerID;
 	private double accountBalance;
@@ -55,14 +56,13 @@ public abstract class Partner implements Serializable
 	{
 		accounts.add(aAccount);
 	}
+	public void removeAccount(Account aAccount) 
+	{
+		accounts.remove(aAccount);
+	}
 	public ArrayList<Account> getAccountList()
 	{
 		return accounts;
-	}
-	
-	public void addSupplier()
-	{
-		
 	}
 	
 	public abstract ArrayList<Order> getOrders();

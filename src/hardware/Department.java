@@ -2,13 +2,12 @@ package hardware;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
 import software.Order;
-import software.StoreOrder;
 import users.Account;
 
 public abstract class Department implements Serializable
 {
+	private static final long serialVersionUID = -8089280143770671094L;
 	private String location;
 	protected int idNum;
 	protected String identifier;
@@ -48,6 +47,10 @@ public abstract class Department implements Serializable
 	public void addAccount(Account aAccount)
 	{
 		accounts.add(aAccount);
+	}
+	public void removeAccount(Account aAccount) 
+	{
+		accounts.remove(aAccount);
 	}
 	public ArrayList<Account> getAccountList()
 	{

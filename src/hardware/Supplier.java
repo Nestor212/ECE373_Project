@@ -8,6 +8,7 @@ import software.WarehouseOrder;
 
 public class Supplier extends Partner implements Serializable
 {
+	private static final long serialVersionUID = 5749787399779713267L;
 	private ArrayList<Order> orders;
 	private ArrayList<Item> itemList;
 	

@@ -7,6 +7,7 @@ import hardware.Item;
 
 public abstract class Order implements Serializable 
 {
+	private static final long serialVersionUID = 630554898030262584L;
 	protected String orderIdentifier;
 	protected int orderNumber;
 	protected String orderStatus;

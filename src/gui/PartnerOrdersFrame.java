@@ -5,25 +5,15 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.function.Supplier;
-
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 
-import hardware.*;
-import software.Company;
 import software.Order;
-import software.StoreOrder;
-import users.Account;
 
 public class PartnerOrdersFrame extends JFrame implements ActionListener
 {
-    protected Company company;
-	protected Account sessionAccount;
+	private static final long serialVersionUID = 8650183100780228577L;
 	SupplyManagerGUI session;
 	
     Container container = getContentPane();
@@ -40,8 +30,6 @@ public class PartnerOrdersFrame extends JFrame implements ActionListener
 
 	public PartnerOrdersFrame(SupplyManagerGUI aSession)
 	{				
-//		company = aCompany;
-//		sessionAccount = aAccount;
 		session = aSession;
 		
 	    goBackButton = new JButton("Go Back");
@@ -54,12 +42,12 @@ public class PartnerOrdersFrame extends JFrame implements ActionListener
 	
 	public void populateArrays()
 	{
-		orders = new ArrayList<JLabel>(sessionAccount.getPartner().getOrders().size());
-		viewOrderButtons = new ArrayList<JButton>(sessionAccount.getPartner().getOrders().size());
+		orders = new ArrayList<JLabel>(session.sessionAccount.getPartner().getOrders().size());
+		viewOrderButtons = new ArrayList<JButton>(session.sessionAccount.getPartner().getOrders().size());
 		
-		for(int i = 0; i < sessionAccount.getPartner().getOrders().size(); i++)
+		for(int i = 0; i < session.sessionAccount.getPartner().getOrders().size(); i++)
 		{
-			orders.add(new JLabel(sessionAccount.getPartner().getOrders().get(i).toString()));
+			orders.add(new JLabel(session.sessionAccount.getPartner().getOrders().get(i).toString()));
 			viewOrderButtons.add(new JButton("View"));
 		}
 	}
@@ -77,7 +65,7 @@ public class PartnerOrdersFrame extends JFrame implements ActionListener
     
     public void setUniversalPageSettings()
     {
-		orderHomeTitleLabel = new JLabel("Orders - " + sessionAccount.getPartner().toString());
+		orderHomeTitleLabel = new JLabel("Orders - " + session.sessionAccount.getPartner().toString());
 		orderHomeTitleLabel.setBounds(50, 40, 1000, 30);
 		orderHomeTitleLabel.setFont(new Font("Lucida", Font.BOLD, 22));
 		
@@ -95,9 +83,9 @@ public class PartnerOrdersFrame extends JFrame implements ActionListener
 	public void setSupplierOrderPage()
 	{
 		// Set bounds for labels
-		for(int i = 0; i < sessionAccount.getPartner().getOrders().size(); i++)
+		for(int i = 0; i < session.sessionAccount.getPartner().getOrders().size(); i++)
 		{
-			orders.add(new JLabel(sessionAccount.getPartner().getOrders().get(i).getOrderID()));
+			orders.add(new JLabel(session.sessionAccount.getPartner().getOrders().get(i).getOrderID()));
 			orders.get(i).setBounds(50, (i * 20) + 200,  600, 20);
 			viewOrderButtons.add(new JButton("View"));
 			viewOrderButtons.get(i).setBounds(400, (i * 20) + 200, 50, 20);
@@ -156,7 +144,7 @@ public class PartnerOrdersFrame extends JFrame implements ActionListener
 			if(e.getSource() == viewOrderButtons.get(i))
 			{
 				container.removeAll();
-				viewOrderPage(sessionAccount.getPartner().getOrders().get(i));
+				viewOrderPage(session.sessionAccount.getPartner().getOrders().get(i));
 				super.update(getGraphics());
 			}	
 		}			

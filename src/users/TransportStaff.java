@@ -7,6 +7,8 @@ import software.*;
 
 public class TransportStaff extends Account implements Serializable
 {
+	private static final long serialVersionUID = -8829427025388283976L;
+
 	public TransportStaff(Transport aTransport) 
 	{
 		this.accessLevel = 30;

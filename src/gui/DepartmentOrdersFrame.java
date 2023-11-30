@@ -5,28 +5,21 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.function.Supplier;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-
 import hardware.*;
-import software.Company;
 import software.Order;
-import software.StoreOrder;
-import users.Account;
+
 
 public class DepartmentOrdersFrame extends JFrame implements ActionListener
 {
-//    protected Company company;
-//	protected Account sessionAccount;
+	private static final long serialVersionUID = 1342965027533132960L;
 	SupplyManagerGUI session;
 
-	
     Container container = getContentPane();
     
     String accountIdentifier; // Use to taylor visual settings of page. "S" - Store Employee, "WH" - Warehouse Employee
@@ -52,8 +45,6 @@ public class DepartmentOrdersFrame extends JFrame implements ActionListener
 
 	public DepartmentOrdersFrame(SupplyManagerGUI aSession)
 	{
-//		company = aCompany;
-//		sessionAccount = aAccount;
     	session = aSession;
 		accountIdentifier = session.sessionAccount.getDepartment().getIdentifier();
 		

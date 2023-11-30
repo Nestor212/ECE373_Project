@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class Store extends Department implements Serializable 
 {
+	private static final long serialVersionUID = 8003303552133226538L;
 	private ArrayList<Item> inventory;
 	private static int storeCount;
 	

@@ -3,24 +3,17 @@ package gui;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JFrame;
-
-import software.Company;
-import users.Account;
 
 public class ReportsFrame  extends JFrame implements ActionListener
 {
-    protected Company company;
-	protected Account sessionAccount;
+	private static final long serialVersionUID = -4102500531403896036L;
 	SupplyManagerGUI session;
 
     Container container = getContentPane();
 	
 	public ReportsFrame(SupplyManagerGUI aSession)
 	{
-//		company = aCompany;
-//		sessionAccount = aAccount;
 		session = aSession;
 		
         setLayoutManager();

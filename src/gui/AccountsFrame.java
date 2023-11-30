@@ -5,20 +5,24 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import users.Admin;
+import users.InventoryStaff;
+import users.SupplierStaff;
+import users.TransportStaff;
 
-import software.Company;
-import users.Account;
 
 public class AccountsFrame extends JFrame implements ActionListener
 {
-//    protected Company company;
-//	protected Account sessionAccount;
+	private static final long serialVersionUID = 2474290467540176620L;
 	SupplyManagerGUI session;
-
 	
     private ArrayList<JLabel> accountNumbers;
     private ArrayList<JLabel> accountNames;
@@ -30,17 +34,52 @@ public class AccountsFrame extends JFrame implements ActionListener
     JLabel locationLabel = new JLabel("Location");
     
     Container container = getContentPane();
-  
+    
+	private JMenuBar menuBar;		//the horizontal container
+	
+	//File Menu Declarations
+	private JMenu fileMenu;
+	private JMenu addOptionsMenu;
+	private JMenuItem addSupplierAccount;
+	private JMenuItem addTransportAccount;
+	private JMenuItem addStoreAccount;
+	private JMenuItem addWarehouseAccount;
+	private JMenuItem addAdminAccount;
+ 
 	public AccountsFrame(SupplyManagerGUI aSession)
 	{
-//		company = aCompany;
-//		sessionAccount = aAccount;
 		session = aSession;
-		
         accountNumbers = new ArrayList<JLabel>(20);
         accountNames = new ArrayList<JLabel>(20);
         accountLocations = new ArrayList<JLabel>(20);
         editButton = new ArrayList<JButton>();
+        
+		menuBar = new JMenuBar();
+		//***** File Menu + Drop-down Options ****\\
+		fileMenu = new JMenu("File");
+		addOptionsMenu = new JMenu("Create Account");
+		addSupplierAccount = new JMenuItem("Supplier Account");
+		addTransportAccount = new JMenuItem("Transport Account");
+		addStoreAccount = new JMenuItem("Store Account");
+		addWarehouseAccount = new JMenuItem("Warehouse Account");
+		addAdminAccount = new JMenuItem("Admin Account");
+		
+		addSupplierAccount.addActionListener(this);
+		addTransportAccount.addActionListener(this);
+		addStoreAccount.addActionListener(this);
+		addWarehouseAccount.addActionListener(this);
+		addAdminAccount.addActionListener(this);
+
+		addOptionsMenu.add(addSupplierAccount);
+		addOptionsMenu.add(addTransportAccount);
+		addOptionsMenu.add(addStoreAccount);
+		addOptionsMenu.add(addWarehouseAccount);
+		addOptionsMenu.add(addAdminAccount);
+		
+		fileMenu.add(addOptionsMenu);
+
+	    menuBar.add(fileMenu);
+		setJMenuBar(menuBar);
         
     	populateAccounts();
         setLayoutManager();
@@ -48,6 +87,14 @@ public class AccountsFrame extends JFrame implements ActionListener
         addComponentsToContainer();
         addActionEvent();
     }
+	
+	public void clearArrays()
+	{
+		accountNumbers.clear();
+		accountNames.clear();
+		accountLocations.clear();
+		editButton.clear();
+	}
 	
 	public void populateAccounts()
 	{
@@ -63,8 +110,8 @@ public class AccountsFrame extends JFrame implements ActionListener
 		{
 			for(int j = 0; j < session.company.getStoreList().get(i).getAccountList().size(); j++)
 			{
-				accountNumbers.add(new JLabel(String.valueOf(session.company.getStoreList().get(i).getAccountList().get(i).getAccountNumber())));
-				accountNames.add(new JLabel(session.company.getStoreList().get(i).getAccountList().get(i).getName()));
+				accountNumbers.add(new JLabel(String.valueOf(session.company.getStoreList().get(i).getAccountList().get(j).getAccountNumber())));
+				accountNames.add(new JLabel(session.company.getStoreList().get(i).getAccountList().get(j).getName()));
 				accountLocations.add(new JLabel("Store ID: " + session.company.getStoreList().get(i).getID()));						 
 			}
 		}
@@ -72,8 +119,8 @@ public class AccountsFrame extends JFrame implements ActionListener
 		{
 			for(int j = 0; j < session.company.getWarehouseList().get(i).getAccountList().size(); j++)
 			{
-				accountNumbers.add(new JLabel(String.valueOf(session.company.getWarehouseList().get(i).getAccountList().get(i).getAccountNumber())));
-				accountNames.add(new JLabel(session.company.getWarehouseList().get(i).getAccountList().get(i).getName()));
+				accountNumbers.add(new JLabel(String.valueOf(session.company.getWarehouseList().get(i).getAccountList().get(j).getAccountNumber())));
+				accountNames.add(new JLabel(session.company.getWarehouseList().get(i).getAccountList().get(j).getName()));
 				accountLocations.add(new JLabel("Warehouse ID: " + session.company.getWarehouseList().get(i).getID()));
 			}
 		}
@@ -81,8 +128,9 @@ public class AccountsFrame extends JFrame implements ActionListener
 		{
 			for(int j = 0; j < session.company.getSupplierList().get(i).getAccountList().size(); j++)
 			{
-				accountNumbers.add(new JLabel(String.valueOf(session.company.getSupplierList().get(i).getAccountList().get(i).getAccountNumber())));
-				accountNames.add(new JLabel(session.company.getSupplierList().get(i).getAccountList().get(i).getName()));
+
+				accountNumbers.add(new JLabel(String.valueOf(session.company.getSupplierList().get(i).getAccountList().get(j).getAccountNumber())));
+				accountNames.add(new JLabel(session.company.getSupplierList().get(i).getAccountList().get(j).getName()));
 				accountLocations.add(new JLabel(session.company.getSupplierList().get(i).getName()));
 			}
 		}
@@ -90,13 +138,12 @@ public class AccountsFrame extends JFrame implements ActionListener
 		{
 			for(int j = 0; j < session.company.getTransportList().get(i).getAccountList().size(); j++)
 			{
-				accountNumbers.add(new JLabel(String.valueOf(session.company.getTransportList().get(i).getAccountList().get(i).getAccountNumber())));
-				accountNames.add(new JLabel(session.company.getTransportList().get(i).getAccountList().get(i).getName()));
+				accountNumbers.add(new JLabel(String.valueOf(session.company.getTransportList().get(i).getAccountList().get(j).getAccountNumber())));
+				accountNames.add(new JLabel(session.company.getTransportList().get(i).getAccountList().get(j).getName()));
 				accountLocations.add(new JLabel(session.company.getTransportList().get(i).getName()));
 			}
 		}
 	}
-	
 	
     public void setLayoutManager() 
     {
@@ -125,6 +172,7 @@ public class AccountsFrame extends JFrame implements ActionListener
 
     public void addComponentsToContainer() 
     {
+		container.removeAll();
     	container.add(accountLabel);
     	container.add(nameLabel);
     	container.add(locationLabel);
@@ -136,6 +184,7 @@ public class AccountsFrame extends JFrame implements ActionListener
    	     	container.add(accountLocations.get(i));
    	     	container.add(editButton.get(i));
     	}
+		super.update(getGraphics());
     }
 
     public void addActionEvent() 
@@ -152,17 +201,433 @@ public class AccountsFrame extends JFrame implements ActionListener
 	{
 		for(int i = 0; i < editButton.size(); i++)
 		{
-			if(e.getSource() == editButton.get(i))
+			if(e.getSource().equals(editButton.get(i)))
 			{
 				editAccount(accountNames.get(i).getText());
 			}
 		}
-		
-	}
-	
-	public void editAccount(String name)
-	{
-		System.out.println("TO DO: Find account for user: " + name + ", and allow for edits.");
+		if(e.getSource().equals(addSupplierAccount))
+		{
+			handleAddSupplierAccount();
+		}
+		else if(e.getSource().equals(addTransportAccount))
+		{
+			handleAddTransportAccount();
+		}
+		else if(e.getSource().equals(addStoreAccount))
+		{
+			handleAddStoreAccount();
+		}
+		else if(e.getSource().equals(addWarehouseAccount))
+		{
+			handleAddWHAccount();
+		}
+		else if(e.getSource().equals(addAdminAccount))
+		{
+			handleAddAdminAccount();
+		}
 	}
 
+	public void editAccount(String name)
+	{
+		boolean noChanges = true;
+		if(session.company.findAccountName(name) != null)
+		{
+			JLabel location = new JLabel();
+			JTextField fullName = new JTextField();
+			JTextField username = new JTextField();
+			JTextField email = new JTextField();
+			JTextField resetPwd = new JTextField();
+           
+			String[] options = 
+            {
+        		"Apply Changes","Delete Account"
+            }; 
+			Object[] fields = 
+			{
+				location,
+				"Edit Name: " + session.company.findAccountName(name).getName(), fullName,
+				"Edit Username: " + session.company.findAccountName(name).getUsername(), username,
+				"Edit Email: " + session.company.findAccountName(name).getEmail(), email,
+				"Reset Password:", resetPwd
+			};
+
+			
+			if(session.company.findAccountName(name).getDepartment() != null)
+			{
+				location.setText("Department # " + session.company.findAccountName(name).getDepartment().getID());
+			}
+			else
+			{
+				location.setText(session.company.findAccountName(name).getPartner().getName());
+			}
+			int x = JOptionPane.showOptionDialog(null, fields, "Edit Account" , JOptionPane.YES_NO_OPTION,  JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+			
+			if(x == JOptionPane.NO_OPTION)
+			{
+				int y = JOptionPane.showConfirmDialog(null, "Are you sure you wish to delete this account?\nAction cannot be undone.","Create New Warehouse Account" , JOptionPane.OK_CANCEL_OPTION);
+				if(y == JOptionPane.OK_OPTION) 
+				{
+					if(session.company.findAccountName(name).getDepartment() != null)
+					{
+						session.company.findAccountName(name).getDepartment().getAccountList().remove(session.company.findAccountName(name));
+					}
+					else
+					{
+						session.company.findAccountName(name).getPartner().getAccountList().remove(session.company.findAccountName(name));
+					}
+		            JOptionPane.showMessageDialog(null, "Account has been deleted.", "Success", JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+			else if(x == JOptionPane.YES_OPTION) 
+			{
+				if(!username.getText().isBlank())
+				{
+					session.company.findAccountName(name).setUsername(username.getText());
+					noChanges = false;
+				}
+				if(!email.getText().isBlank())
+				{
+					session.company.findAccountName(name).setEmail(email.getText());
+					noChanges = false;
+				}
+				if(!fullName.getText().isBlank())
+				{
+					session.company.findAccountName(name).setName(fullName.getText());
+					noChanges = false;
+				}
+				if(!resetPwd.getText().isBlank())
+				{
+					session.company.findAccountName(name).setPassword(resetPwd.getText());
+					noChanges = false;
+
+				}
+				if(noChanges)
+				{
+		            JOptionPane.showMessageDialog(null, "No Changes were made.", "Done", JOptionPane.INFORMATION_MESSAGE);
+				}
+				else
+				{
+		            JOptionPane.showMessageDialog(null, "Changes have been saved.", "Success", JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+            clearArrays();
+            populateAccounts();
+            setLocationAndSize();
+            addActionEvent();
+            addComponentsToContainer();
+		}
+		else
+		{
+            JOptionPane.showMessageDialog(null, "Error finding account.", "Error", JOptionPane.ERROR_MESSAGE);
+
+		}
+	}
+	
+	public void handleAddSupplierAccount()
+	{
+		JTextField partnerName = new JTextField();
+		JTextField fullName = new JTextField();
+		JTextField username = new JTextField();
+		JTextField email = new JTextField();
+		
+		Object[] fields = 
+		{
+			"Supplier Name:", partnerName,
+			"Full Name:", fullName,
+			"Username:", username,
+			"Email:", email,
+		};
+	
+		int x = JOptionPane.showConfirmDialog(null, fields, "Create New Supplier Account" , JOptionPane.OK_CANCEL_OPTION);
+		if(x == JOptionPane.OK_OPTION) 
+		{
+			if(partnerName.getText().isBlank())
+			{
+                JOptionPane.showMessageDialog(null, "Supplier Name field is empty.", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+			else if(fullName.getText().isBlank())
+			{
+                JOptionPane.showMessageDialog(null, "Full Name field is empty.", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+			else if(username.getText().isBlank())
+			{
+                JOptionPane.showMessageDialog(null, "Username field is empty.", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+			else if(email.getText().isBlank())
+			{
+                JOptionPane.showMessageDialog(null, "Email field is empty.", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+			else
+			{
+				for(int i = 0; i < session.company.getSupplierList().size(); i++)
+				{
+					if(session.company.getSupplierList().get(i).getName().equals(partnerName.getText()))
+					{
+						SupplierStaff s1 = new SupplierStaff(session.company.getSupplierList().get(i));
+						s1.setName(fullName.getText());
+						s1.setEmail(email.getText());
+						s1.setUsername(username.getText());
+						s1.setPassword(username.getText() + "temp");
+						session.company.getSupplierList().get(i).addAccount(s1);
+						
+		                JOptionPane.showMessageDialog(null, "Account has been created. Temporary password is: " + username.getText() + "temp", "Success", JOptionPane.INFORMATION_MESSAGE);
+		                
+		                clearArrays();
+		                populateAccounts();
+		                setLocationAndSize();
+		                addActionEvent();
+		                addComponentsToContainer();
+					}
+					else
+					{
+		                JOptionPane.showMessageDialog(null, "Supplier Partner not found.", "Error", JOptionPane.ERROR_MESSAGE);
+					}
+				}
+			}
+		}
+	}
+	
+	public void handleAddTransportAccount()
+	{
+		JTextField partnerName = new JTextField();
+		JTextField fullName = new JTextField();
+		JTextField username = new JTextField();
+		JTextField email = new JTextField();
+		
+		Object[] fields = 
+		{
+			"Transport Name:", partnerName,
+			"Full Name:", fullName,
+			"Username:", username,
+			"Email:", email,
+		};
+
+		int x = JOptionPane.showConfirmDialog(null, fields, "Create New Transport Account" , JOptionPane.OK_CANCEL_OPTION);
+		if(x == JOptionPane.OK_OPTION) 
+		{
+			if(partnerName.getText().isBlank())
+			{
+                JOptionPane.showMessageDialog(null, "Transport Name field is empty.", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+			else if(fullName.getText().isBlank())
+			{
+                JOptionPane.showMessageDialog(null, "Full Name field is empty.", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+			else if(username.getText().isBlank())
+			{
+                JOptionPane.showMessageDialog(null, "Username field is empty.", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+			else if(email.getText().isBlank())
+			{
+                JOptionPane.showMessageDialog(null, "Email field is empty.", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+			else
+			{
+				for(int i = 0; i < session.company.getSupplierList().size(); i++)
+				{
+					if(session.company.getTransportList().get(i).getName().equals(partnerName.getText()))
+					{
+						TransportStaff s1 = new TransportStaff(session.company.getTransportList().get(i));
+						s1.setName(fullName.getText());
+						s1.setEmail(email.getText());
+						s1.setUsername(username.getText());
+						s1.setPassword(username.getText() + "temp");
+						session.company.getTransportList().get(i).addAccount(s1);
+						
+		                JOptionPane.showMessageDialog(null, "Account has been created. Temporary password is: " + username.getText() + "temp", "Success", JOptionPane.INFORMATION_MESSAGE);
+		                
+		                clearArrays();
+		                populateAccounts();
+		                setLocationAndSize();
+		                addActionEvent();
+		                addComponentsToContainer();
+					}
+					else
+					{
+		                JOptionPane.showMessageDialog(null, "Transport Partner not found.", "Error", JOptionPane.ERROR_MESSAGE);
+
+					}
+				}
+			}
+		}
+	}
+	
+	public void handleAddStoreAccount()
+	{
+		JTextField storeNum = new JTextField();
+		JTextField fullName = new JTextField();
+		JTextField username = new JTextField();
+		JTextField email = new JTextField();
+		
+		Object[] fields = 
+		{
+			"Store ID", storeNum,
+			"Full Name:", fullName,
+			"Username:", username,
+			"Email:", email,
+		};
+	
+		int x = JOptionPane.showConfirmDialog(null, fields, "Create New Store Account" , JOptionPane.OK_CANCEL_OPTION);
+		if(x == JOptionPane.OK_OPTION) 
+		{
+			if(storeNum.getText().isBlank())
+			{
+                JOptionPane.showMessageDialog(null, "Store ID is empty.", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+			else if(fullName.getText().isBlank())
+			{
+                JOptionPane.showMessageDialog(null, "Full Name field is empty.", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+			else if(username.getText().isBlank())
+			{
+                JOptionPane.showMessageDialog(null, "Username field is empty.", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+			else if(email.getText().isBlank())
+			{
+                JOptionPane.showMessageDialog(null, "Email field is empty.", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+			else
+			{
+				for(int i = 0; i < session.company.getStoreList().size(); i++)
+				{
+					if(session.company.getStoreList().get(i).getID().equals(storeNum.getText()))
+					{
+						InventoryStaff s1 = new InventoryStaff(session.company.getStoreList().get(i));
+						s1.setName(fullName.getText());
+						s1.setEmail(email.getText());
+						s1.setUsername(username.getText());
+						s1.setPassword(username.getText() + "temp");
+						session.company.getStoreList().get(i).addAccount(s1);
+						
+		                JOptionPane.showMessageDialog(null, "Account has been created. Temporary password is: " + username.getText() + "temp", "Success", JOptionPane.INFORMATION_MESSAGE);
+		                
+		                clearArrays();
+		                populateAccounts();
+		                setLocationAndSize();
+		                addActionEvent();
+		                addComponentsToContainer();
+					}
+					else
+					{
+		                JOptionPane.showMessageDialog(null, "Store not found.", "Error", JOptionPane.ERROR_MESSAGE);
+
+					}
+				}
+			}
+		}
+	}
+
+	public void handleAddWHAccount()
+	{
+		JTextField storeNum = new JTextField();
+		JTextField fullName = new JTextField();
+		JTextField username = new JTextField();
+		JTextField email = new JTextField();
+		
+		Object[] fields = 
+		{
+			"Warehouse ID", storeNum,
+			"Full Name:", fullName,
+			"Username:", username,
+			"Email:", email,
+		};
+
+		int x = JOptionPane.showConfirmDialog(null, fields, "Create New Warehouse Account" , JOptionPane.OK_CANCEL_OPTION);
+		if(x == JOptionPane.OK_OPTION) 
+		{
+			if(storeNum.getText().isBlank())
+			{
+                JOptionPane.showMessageDialog(null, "Warehouse ID is empty.", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+			else if(fullName.getText().isBlank())
+			{
+                JOptionPane.showMessageDialog(null, "Full Name field is empty.", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+			else if(username.getText().isBlank())
+			{
+                JOptionPane.showMessageDialog(null, "Username field is empty.", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+			else if(email.getText().isBlank())
+			{
+                JOptionPane.showMessageDialog(null, "Email field is empty.", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+			else
+			{
+				for(int i = 0; i < session.company.getStoreList().size(); i++)
+				{
+					if(session.company.getWarehouseList().get(i).getID().equals(storeNum.getText()))
+					{
+						InventoryStaff s1 = new InventoryStaff(session.company.getWarehouseList().get(i));
+						s1.setName(fullName.getText());
+						s1.setEmail(email.getText());
+						s1.setUsername(username.getText());
+						s1.setPassword(username.getText() + "temp");
+						session.company.getWarehouseList().get(i).addAccount(s1);
+						
+		                JOptionPane.showMessageDialog(null, "Account has been created. Temporary password is: " + username.getText() + "temp", "Success", JOptionPane.INFORMATION_MESSAGE);
+		                
+		                clearArrays();
+		                populateAccounts();
+		                setLocationAndSize();
+		                addActionEvent();
+		                addComponentsToContainer();
+					}
+					else
+					{
+		                JOptionPane.showMessageDialog(null, "Warehouse not found.", "Error", JOptionPane.ERROR_MESSAGE);
+
+					}
+				}
+			}
+		}
+	}
+
+	public void handleAddAdminAccount()
+	{
+		JTextField fullName = new JTextField();
+		JTextField username = new JTextField();
+		JTextField email = new JTextField();
+		
+		Object[] fields = 
+		{
+			"Full Name:", fullName,
+			"Username:", username,
+			"Email:", email,
+		};
+	
+		int x = JOptionPane.showConfirmDialog(null, fields, "Create New Admin Account" , JOptionPane.OK_CANCEL_OPTION);
+		if(x == JOptionPane.OK_OPTION) 
+		{
+			if(fullName.getText().isBlank())
+			{
+                JOptionPane.showMessageDialog(null, "Full Name field is empty.", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+			else if(username.getText().isBlank())
+			{
+                JOptionPane.showMessageDialog(null, "Username field is empty.", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+			else if(email.getText().isBlank())
+			{
+                JOptionPane.showMessageDialog(null, "Email field is empty.", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+			else
+			{
+				Admin s1 = new Admin(session.company.getCorporateOffice());
+				s1.setName(fullName.getText());
+				s1.setEmail(email.getText());
+				s1.setUsername(username.getText());
+				s1.setPassword(username.getText() + "temp");
+				session.company.getCorporateOffice().addAccount(s1);
+				
+                JOptionPane.showMessageDialog(null, "Account has been created. Temporary password is: " + username.getText() + "temp", "Success", JOptionPane.INFORMATION_MESSAGE);
+                
+                clearArrays();
+                populateAccounts();
+                setLocationAndSize();
+                addActionEvent();
+                addComponentsToContainer();
+			}
+		}
+	}
 }

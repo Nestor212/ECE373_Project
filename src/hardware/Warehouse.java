@@ -3,11 +3,9 @@ package hardware;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import software.StoreOrder;
-import software.WarehouseOrder;
-
 public class Warehouse extends Department implements Serializable 
 {
+	private static final long serialVersionUID = -6698773854835608666L;
 	private ArrayList<Item> inventory;
 	private static int whCount;
 	

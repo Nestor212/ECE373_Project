@@ -1,10 +1,7 @@
 package gui;
 
 import javax.swing.*;
-
 import software.Company;
-import users.Account;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,9 +10,7 @@ import java.awt.event.WindowEvent;
 
 public class HomeFrame extends JFrame implements ActionListener 
 { 
-	private static final long serialVersionUID = 1L;
-    protected Company company;
-	protected Account sessionAccount;
+	private static final long serialVersionUID = 9195283884703151569L;
 	SupplyManagerGUI session;
 		
 	Container container = getContentPane();
@@ -246,7 +241,7 @@ public class HomeFrame extends JFrame implements ActionListener
             AccountsFrame accountsFrame = new AccountsFrame(session);
             accountsFrame.setTitle("Accounts Manager - Arizona Incorporated");
             accountsFrame.setVisible(true);
-            accountsFrame.setBounds(200, 100, 1152, 720);
+            accountsFrame.setBounds(200, 100, 900, 720);
             accountsFrame.setDefaultCloseOperation(AccountsFrame.DISPOSE_ON_CLOSE);
             accountsFrame.setResizable(true);  
 		}

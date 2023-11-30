@@ -7,6 +7,7 @@ import hardware.Warehouse;
 
 public class WarehouseOrder extends Order implements Serializable 
 {
+	private static final long serialVersionUID = 380809076951904346L;
 	private Warehouse orderedBy;
 	private Supplier fulfilledBy;
 	
