@@ -37,14 +37,15 @@ public class HomeFrame extends JFrame implements ActionListener
 	
 	public HomeFrame(SupplyManagerGUI aSession)
 	{
-		// Listener for File Exis (red x button), to confirm action and save data.
+		// Listener for File Exits (red x button), to confirm action and save data.
 		this.addWindowListener(new WindowAdapter()  
-								   {
-		      						@Override
-		      						public void windowClosing(WindowEvent event) {
-		      						confirmAndExit();
-		      						}
-								   });
+	   {
+			@Override
+			public void windowClosing(WindowEvent event) 
+			{
+				confirmAndExit();
+			}
+	   });
 
     	session = aSession;
 		
@@ -102,8 +103,6 @@ public class HomeFrame extends JFrame implements ActionListener
 		setLayoutManager();
     }
 	
-	
-	
     public void setLayoutManager() 
     {
         container.setLayout(null);
@@ -117,8 +116,6 @@ public class HomeFrame extends JFrame implements ActionListener
     
     public void setAdminHomepage()
     {
-    	JOptionPane.showMessageDialog(this, "TODO: Dislpay Action items needing admin attention.");
-
     	// Set item bounds
         accountsButton.setBounds(100, 100, 200, 50);
         departmentsButton.setBounds(330, 100, 200, 50);
@@ -143,8 +140,6 @@ public class HomeFrame extends JFrame implements ActionListener
     
     public void setInventoryStaffHomepage()
     {
-    	JOptionPane.showMessageDialog(this, "TODO: List all orders active orders and status for location.");
-
     	// Set item bounds
     	inventoryButton.setBounds(300, 100, 200, 50);  
     	ordersButton.setBounds(600, 100, 200, 50); 
@@ -163,8 +158,6 @@ public class HomeFrame extends JFrame implements ActionListener
     
     public void setDriverHomepage()
     {
-    	JOptionPane.showMessageDialog(this, "TODO: List all orders active orders and location status.");
-
     	// Set item bounds
         ordersButton1.setBounds(350, 100, 200, 50);  
         reportsButton.setBounds(800, 100, 200, 50);
@@ -180,8 +173,6 @@ public class HomeFrame extends JFrame implements ActionListener
     
     public void setSupplierHomepage()
     {
-    	JOptionPane.showMessageDialog(this, "TODO: List all orders pending fulfillment from this supplier.");
-
     	// Set item bounds
         ordersButton1.setBounds(350, 100, 200, 50);  
         reportsButton.setBounds(800, 100, 200, 50);

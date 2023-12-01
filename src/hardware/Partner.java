@@ -2,6 +2,7 @@ package hardware;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Random;
 
 import software.Order;
 import users.Account;
@@ -10,18 +11,17 @@ public abstract class Partner implements Serializable
 {
 	private static final long serialVersionUID = 4992597619140668060L;
 	private String name;
-	private int partnerID;
-	private double accountBalance;
+	private Integer partnerID;
+	private Float accountBalance;
 	private ArrayList<Account> accounts;
-	private static int partners;
 	
 	public Partner()
 	{
+		Random rand = new Random();
 		name = "unknown";
-		partnerID = partners;
-		accountBalance = 0.0;
+		partnerID = rand.nextInt(10000);
+		accountBalance = rand.nextFloat(10000);
 		accounts = new ArrayList<Account>();
-		partners++;
 	}
 	
 	public void setName(String aName)
@@ -33,23 +33,28 @@ public abstract class Partner implements Serializable
 		return name;
 	}
 	
-	public void setPartnerID(int aNum)
+	public void setPartnerID(Integer aNum)
 	{
 		partnerID = aNum;
 	}
-	public int getPartnerID()
+	public Integer getPartnerID()
 	{
 		return partnerID;
 	}
 	
-	public void addToBalance(double dollars)
+	public void addToBalance(Float dollars)
 	{
 		accountBalance = accountBalance + dollars;
 	}
 	
-	public double getAccountBalance()
+	public Float getAccountBalance()
 	{
 		return accountBalance;
+	}
+	
+	public void makePayment(Float aNum)
+	{
+		accountBalance = accountBalance - aNum;
 	}
 	
 	public void addAccount(Account aAccount)

@@ -1,6 +1,7 @@
 package users;
 
 import java.io.Serializable;
+import java.util.Random;
 
 import hardware.Department;
 import hardware.Partner;
@@ -18,17 +19,16 @@ public abstract class Account implements Serializable
 	private String email;
 	private int accountNum;
 	protected int accessLevel;
-	private static int accounts;
 	protected Department department;
 	protected Partner partner;
 
 	public Account() 
 	{
+		Random rand = new Random();
 		name = "unknown";
 		username = "unknown";
 		password = "unknown";
-		accountNum = accounts;
-		accounts++;
+		accountNum = rand.nextInt(100000);
 		accessLevel = 0;
 		email = "unknown@unknown.com";
 	}

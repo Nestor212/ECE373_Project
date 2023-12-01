@@ -2,19 +2,19 @@ package hardware;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Warehouse extends Department implements Serializable 
 {
 	private static final long serialVersionUID = -6698773854835608666L;
 	private ArrayList<Item> inventory;
-	private static int whCount;
 	
 	public Warehouse()
 	{
+		Random rand = new Random();
 		inventory = new ArrayList<Item>();
 		identifier = "WH";
-		idNum = whCount + 1;
-		whCount++;
+		idNum = rand.nextInt(10000);
 	}
 	
 	public void addItemToInventory(Item aItem)

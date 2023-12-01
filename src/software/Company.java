@@ -9,6 +9,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import hardware.Corporate;
+import hardware.Department;
+import hardware.Partner;
 import hardware.Store;
 import hardware.Supplier;
 import hardware.Transport;
@@ -299,6 +301,53 @@ public class Company implements Serializable
 					return this.getTransportList().get(i).getAccountList().get(j);
 				}				
 			}
+		}
+		return null;
+	}
+	
+	public Department findDepartment(String aLocation)
+	{
+		if(aLocation.equals("Corporate"))
+		{
+			return corporateOffice;
+		}
+		
+		// Parse Stores
+		for(int i = 0; i < this.getStoreList().size(); i++)
+		{
+			if(this.getStoreList().get(i).getLocation().equals(aLocation))
+			{
+				return this.getStoreList().get(i);
+			}		
+		}
+		// Parse Warehouses
+		for(int i = 0; i < this.getWarehouseList().size(); i++)
+		{
+			if(this.getWarehouseList().get(i).getLocation().equals(aLocation))
+			{
+				return this.getWarehouseList().get(i);
+			}			
+		}
+		return null;
+	}
+	
+	public Partner findPartner(Integer aPartnerID)
+	{
+		// Parse Suppliers
+		for(int i = 0; i < this.getSupplierList().size(); i++)
+		{
+			if(this.getSupplierList().get(i).getPartnerID().equals(aPartnerID))
+			{
+				return this.getSupplierList().get(i);
+			}		
+		}
+		// Parse Transports
+		for(int i = 0; i < this.getTransportList().size(); i++)
+		{
+			if(this.getTransportList().get(i).getPartnerID().equals(aPartnerID))
+			{
+				return this.getTransportList().get(i);
+			}			
 		}
 		return null;
 	}

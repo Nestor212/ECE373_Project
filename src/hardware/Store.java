@@ -2,19 +2,19 @@ package hardware;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Store extends Department implements Serializable 
 {
 	private static final long serialVersionUID = 8003303552133226538L;
 	private ArrayList<Item> inventory;
-	private static int storeCount;
 	
 	public Store()
 	{
+		Random rand = new Random();
 		inventory = new ArrayList<Item>();
 		identifier = "S";
-		idNum = storeCount + 1;
-		storeCount++;
+		idNum = rand.nextInt(10000);
 	}
 	
 	public void addItemToInventory(Item aItem)

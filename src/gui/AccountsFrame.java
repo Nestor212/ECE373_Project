@@ -265,7 +265,7 @@ public class AccountsFrame extends JFrame implements ActionListener
 			
 			if(x == JOptionPane.NO_OPTION)
 			{
-				int y = JOptionPane.showConfirmDialog(null, "Are you sure you wish to delete this account?\nAction cannot be undone.","Create New Warehouse Account" , JOptionPane.OK_CANCEL_OPTION);
+				int y = JOptionPane.showConfirmDialog(null, "Are you sure you wish to delete this account?\nAction cannot be undone.","Delete Account" , JOptionPane.OK_CANCEL_OPTION);
 				if(y == JOptionPane.OK_OPTION) 
 				{
 					if(session.company.findAccountName(name).getDepartment() != null)
@@ -325,7 +325,8 @@ public class AccountsFrame extends JFrame implements ActionListener
 	}
 	
 	public void handleAddSupplierAccount()
-	{
+	{	
+		boolean success = false;
 		JTextField partnerName = new JTextField();
 		JTextField fullName = new JTextField();
 		JTextField username = new JTextField();
@@ -371,25 +372,30 @@ public class AccountsFrame extends JFrame implements ActionListener
 						s1.setPassword(username.getText() + "temp");
 						session.company.getSupplierList().get(i).addAccount(s1);
 						
-		                JOptionPane.showMessageDialog(null, "Account has been created. Temporary password is: " + username.getText() + "temp", "Success", JOptionPane.INFORMATION_MESSAGE);
-		                
 		                clearArrays();
 		                populateAccounts();
 		                setLocationAndSize();
 		                addActionEvent();
 		                addComponentsToContainer();
-					}
-					else
-					{
-		                JOptionPane.showMessageDialog(null, "Supplier Partner not found.", "Error", JOptionPane.ERROR_MESSAGE);
+		                
+		                success = true;
 					}
 				}
+			}
+			if(success)
+			{
+                JOptionPane.showMessageDialog(null, "Account has been created. Temporary password is: " + username.getText() + "temp", "Success", JOptionPane.INFORMATION_MESSAGE);
+			}
+			else
+			{
+                JOptionPane.showMessageDialog(null, "Supplier Partner not found.", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}
 	
 	public void handleAddTransportAccount()
 	{
+		boolean success = false;
 		JTextField partnerName = new JTextField();
 		JTextField fullName = new JTextField();
 		JTextField username = new JTextField();
@@ -424,7 +430,7 @@ public class AccountsFrame extends JFrame implements ActionListener
 			}
 			else
 			{
-				for(int i = 0; i < session.company.getSupplierList().size(); i++)
+				for(int i = 0; i < session.company.getTransportList().size(); i++)
 				{
 					if(session.company.getTransportList().get(i).getName().equals(partnerName.getText()))
 					{
@@ -434,28 +440,31 @@ public class AccountsFrame extends JFrame implements ActionListener
 						s1.setUsername(username.getText());
 						s1.setPassword(username.getText() + "temp");
 						session.company.getTransportList().get(i).addAccount(s1);
-						
-		                JOptionPane.showMessageDialog(null, "Account has been created. Temporary password is: " + username.getText() + "temp", "Success", JOptionPane.INFORMATION_MESSAGE);
-		                
+								                
 		                clearArrays();
 		                populateAccounts();
 		                setLocationAndSize();
 		                addActionEvent();
 		                addComponentsToContainer();
-					}
-					else
-					{
-		                JOptionPane.showMessageDialog(null, "Transport Partner not found.", "Error", JOptionPane.ERROR_MESSAGE);
-
+		                success = true;
 					}
 				}
+			}
+			if(success)
+			{
+                JOptionPane.showMessageDialog(null, "Account has been created. Temporary password is: " + username.getText() + "temp", "Success", JOptionPane.INFORMATION_MESSAGE);
+			}
+			else
+			{
+                JOptionPane.showMessageDialog(null, "Transport Partner not found.", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}
 	
 	public void handleAddStoreAccount()
 	{
-		JTextField storeNum = new JTextField();
+		boolean success = false;
+		JTextField storeNum = new JTextField("S");
 		JTextField fullName = new JTextField();
 		JTextField username = new JTextField();
 		JTextField email = new JTextField();
@@ -499,35 +508,38 @@ public class AccountsFrame extends JFrame implements ActionListener
 						s1.setUsername(username.getText());
 						s1.setPassword(username.getText() + "temp");
 						session.company.getStoreList().get(i).addAccount(s1);
-						
-		                JOptionPane.showMessageDialog(null, "Account has been created. Temporary password is: " + username.getText() + "temp", "Success", JOptionPane.INFORMATION_MESSAGE);
-		                
+								                
 		                clearArrays();
 		                populateAccounts();
 		                setLocationAndSize();
 		                addActionEvent();
 		                addComponentsToContainer();
-					}
-					else
-					{
-		                JOptionPane.showMessageDialog(null, "Store not found.", "Error", JOptionPane.ERROR_MESSAGE);
-
+		                success = true;
 					}
 				}
+			}
+			if(success)
+			{
+                JOptionPane.showMessageDialog(null, "Account has been created. Temporary password is: " + username.getText() + "temp", "Success", JOptionPane.INFORMATION_MESSAGE);
+			}
+			else
+			{
+                JOptionPane.showMessageDialog(null, "Store not found.", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}
 
 	public void handleAddWHAccount()
 	{
-		JTextField storeNum = new JTextField();
+		boolean success = false;
+		JTextField whNum = new JTextField("WH");
 		JTextField fullName = new JTextField();
 		JTextField username = new JTextField();
 		JTextField email = new JTextField();
 		
 		Object[] fields = 
 		{
-			"Warehouse ID", storeNum,
+			"Warehouse ID", whNum,
 			"Full Name:", fullName,
 			"Username:", username,
 			"Email:", email,
@@ -536,7 +548,7 @@ public class AccountsFrame extends JFrame implements ActionListener
 		int x = JOptionPane.showConfirmDialog(null, fields, "Create New Warehouse Account" , JOptionPane.OK_CANCEL_OPTION);
 		if(x == JOptionPane.OK_OPTION) 
 		{
-			if(storeNum.getText().isBlank())
+			if(whNum.getText().isBlank())
 			{
                 JOptionPane.showMessageDialog(null, "Warehouse ID is empty.", "Error", JOptionPane.ERROR_MESSAGE);
 			}
@@ -554,9 +566,9 @@ public class AccountsFrame extends JFrame implements ActionListener
 			}
 			else
 			{
-				for(int i = 0; i < session.company.getStoreList().size(); i++)
+				for(int i = 0; i < session.company.getWarehouseList().size(); i++)
 				{
-					if(session.company.getWarehouseList().get(i).getID().equals(storeNum.getText()))
+					if(session.company.getWarehouseList().get(i).getID().equals(whNum.getText()))
 					{
 						InventoryStaff s1 = new InventoryStaff(session.company.getWarehouseList().get(i));
 						s1.setName(fullName.getText());
@@ -564,21 +576,23 @@ public class AccountsFrame extends JFrame implements ActionListener
 						s1.setUsername(username.getText());
 						s1.setPassword(username.getText() + "temp");
 						session.company.getWarehouseList().get(i).addAccount(s1);
-						
-		                JOptionPane.showMessageDialog(null, "Account has been created. Temporary password is: " + username.getText() + "temp", "Success", JOptionPane.INFORMATION_MESSAGE);
-		                
+								                
 		                clearArrays();
 		                populateAccounts();
 		                setLocationAndSize();
 		                addActionEvent();
 		                addComponentsToContainer();
-					}
-					else
-					{
-		                JOptionPane.showMessageDialog(null, "Warehouse not found.", "Error", JOptionPane.ERROR_MESSAGE);
-
+		                success = true;
 					}
 				}
+			}
+			if(success)
+			{
+                JOptionPane.showMessageDialog(null, "Account has been created. Temporary password is: " + username.getText() + "temp", "Success", JOptionPane.INFORMATION_MESSAGE);
+			}
+			else
+			{
+                JOptionPane.showMessageDialog(null, "Warehouse not found.", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}

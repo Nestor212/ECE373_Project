@@ -36,16 +36,16 @@ public class Driver
 		ArizonaInc = new Company();
 		
 		c1 = new Corporate();
-		c1.setLocation("Some Address, Phoenix, AZ");
+		c1.setLocation("Some Address, New York NY");
 		
 		s1 = new Store();
-		s1.setLocation("Some Address, Tucson, AZ");	
+		s1.setLocation("Some Address, Tucson AZ");	
 		
 		wh1 = new Warehouse();
-		wh1.setLocation("Some Address, Phoenix, AZ");
+		wh1.setLocation("Some Address, Phoenix AZ");
 		
 		wh2 = new Warehouse();
-		wh2.setLocation("Some Address, Dallas, TX");
+		wh2.setLocation("Some Address, Dallas TX");
 
 		TaraManufacturing = new Supplier();
 		TaraManufacturing.setName("Tara Manufacturing");
