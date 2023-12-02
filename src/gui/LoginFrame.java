@@ -9,6 +9,8 @@ public class LoginFrame extends JFrame implements ActionListener
 {		
 	private static final long serialVersionUID = -5971805714815431922L;
 	SupplyManagerGUI session;
+	
+	JLabel imageUofA = new JLabel(new ImageIcon("uofa.jpg"));
     
 	Container container = getContentPane();
     JLabel userLabel = new JLabel("USERNAME");
@@ -36,17 +38,19 @@ public class LoginFrame extends JFrame implements ActionListener
 
     public void setLocationAndSize() 
     {
-        userLabel.setBounds(50, 150, 100, 30);
-        passwordLabel.setBounds(50, 220, 100, 30);
-        userTextField.setBounds(150, 150, 150, 30);
-        passwordField.setBounds(150, 220, 150, 30);
-        showPassword.setBounds(150, 250, 150, 30);
-        loginButton.setBounds(50, 300, 100, 30);
-        resetButton.setBounds(200, 300, 100, 30);
+    	imageUofA.setBounds(35, 30, 300, 127);;
+        userLabel.setBounds(50, 200, 100, 30);
+        passwordLabel.setBounds(50, 270, 100, 30);
+        userTextField.setBounds(150, 200, 150, 30);
+        passwordField.setBounds(150, 270, 150, 30);
+        showPassword.setBounds(150, 300, 150, 30);
+        loginButton.setBounds(50, 350, 100, 30);
+        resetButton.setBounds(200, 350, 100, 30);
     }
 
     public void addComponentsToContainer() 
     {
+    	container.add(imageUofA);
         container.add(userLabel);
         container.add(passwordLabel);
         container.add(userTextField);

@@ -15,6 +15,8 @@ public class HomeFrame extends JFrame implements ActionListener
 		
 	Container container = getContentPane();
 	
+	JLabel imageUofA = new JLabel(new ImageIcon("uofa200.jpg"));
+	
 	private JMenuBar menuBar;		//the horizontal container
 	
 	//File Menu Declarations
@@ -112,6 +114,9 @@ public class HomeFrame extends JFrame implements ActionListener
         homeTitle.setHorizontalAlignment(SwingConstants.CENTER);
         homeTitle.setVerticalAlignment(SwingConstants.TOP);
 		container.add(homeTitle);
+		
+    	imageUofA.setBounds(1142, 2, 200, 84);
+    	container.add(imageUofA);
     }
     
     public void setAdminHomepage()
