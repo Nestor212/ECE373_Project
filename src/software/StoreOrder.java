@@ -24,17 +24,28 @@ public class StoreOrder extends Order implements Serializable
 	{
 		orderedBy = aStore; 
 	}
-	public Store getOrderedBy()
+	public String getOrderedBy()
 	{
-		return orderedBy;
+		return orderedBy.toString();
 	}
 	
 	public void setFulfilledBy(Warehouse aWH)
 	{
 		fulfilledBy = aWH;
 	}
-	public Warehouse geFulfilledBy()
+	public String getfulfilledBy()
 	{
-		return fulfilledBy;
-	}	
+		return fulfilledBy.toString();
+	}
+
+	@Override
+	public String getPickupAddress() {
+
+		return fulfilledBy.getLocation();
+	}
+
+	@Override
+	public String getDeliveryAddress() {
+		return orderedBy.getLocation();
+	}
 }

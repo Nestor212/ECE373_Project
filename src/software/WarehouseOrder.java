@@ -25,11 +25,14 @@ public class WarehouseOrder extends Order implements Serializable
 	{
 		orderedBy = aWH; 
 	}
-	public Warehouse getOrderedBy()
+	public String getOrderedBy()
 	{
-		return orderedBy;
+		return orderedBy.toString();
 	}
-	
+	public String getfulfilledBy()
+	{
+		return fulfilledBy.toString();
+	}
 	public void setFulfilledBy(Supplier aSupplier)
 	{
 		fulfilledBy = aSupplier;
@@ -37,5 +40,15 @@ public class WarehouseOrder extends Order implements Serializable
 	public Supplier getFulfilledBy()
 	{
 		return fulfilledBy;
+	}
+
+	@Override
+	public String getPickupAddress() {
+		return fulfilledBy.getName();
+	}
+
+	@Override
+	public String getDeliveryAddress() {
+		return orderedBy.getLocation();
 	}
 }

@@ -17,8 +17,8 @@ public abstract class Account implements Serializable
 	private String username;
 	private String password;
 	private String email;
-	private int accountNum;
-	protected int accessLevel;
+	private Integer accountNum;
+	protected Integer accessLevel;
 	protected Department department;
 	protected Partner partner;
 
@@ -76,16 +76,16 @@ public abstract class Account implements Serializable
 		return password;
 	}
 	
-	public int getAccountNumber()
+	public Integer getAccountNumber()
 	{
 		return accountNum;
 	}
 	
-	public void setAccessLevel(int aLevel)
+	public void setAccessLevel(Integer aLevel)
 	{
 		accessLevel = aLevel;
 	}
-	public int getAccessLevel()
+	public Integer getAccessLevel()
 	{
 		return accessLevel;
 	}

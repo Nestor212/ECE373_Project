@@ -13,6 +13,7 @@ public class InventoryStaff extends Account implements Serializable
 		this.accessLevel = 20;
 		department = aStore;
 		partner = null;
+		aStore.addAccount(this);
 	}
 	
 	public InventoryStaff(Warehouse aWarehouse) 
@@ -20,6 +21,7 @@ public class InventoryStaff extends Account implements Serializable
 		this.accessLevel = 20;
 		department = aWarehouse;
 		partner = null;
+		aWarehouse.addAccount(this);
 	}
 		
 	public StoreOrder createStoreOrder(Warehouse aWH)

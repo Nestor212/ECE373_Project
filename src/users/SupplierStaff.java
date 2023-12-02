@@ -13,7 +13,8 @@ public class SupplierStaff extends Account implements Serializable
 	{
 		this.accessLevel = 40;
 		partner = aSupplier;
-		department = null;		
+		department = null;	
+		aSupplier.addAccount(this);
 	}
 
 	@Override

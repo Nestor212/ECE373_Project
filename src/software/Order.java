@@ -2,28 +2,31 @@ package software;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Random;
 
 import hardware.Item;
+import hardware.Transport;
 
 public abstract class Order implements Serializable 
 {
 	private static final long serialVersionUID = 630554898030262584L;
 	protected String orderIdentifier;
-	protected int orderNumber;
+	protected Integer orderNumber;
 	protected String orderStatus;
 	private ArrayList<Item> itemList;
-	private static int orderCount;
+	private Transport deliveredBy;
 	
 	public Order()
 	{
+		Random rand = new Random();
 		orderIdentifier = "unknown";
-		orderNumber = 1000 + orderCount;
+		orderNumber = rand.nextInt(1000);
 		orderStatus = "New Order";
 		itemList = new ArrayList<Item>();
-		orderCount++;
+		deliveredBy = null;
 	}
 	
-	public int getOrderNum()
+	public Integer getOrderNum()
 	{
 		return orderNumber;
 	}
@@ -79,6 +82,23 @@ public abstract class Order implements Serializable
 	
 	public String toString()
 	{
-		return (this.orderIdentifier +"-" + this.orderNumber + "                        " + this.orderStatus);
+		return (this.orderIdentifier +"-" + this.orderNumber);
 	}
+	
+	public void setDeliveredBy(Transport aTransport)
+	{
+		deliveredBy = aTransport;
+		orderStatus = "Delivery in progress";
+	}
+	
+	public Transport getDeliveredBy()
+	{
+		return deliveredBy;
+	}
+
+	public abstract String getOrderedBy();
+	public abstract String getfulfilledBy();
+	
+	public abstract String getPickupAddress();
+	public abstract String getDeliveryAddress();
 }

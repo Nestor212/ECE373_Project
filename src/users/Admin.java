@@ -18,6 +18,7 @@ public class Admin extends Account implements Serializable
 		this.accessLevel = 10;
 		department = aCorporate;
 		partner = null;
+		aCorporate.addAccount(this);
 	}
 
 	public Department getDepartment() 

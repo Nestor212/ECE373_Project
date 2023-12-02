@@ -370,7 +370,6 @@ public class AccountsFrame extends JFrame implements ActionListener
 						s1.setEmail(email.getText());
 						s1.setUsername(username.getText());
 						s1.setPassword(username.getText() + "temp");
-						session.company.getSupplierList().get(i).addAccount(s1);
 						
 		                clearArrays();
 		                populateAccounts();
@@ -439,7 +438,6 @@ public class AccountsFrame extends JFrame implements ActionListener
 						s1.setEmail(email.getText());
 						s1.setUsername(username.getText());
 						s1.setPassword(username.getText() + "temp");
-						session.company.getTransportList().get(i).addAccount(s1);
 								                
 		                clearArrays();
 		                populateAccounts();
@@ -507,7 +505,6 @@ public class AccountsFrame extends JFrame implements ActionListener
 						s1.setEmail(email.getText());
 						s1.setUsername(username.getText());
 						s1.setPassword(username.getText() + "temp");
-						session.company.getStoreList().get(i).addAccount(s1);
 								                
 		                clearArrays();
 		                populateAccounts();
@@ -575,7 +572,6 @@ public class AccountsFrame extends JFrame implements ActionListener
 						s1.setEmail(email.getText());
 						s1.setUsername(username.getText());
 						s1.setPassword(username.getText() + "temp");
-						session.company.getWarehouseList().get(i).addAccount(s1);
 								                
 		                clearArrays();
 		                populateAccounts();
@@ -632,7 +628,6 @@ public class AccountsFrame extends JFrame implements ActionListener
 				s1.setEmail(email.getText());
 				s1.setUsername(username.getText());
 				s1.setPassword(username.getText() + "temp");
-				session.company.getCorporateOffice().addAccount(s1);
 				
                 JOptionPane.showMessageDialog(null, "Account has been created. Temporary password is: " + username.getText() + "temp", "Success", JOptionPane.INFORMATION_MESSAGE);
                 

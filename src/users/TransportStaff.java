@@ -13,6 +13,7 @@ public class TransportStaff extends Account implements Serializable
 	{
 		this.accessLevel = 30;
 		partner = aTransport;
+		aTransport.addAccount(this);
 	}
 	
 	public void confirmPickup(Order aOrder)
