@@ -78,8 +78,8 @@ public class PartnerOrdersFrame extends JFrame implements ActionListener
 						orders.add(session.company.getWarehouseList().get(i).getOrders().get(j));
 						ordeNumLabels.add(new JLabel(session.company.getWarehouseList().get(i).getOrders().get(j).getOrderID()));
 						orderStatusLabels.add(new JLabel(session.company.getWarehouseList().get(i).getOrders().get(j).getOrderStatus()));
-						pickupFromLabels.add(new JLabel(session.company.getWarehouseList().get(i).getOrders().get(j).getPickupAddress()));
-						deliverToLabels.add(new JLabel(session.company.getWarehouseList().get(i).getOrders().get(j).getDeliveryAddress()));
+						pickupFromLabels.add(new JLabel(session.company.getWarehouseList().get(i).getOrders().get(j).getPickupAddressString()));
+						deliverToLabels.add(new JLabel(session.company.getWarehouseList().get(i).getOrders().get(j).getDeliveryAddressString()));
 						viewOrderButtons.add(new JButton("View"));
 					}
 				}

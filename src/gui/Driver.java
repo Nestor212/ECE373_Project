@@ -82,7 +82,7 @@ public class Driver
 		// Staff Account Created - Belongs to Warehouse 1
 		staff3 = new InventoryStaff(wh2);
 		staff3.setName("Michael West");
-		staff3.setUsername("whtest1");
+		staff3.setUsername("whtest2");
 		staff3.setPassword("test");
 		
 		// Supplier Staff Account Created - Belongs to Supplier

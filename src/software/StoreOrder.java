@@ -2,6 +2,7 @@ package software;
 
 import java.io.Serializable;
 
+import hardware.Department;
 import hardware.Store;
 import hardware.Warehouse;
 
@@ -24,7 +25,7 @@ public class StoreOrder extends Order implements Serializable
 	{
 		orderedBy = aStore; 
 	}
-	public String getOrderedBy()
+	public String getOrderedByString()
 	{
 		return orderedBy.toString();
 	}
@@ -33,19 +34,27 @@ public class StoreOrder extends Order implements Serializable
 	{
 		fulfilledBy = aWH;
 	}
-	public String getfulfilledBy()
+	public String getfulfilledByString()
 	{
 		return fulfilledBy.toString();
 	}
 
 	@Override
-	public String getPickupAddress() {
+	public String getPickupAddressString() {
 
 		return fulfilledBy.getLocation();
 	}
 
 	@Override
-	public String getDeliveryAddress() {
+	public String getDeliveryAddressString() {
 		return orderedBy.getLocation();
+	}
+
+	public Store getOrderedBy() {
+		return orderedBy;
+	}
+
+	public Warehouse getfulfilledBy() {
+		return fulfilledBy;
 	}
 }

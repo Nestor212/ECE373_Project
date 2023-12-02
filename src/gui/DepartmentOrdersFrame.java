@@ -13,6 +13,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import hardware.*;
 import software.Order;
+import software.StoreOrder;
+import software.WarehouseOrder;
 
 
 public class DepartmentOrdersFrame extends JFrame implements ActionListener
@@ -38,6 +40,9 @@ public class DepartmentOrdersFrame extends JFrame implements ActionListener
          
     JButton goBackButton = new JButton("Go Back");
     JButton newOrderButton = new JButton("New Order");
+    JButton recieveOrderButton = new JButton("Recieve Order");
+    Order receieveableOrder;
+
 
     ArrayList<Order> orders;
     ArrayList<JLabel> orderNumLabels;
@@ -84,10 +89,10 @@ public class DepartmentOrdersFrame extends JFrame implements ActionListener
 				switch(orders.get(i).getOrderIdentifier())
 				{
 					case("S"):
-						orderByToLabel.add(new JLabel(orders.get(i).getOrderedBy()));
+						orderByToLabel.add(new JLabel(orders.get(i).getOrderedByString()));
 						break;
 					case("WH"):
-						orderByToLabel.add(new JLabel(orders.get(i).getfulfilledBy()));
+						orderByToLabel.add(new JLabel(orders.get(i).getfulfilledByString()));
 						break;
 					default:
 						break;
@@ -109,7 +114,7 @@ public class DepartmentOrdersFrame extends JFrame implements ActionListener
 					orders.add(session.company.getWarehouseList().get(i).getOrders().get(j));
 					orderNumLabels.add(new JLabel(session.company.getWarehouseList().get(i).getOrders().get(j).getOrderID()));
 					orderStatusLabels.add(new JLabel(session.company.getWarehouseList().get(i).getOrders().get(j).getOrderStatus()));
-					orderByToLabel.add(new JLabel(session.company.getWarehouseList().get(i).getOrders().get(j).getOrderedBy()));
+					orderByToLabel.add(new JLabel(session.company.getWarehouseList().get(i).getOrders().get(j).getOrderedByString()));
 					viewOrderButtons.add(new JButton("View"));
 				}
 			}
@@ -271,8 +276,124 @@ public class DepartmentOrdersFrame extends JFrame implements ActionListener
 		}
 	}
 	
+	public void addToContainer(String page)
+	{
+		container.removeAll();
+		switch(page) 
+		{
+		case "NewOrder":
+			this.setSize(800, 720);
+			container.add(newOrderTitleLabel);
+			container.add(orderFromLabel);
+			container.add(goBackButton);		
+			container.add(orderFromComboBox);
+			container.add(orderFromButton);
+			break;
+		case "OrderHome":
+			this.setSize(getPreferredSize());
+	    	container.add(orderHomeTitleLabel);
+			container.add(orderNumberlabel);
+			container.add(orderStatuslabel);
+			container.add(orderedByTo);
+			container.add(newOrderButton);
+			
+			for(int i = 0; i < orderNumLabels.size(); i++) 
+			{
+				container.add(orderByToLabel.get(i));
+				container.add(orderNumLabels.get(i));
+				container.add(orderStatusLabels.get(i));
+				container.add(viewOrderButtons.get(i));
+			}
+			if(accountIdentifier.equals("WH") ||accountIdentifier.equals("C"))
+			{
+				// Add additional labels to container
+				container.add(placedOrdersLabel);	
+				container.add(recievedOrdersLabel);	
+				container.add(orderNumberlabel1);
+				container.add(orderStatuslabel1);
+				container.add(orderedBy);
+			}		
+			if(accountIdentifier.equals("C"))
+			{
+				container.remove(newOrderButton);
+			}
+			break;
+		case "DisplayInventory":
+			for(int i = 0; i < itemNameList.size(); i++)
+			{
+				container.add(itemNameList.get(i));
+				container.add(itemQtyList.get(i));
+				container.add(orderQty.get(i));
+			}
+			container.add(itemNameLabel);
+			container.add(availableQtyLabel);
+			container.add(desiredQtyLabel);
+			container.add(orderLabel);
+			container.add(submitOrderButton);
+			break; 
+		default:
+			break;
+		}
+		super.update(getGraphics());
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) 
+	{
+		for(int i = 0; i < viewOrderButtons.size(); i++)
+		{
+			if(e.getSource() == viewOrderButtons.get(i))
+			{
+				container.removeAll();
+				viewOrderPage(orders.get(i));
+				super.update(getGraphics());
+			}	
+		}			
+		if(e.getSource() == goBackButton)
+		{
+			//container.removeAll();
+			addToContainer("OrderHome");
+		}	
+		else if(e.getSource() == newOrderButton)
+		{
+			container.removeAll();
+			if(orderFromLabel == null)
+			{
+				newOrderPage();
+				super.update(getGraphics());
+			}
+			else
+			{
+				addToContainer("NewOrder");	
+			}
+		}
+		else if(e.getSource() == orderFromButton)
+		{
+			container.removeAll();
+			displayInventoryForOrder();
+			super.update(getGraphics());
+		}
+		else if (e.getSource() == submitOrderButton)
+		{
+			generateOrder();				
+		}
+		else if (e.getSource() == recieveOrderButton)
+		{
+			reciveveOrder(receieveableOrder);
+		}
+	}
+	
+	//************************ Action Methods ************************\\
+	
 	public void viewOrderPage(Order aOrder)
 	{	
+		if(aOrder.getOrderStatus().equals("Delivered"))
+		{
+			receieveableOrder = aOrder;
+			recieveOrderButton.setBounds(50, 600, 700, 30);
+			recieveOrderButton.addActionListener(this);
+			container.add(recieveOrderButton);
+		}
 		this.setSize(800, 720);
 		viewOrderTitleLabel = new JLabel("Order # " + aOrder.toString());
 		viewOrderTitleLabel.setBounds(50, 50, 1000, 30);
@@ -342,7 +463,7 @@ public class DepartmentOrdersFrame extends JFrame implements ActionListener
 	JLabel desiredQtyLabel;
 	
 	Warehouse aWH;
-	hardware.Supplier aSupp;
+	Supplier aSupp;
 			
 	public void displayInventoryForOrder()
 	{
@@ -421,67 +542,6 @@ public class DepartmentOrdersFrame extends JFrame implements ActionListener
 		addToContainer("DisplayInventory");
 	}
 	
-	public void addToContainer(String page)
-	{
-		switch(page) 
-		{
-		case "NewOrder":
-			this.setSize(800, 720);
-			container.add(newOrderTitleLabel);
-			container.add(orderFromLabel);
-			container.add(goBackButton);		
-			container.add(orderFromComboBox);
-			container.add(orderFromButton);
-			break;
-		case "OrderHome":
-			this.setSize(getPreferredSize());
-	    	container.add(orderHomeTitleLabel);
-			container.add(orderNumberlabel);
-			container.add(orderStatuslabel);
-			container.add(orderedByTo);
-			container.add(newOrderButton);
-			
-			for(int i = 0; i < orderNumLabels.size(); i++) 
-			{
-				container.add(orderByToLabel.get(i));
-				container.add(orderNumLabels.get(i));
-				container.add(orderStatusLabels.get(i));
-				container.add(viewOrderButtons.get(i));
-			}
-			if(accountIdentifier.equals("WH") ||accountIdentifier.equals("C"))
-			{
-				// Add additional labels to container
-				container.add(placedOrdersLabel);	
-				container.add(recievedOrdersLabel);	
-				container.add(orderNumberlabel1);
-				container.add(orderStatuslabel1);
-				container.add(orderedBy);
-			}		
-			if(accountIdentifier.equals("C"))
-			{
-				container.remove(newOrderButton);
-			}
-			break;
-		case "DisplayInventory":
-			for(int i = 0; i < itemNameList.size(); i++)
-			{
-				container.add(itemNameList.get(i));
-				container.add(itemQtyList.get(i));
-				container.add(orderQty.get(i));
-			}
-			container.add(itemNameLabel);
-			container.add(availableQtyLabel);
-			container.add(desiredQtyLabel);
-			container.add(orderLabel);
-			container.add(submitOrderButton);
-			break; 
-		default:
-			break;
-		}
-		super.update(getGraphics());
-	}
-	
-	
 	public void generateOrder()
 	{
 		ArrayList<Item> orderList = new ArrayList<Item>(orderQty.size());
@@ -550,45 +610,69 @@ public class DepartmentOrdersFrame extends JFrame implements ActionListener
 		}
 	}
 	
-	@Override
-	public void actionPerformed(ActionEvent e) 
+	public void reciveveOrder(Order aOrder)
 	{
-		for(int i = 0; i < viewOrderButtons.size(); i++)
+		System.out.println(	"RECIEVEING ORDER");
+		boolean itemDone = false;
+		switch(accountIdentifier)
 		{
-			if(e.getSource() == viewOrderButtons.get(i))
-			{
-				container.removeAll();
-				viewOrderPage(orders.get(i));
-				super.update(getGraphics());
-			}	
-		}			
-		if(e.getSource() == goBackButton)
-		{
-			container.removeAll();
-			addToContainer("OrderHome");
-		}	
-		else if(e.getSource() == newOrderButton)
-		{
-			container.removeAll();
-			if(orderFromLabel == null)
-			{
-				newOrderPage();
-				super.update(getGraphics());
-			}
-			else
-			{
-				addToContainer("NewOrder");	
-			}
+			case"S":
+				StoreOrder sOrder = (StoreOrder) aOrder;
+				for(int i = 0; i < sOrder.getItemList().size(); i++)
+				{
+					for(int j = 0; j < sOrder.getOrderedBy().getInventory().size(); j++)
+					{
+						if(sOrder.getItemList().get(i).getItemNum().equals(sOrder.getOrderedBy().getInventory().get(j).getItemNum()))
+						{
+							//Add Order Qty to Store Inventory Qty
+							System.out.println("Items equal");
+							sOrder.getOrderedBy().getInventory().get(j).addQty(sOrder.getItemList().get(i).getQty());
+							itemDone = true;
+						}
+						if(sOrder.getItemList().get(i).getItemNum().equals(sOrder.getfulfilledBy().getInventory().get(j).getItemNum()))
+						{
+							//Remove Order Qty from WH Inventory Qty
+							sOrder.getfulfilledBy().getInventory().get(j).addQty(-sOrder.getItemList().get(i).getQty());
+						}
+					}
+					//Add item New item to inventory
+					if(!itemDone)
+					{
+						System.out.println("Addint new item");
+						sOrder.getOrderedBy().addItemToInventory(sOrder.getItemList().get(i));	
+					}
+				}
+				break;
+			case "WH":
+				WarehouseOrder whOrder = (WarehouseOrder) aOrder;
+				for(int i = 0; i < whOrder.getItemList().size(); i++)
+				{
+					for(int j = 0; j < whOrder.getOrderedBy().getInventory().size(); j++)
+					{
+						if(whOrder.getItemList().get(i).getItemNum().equals(whOrder.getOrderedBy().getInventory().get(j).getItemNum()))
+						{
+							//Add Order Qty to Store Inventory Qty
+							whOrder.getOrderedBy().getInventory().get(j).addQty(whOrder.getItemList().get(i).getQty());
+							itemDone = true;
+						}
+						if(whOrder.getItemList().get(i).getItemNum().equals(whOrder.getfulfilledBy().getItemList().get(j).getItemNum()))
+						{
+							//Remove Order Qty from WH Inventory Qty
+							whOrder.getfulfilledBy().getItemList().get(j).addQty(-whOrder.getItemList().get(i).getQty());
+						}
+					}
+					//Add item New item to inventory
+					if(!itemDone)
+					{
+						whOrder.getOrderedBy().addItemToInventory(whOrder.getItemList().get(i));	
+					}
+				}
+
+				break;
+			default:
+				break;
 		}
-		else if(e.getSource() == orderFromButton)
-		{
-			container.removeAll();
-			displayInventoryForOrder();
-			super.update(getGraphics());
-		}
-		else if (e.getSource() == submitOrderButton)
-		{
-			generateOrder();				
-		}
+		aOrder.setOrderStatus("Complete");
+		setUniversalPageSettings();
 	}
 }

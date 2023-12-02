@@ -31,7 +31,8 @@ public class HomeFrame extends JFrame implements ActionListener
 	JButton ordersButton;
 	JButton ordersButton1;
 	JButton reportsButton;
-	JButton inventoryButton;
+	JButton departmentInventoryButton;
+	JButton supplyInventoryButton;
 	
 	JLabel homeTitle;
 	
@@ -82,7 +83,7 @@ public class HomeFrame extends JFrame implements ActionListener
     			break;
     		case 20: // Store/Warehouse Staff Account
     			homeTitle = new JLabel(session.sessionAccount.getDepartment().toString());
-    			inventoryButton = new JButton("Manage Inventory");
+    			departmentInventoryButton = new JButton("Manage Inventory");
     	    	ordersButton = new JButton("Manage Orders");
     	    	reportsButton = new JButton("Reports");
     			setInventoryStaffHomepage();
@@ -95,6 +96,7 @@ public class HomeFrame extends JFrame implements ActionListener
     			break;
     		case 40: // Supplier Account
     			homeTitle = new JLabel(session.sessionAccount.getPartner().toString());
+    			supplyInventoryButton = new JButton("Manage Inventory");
     	    	ordersButton1 = new JButton("Manage Orders");
     	    	reportsButton = new JButton("Reports");
     			setSupplierHomepage();
@@ -146,19 +148,19 @@ public class HomeFrame extends JFrame implements ActionListener
     public void setInventoryStaffHomepage()
     {
     	// Set item bounds
-    	inventoryButton.setBounds(300, 100, 200, 50);  
+    	departmentInventoryButton.setBounds(300, 100, 200, 50);  
     	ordersButton.setBounds(600, 100, 200, 50); 
         reportsButton.setBounds(900, 100, 200, 50);
         
         // Add items to container
 		container.add(ordersButton);
 		container.add(reportsButton);
-		container.add(inventoryButton);
+		container.add(departmentInventoryButton);
         
         // Add action events to relevant items
         ordersButton.addActionListener(this);
         reportsButton.addActionListener(this);
-        inventoryButton.addActionListener(this);
+        departmentInventoryButton.addActionListener(this);
     }
     
     public void setDriverHomepage()
@@ -179,14 +181,17 @@ public class HomeFrame extends JFrame implements ActionListener
     public void setSupplierHomepage()
     {
     	// Set item bounds
-        ordersButton1.setBounds(350, 100, 200, 50);  
-        reportsButton.setBounds(800, 100, 200, 50);
+    	supplyInventoryButton.setBounds(300, 100, 200, 50);  
+        ordersButton1.setBounds(600, 100, 200, 50);  
+        reportsButton.setBounds(900, 100, 200, 50);
         
         // Add items to container
+		container.add(supplyInventoryButton);
         container.add(ordersButton1);
         container.add(reportsButton);
         
         // Add action events to relevant items
+        supplyInventoryButton.addActionListener(this);
         ordersButton1.addActionListener(this);
         reportsButton.addActionListener(this);
     }
@@ -194,7 +199,6 @@ public class HomeFrame extends JFrame implements ActionListener
    	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-   		
 		if(e.getSource().equals(fileSave))
 		{
 			handleFileSave();	
@@ -259,13 +263,23 @@ public class HomeFrame extends JFrame implements ActionListener
             partnersFrame.setDefaultCloseOperation(PartnersFrame.DISPOSE_ON_CLOSE);
             partnersFrame.setResizable(true);  
 		}
-		else if(e.getSource() == inventoryButton)
+		else if(e.getSource() == departmentInventoryButton)
 		{
-            InventoryFrame inventoryFrame = new InventoryFrame(session);
+            DepartmentInventoryFrame inventoryFrame = new DepartmentInventoryFrame(session);
             inventoryFrame.setTitle("Inventory Manager - Arizona Incorporated");
             inventoryFrame.setVisible(true);
             inventoryFrame.setBounds(200, 100, 1152, 720);
-            inventoryFrame.setDefaultCloseOperation(InventoryFrame.DISPOSE_ON_CLOSE);
+            inventoryFrame.setDefaultCloseOperation(DepartmentInventoryFrame.DISPOSE_ON_CLOSE);
+            inventoryFrame.setResizable(true);  
+
+		}
+		else if(e.getSource() == supplyInventoryButton)
+		{
+			SupplyInventoryFrame inventoryFrame = new SupplyInventoryFrame(session);
+            inventoryFrame.setTitle("Inventory Manager - Arizona Incorporated");
+            inventoryFrame.setVisible(true);
+            inventoryFrame.setBounds(200, 100, 1152, 720);
+            inventoryFrame.setDefaultCloseOperation(DepartmentInventoryFrame.DISPOSE_ON_CLOSE);
             inventoryFrame.setResizable(true);  
 
 		}

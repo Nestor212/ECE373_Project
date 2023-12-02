@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 
-public class InventoryFrame extends JFrame implements ActionListener 
+public class DepartmentInventoryFrame extends JFrame implements ActionListener 
 {
 	private static final long serialVersionUID = -2465285598196994748L;
 	SupplyManagerGUI session;
@@ -30,7 +30,7 @@ public class InventoryFrame extends JFrame implements ActionListener
 	ArrayList<JLabel> retailPrices;
 	ArrayList<JLabel> supplierPrices;
 
-	public InventoryFrame(SupplyManagerGUI aSession)
+	public DepartmentInventoryFrame(SupplyManagerGUI aSession)
 	{      
 		session = aSession;
 		
@@ -47,9 +47,6 @@ public class InventoryFrame extends JFrame implements ActionListener
         setLocationAndSize();
         addComponentsToContainer();
         addActionEvent();
-        
-//		scrollPane = new JScrollPane(container);   
-//		scrollPane.setVisible(true);
     }
 	
 	public void populateInventoryArray()

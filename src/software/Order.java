@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
+import hardware.Department;
 import hardware.Item;
+import hardware.Partner;
 import hardware.Transport;
 
 public abstract class Order implements Serializable 
@@ -95,10 +97,10 @@ public abstract class Order implements Serializable
 	{
 		return deliveredBy;
 	}
-
-	public abstract String getOrderedBy();
-	public abstract String getfulfilledBy();
 	
-	public abstract String getPickupAddress();
-	public abstract String getDeliveryAddress();
+	public abstract String getOrderedByString();
+	public abstract String getfulfilledByString();
+	
+	public abstract String getPickupAddressString();
+	public abstract String getDeliveryAddressString();
 }

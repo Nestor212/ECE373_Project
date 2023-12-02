@@ -2,24 +2,24 @@ package hardware;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
+import java.util.Random;
 
 public class Item implements Serializable
 {
 	private static final long serialVersionUID = 2836030970999633739L;
 	private String name;
-	private int itemNum;
-	private double retailPrice;
-	private double supplierPrice;
-	private int qty;
-	private static int count;
+	private Integer itemNum;
+	private Double retailPrice;
+	private Double supplierPrice;
+	private Integer qty;
+	Random rand = new Random();
 	
 	DecimalFormat priceFormat = new DecimalFormat("#.00");
 	
 	public Item()
 	{
 		name = "unknown";
-		itemNum = count;
-		count++;
+		itemNum = rand.nextInt(50000);
 		retailPrice = 0.00;
 		supplierPrice = 0.00;
 		qty = 0;
@@ -28,8 +28,7 @@ public class Item implements Serializable
 	public Item(String aName, double aRetailPrice, double aSupplierPrice, int qtyOnHand)
 	{
 		name = aName;
-		itemNum = count;
-		count++;
+		itemNum = rand.nextInt(50000);
 		retailPrice = aRetailPrice;
 		supplierPrice = aSupplierPrice;
 		qty = qtyOnHand;
@@ -53,12 +52,12 @@ public class Item implements Serializable
 		return name;
 	}
 	
-	public int getItemNum()
+	public Integer getItemNum()
 	{
 		return itemNum;
 	}
 	
-	public void setRetailPrice(double aPrice)
+	public void setRetailPrice(Double aPrice)
 	{
 		retailPrice = aPrice;
 	}
@@ -67,7 +66,7 @@ public class Item implements Serializable
 		return priceFormat.format(retailPrice);
 	}
 	
-	public void setSupplierPrice(double aPrice)
+	public void setSupplierPrice(Double aPrice)
 	{
 		supplierPrice = aPrice;
 	}
@@ -76,16 +75,22 @@ public class Item implements Serializable
 		return priceFormat.format(supplierPrice);
 	}
 	
-	public void setQty(int aNum)
+	public void addQty(Integer aNum)
+	{
+		qty = qty + aNum;
+	}
+	
+	public void setQty(Integer aNum)
 	{
 		qty = aNum;
 	}
-	public int getQty()
+	
+	public Integer getQty()
 	{
 		return qty;
 	}
 	
-	public Item cloneItem(int aQty)
+	public Item cloneItem(Integer aQty)
 	{
 		Item itemClone = new Item(this.itemNum, this.name, this.retailPrice, this.supplierPrice, aQty); 	
 		return itemClone;
