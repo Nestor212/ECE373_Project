@@ -259,7 +259,60 @@ public class PartnerOrdersFrame extends JFrame implements ActionListener
 		container.removeAll();
 		this.setSize(800, 720);
 		
-		 tempOrder = aOrder;
+		viewOrderTitleLabel = new JLabel("Order # " + aOrder.toString());
+		viewOrderTitleLabel.setBounds(50, 50, 1000, 30);
+		viewOrderTitleLabel.setFont(new Font("Lucida", Font.BOLD, 22));
+    	container.add(viewOrderTitleLabel);
+		container.add(goBackButton);	
+		
+		JLabel itemNumLabel = new JLabel("Item Number");
+		JLabel itemNameLabel = new JLabel("Name");
+		JLabel QtyLabel = new JLabel("Qty");
+		JLabel retailPriceLabel = new JLabel("Retail Price");
+		JLabel supplierPriceLabel = new JLabel("Supplier Price");
+		
+    	itemNumLabel.setBounds(50, 80,  200, 20);
+    	itemNumLabel.setFont(new Font("Lucida", Font.BOLD, 18));
+        container.add(itemNumLabel);
+    	itemNameLabel.setBounds(200, 80,  200, 20);
+    	itemNameLabel.setFont(new Font("Lucida", Font.BOLD, 18));
+        container.add(itemNameLabel);
+    	QtyLabel.setBounds(300, 80,  200, 20);
+    	QtyLabel.setFont(new Font("Lucida", Font.BOLD, 18));
+        container.add(QtyLabel);
+    	retailPriceLabel.setBounds(450, 80,  200, 20);
+    	retailPriceLabel.setFont(new Font("Lucida", Font.BOLD, 18));
+        container.add(retailPriceLabel);
+    	supplierPriceLabel.setBounds(600, 80,  200, 20);
+    	supplierPriceLabel.setFont(new Font("Lucida", Font.BOLD, 18));
+        container.add(supplierPriceLabel);
+		
+		ArrayList<JLabel> itemNumbers = new ArrayList<JLabel>(100);
+		ArrayList<JLabel> itemNames = new ArrayList<JLabel>(100);
+		ArrayList<JLabel> itemQtys = new ArrayList<JLabel>(100);
+		ArrayList<JLabel> retailPrices = new ArrayList<JLabel>(100);
+		ArrayList<JLabel> supplierPrices = new ArrayList<JLabel>(100);
+		
+		for(int i = 0; i < aOrder.getItemList().size();i++)
+		{
+			itemNumbers.add(new JLabel(String.valueOf(aOrder.getItemList().get(i).getItemNum())));
+			itemNumbers.get(i).setBounds(50, (i * 20) + 100,  600, 20);
+	        container.add(itemNumbers.get(i));
+			itemNames.add(new JLabel(aOrder.getItemList().get(i).getName()));
+			itemNames.get(i).setBounds(200, (i * 20) + 100,  600, 20);
+	        container.add(itemNames.get(i));
+			itemQtys.add(new JLabel(String.valueOf(aOrder.getItemList().get(i).getQty())));
+			itemQtys.get(i).setBounds(350, (i * 20) + 100,  600, 20);
+	        container.add(itemQtys.get(i));
+			retailPrices.add(new JLabel("$" + aOrder.getItemList().get(i).getRetailPrice()));
+			retailPrices.get(i).setBounds(450, (i * 20) + 100,  600, 20);
+	        container.add(retailPrices.get(i));
+			supplierPrices.add(new JLabel("$" + aOrder.getItemList().get(i).getSupplierPrice()));
+	    	supplierPrices.get(i).setBounds(600, (i * 20) + 100,  200, 20);
+	        container.add(supplierPrices.get(i));
+		}
+		
+		tempOrder = aOrder;
 		if(session.sessionAccount.getAccessLevel().equals(30))
 		{
 			if(aOrder.getOrderStatus().equals("Awaiting Pickup"))
@@ -278,22 +331,7 @@ public class PartnerOrdersFrame extends JFrame implements ActionListener
 				 container.add(fulfillOrderButton);
 			}	
 		}
-
-		viewOrderTitleLabel = new JLabel("Order # " + aOrder.toString());
-		viewOrderTitleLabel.setBounds(50, 50, 1000, 30);
-		viewOrderTitleLabel.setFont(new Font("Lucida", Font.BOLD, 22));
 		
-		ArrayList<JLabel> orderItems = new ArrayList<JLabel>(aOrder.getItemList().size());
-		
-		for(int i = 0; i < aOrder.getItemList().size();i++)
-		{
-			orderItems.add(new JLabel(aOrder.getItemList().get(i).toString()));
-			orderItems.get(i).setBounds(50, (i * 20) + 100,  600, 20);
-			container.add(orderItems.get(i));
-		}
-		
-    	container.add(viewOrderTitleLabel);
-		container.add(goBackButton);	
 		super.update(getGraphics());
 	}
 	

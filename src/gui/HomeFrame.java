@@ -296,7 +296,7 @@ public class HomeFrame extends JFrame implements ActionListener
 		        LoginFrame loginFrame = new LoginFrame(session);
 		        loginFrame.setTitle("Login - Arizona Incorporated");
 		        loginFrame.setVisible(true);
-		        loginFrame.setBounds(600, 200, 370, 600);
+		        loginFrame.setBounds(600, 200, 370, 500);
 		        loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		        loginFrame.setResizable(false);
 	        }

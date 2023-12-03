@@ -91,26 +91,6 @@ public class DepartmentInventoryFrame extends JFrame implements ActionListener
 		}
     }
     
-    public void addComponentsToSP() 
-    {
-    	//container.add(sb);
-    	scrollPane.add(titleLabel);
-    	scrollPane.add(itemNumLabel);
-    	scrollPane.add(itemNameLabel);
-    	scrollPane.add(QtyLabel);
-    	scrollPane.add(supplierPriceLabel);
-    	scrollPane.add(retailPriceLabel);
-        
-		for(int i = 0; i < session.sessionAccount.getDepartment().getInventory().size(); i++)
-		{
-			scrollPane.add(itemNumbers.get(i));
-			scrollPane.add(itemNames.get(i));
-			scrollPane.add(itemQtys.get(i));
-			scrollPane.add(retailPrices.get(i));
-			scrollPane.add(supplierPrices.get(i));	
-		}
-    }
-    
     public void addComponentsToContainer() 
     {
     	//container.add(sb);
