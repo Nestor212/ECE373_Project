@@ -41,6 +41,8 @@ public class DepartmentOrdersFrame extends JFrame implements ActionListener
     JButton goBackButton = new JButton("Go Back");
     JButton newOrderButton = new JButton("New Order");
     JButton recieveOrderButton = new JButton("Recieve Order");
+    JButton fulfillOrderButton = new JButton("Fulfill Order");
+
     Order receieveableOrder;
 
 
@@ -58,6 +60,11 @@ public class DepartmentOrdersFrame extends JFrame implements ActionListener
 		
 	    goBackButton.setBounds(JButton.RIGHT, JButton.SOUTH, 80, 20);
 	    goBackButton.addActionListener(this);
+	    
+		recieveOrderButton.setBounds(50, 600, 700, 30);
+		recieveOrderButton.addActionListener(this);
+		fulfillOrderButton.setBounds(50, 600, 700, 30);
+		fulfillOrderButton.addActionListener(this);
 		
         setLayoutManager(); 
 		setUniversalPageSettings();
@@ -381,19 +388,39 @@ public class DepartmentOrdersFrame extends JFrame implements ActionListener
 		{
 			reciveveOrder(receieveableOrder);
 		}
+		else if (e.getSource() == fulfillOrderButton)
+		{
+			handleFulfill(receieveableOrder);
+		}
 	}
 	
 	//************************ Action Methods ************************\\
 	
 	public void viewOrderPage(Order aOrder)
 	{	
-		if(aOrder.getOrderStatus().equals("Delivered"))
+		receieveableOrder = aOrder;
+		switch(accountIdentifier)
 		{
-			receieveableOrder = aOrder;
-			recieveOrderButton.setBounds(50, 600, 700, 30);
-			recieveOrderButton.addActionListener(this);
-			container.add(recieveOrderButton);
+			case "S":				
+				if(aOrder.getOrderStatus().equals("Delivered"))
+				{
+					container.add(recieveOrderButton);
+				}
+				break;
+			case "WH":
+				if(aOrder.getOrderStatus().equals("Delivered") && aOrder.getOrderIdentifier().equals("WH"))
+				{
+					container.add(recieveOrderButton);
+				}
+				else if(aOrder.getOrderStatus().equals("Awaiting Fulfillment") && aOrder.getOrderIdentifier().equals("S"))
+				{
+					container.add(fulfillOrderButton);
+				}
+				break;
+			default:
+				break;
 		}
+
 		this.setSize(800, 720);
 		viewOrderTitleLabel = new JLabel("Order # " + aOrder.toString());
 		viewOrderTitleLabel.setBounds(50, 50, 1000, 30);
@@ -612,7 +639,6 @@ public class DepartmentOrdersFrame extends JFrame implements ActionListener
 	
 	public void reciveveOrder(Order aOrder)
 	{
-		System.out.println(	"RECIEVEING ORDER");
 		boolean itemDone = false;
 		switch(accountIdentifier)
 		{
@@ -620,12 +646,12 @@ public class DepartmentOrdersFrame extends JFrame implements ActionListener
 				StoreOrder sOrder = (StoreOrder) aOrder;
 				for(int i = 0; i < sOrder.getItemList().size(); i++)
 				{
+					itemDone = false;
 					for(int j = 0; j < sOrder.getOrderedBy().getInventory().size(); j++)
 					{
 						if(sOrder.getItemList().get(i).getItemNum().equals(sOrder.getOrderedBy().getInventory().get(j).getItemNum()))
 						{
 							//Add Order Qty to Store Inventory Qty
-							System.out.println("Items equal");
 							sOrder.getOrderedBy().getInventory().get(j).addQty(sOrder.getItemList().get(i).getQty());
 							itemDone = true;
 						}
@@ -638,8 +664,7 @@ public class DepartmentOrdersFrame extends JFrame implements ActionListener
 					//Add item New item to inventory
 					if(!itemDone)
 					{
-						System.out.println("Addint new item");
-						sOrder.getOrderedBy().addItemToInventory(sOrder.getItemList().get(i));	
+						sOrder.getOrderedBy().addItemToInventory(sOrder.getItemList().get(i).cloneItem(sOrder.getItemList().get(i).getQty()));	
 					}
 				}
 				break;
@@ -647,6 +672,7 @@ public class DepartmentOrdersFrame extends JFrame implements ActionListener
 				WarehouseOrder whOrder = (WarehouseOrder) aOrder;
 				for(int i = 0; i < whOrder.getItemList().size(); i++)
 				{
+					itemDone = false;
 					for(int j = 0; j < whOrder.getOrderedBy().getInventory().size(); j++)
 					{
 						if(whOrder.getItemList().get(i).getItemNum().equals(whOrder.getOrderedBy().getInventory().get(j).getItemNum()))
@@ -664,15 +690,35 @@ public class DepartmentOrdersFrame extends JFrame implements ActionListener
 					//Add item New item to inventory
 					if(!itemDone)
 					{
-						whOrder.getOrderedBy().addItemToInventory(whOrder.getItemList().get(i));	
+						whOrder.getOrderedBy().addItemToInventory(whOrder.getItemList().get(i).cloneItem(whOrder.getItemList().get(i).getQty()));
 					}
 				}
-
 				break;
 			default:
 				break;
 		}
 		aOrder.setOrderStatus("Complete");
+        JOptionPane.showMessageDialog(this, "Order has been recieved.");
+		setUniversalPageSettings();
+	}
+	
+	public void handleFulfill(Order aOrder)
+	{
+		StoreOrder whOrder = (StoreOrder) aOrder;
+		for(int i = 0; i < whOrder.getItemList().size(); i++)
+		{
+			for(int j = 0; j < whOrder.getfulfilledBy().getInventory().size(); j++)
+			{
+				if(whOrder.getItemList().get(i).getItemNum().equals(whOrder.getfulfilledBy().getInventory().get(j).getItemNum()))
+				{
+					//Remove Order Qty from WH Inventory Qty
+					whOrder.getfulfilledBy().getInventory().get(j).addQty(-whOrder.getItemList().get(i).getQty());
+				}
+			}
+
+		}
+        aOrder.setOrderStatus("Awaiting Pickup");
+        JOptionPane.showMessageDialog(this, "Order has been fulfilled.");
 		setUniversalPageSettings();
 	}
 }

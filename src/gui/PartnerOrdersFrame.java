@@ -8,8 +8,11 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
+import hardware.Transport;
 import software.Order;
+import software.WarehouseOrder;
 
 public class PartnerOrdersFrame extends JFrame implements ActionListener
 {
@@ -26,6 +29,11 @@ public class PartnerOrdersFrame extends JFrame implements ActionListener
     JLabel deliverToLabel = new JLabel("Deliver To");
          
     JButton goBackButton;
+    JButton confirmPickupButton = new JButton("Confirm Pick Up");
+    JButton confirmDeliveryButton = new JButton("Confirm Delivery");
+    JButton fulfillOrderButton = new JButton("Fulfill Order");
+
+    Order tempOrder;
 
     ArrayList<Order> orders;
     ArrayList<JLabel> ordeNumLabels;
@@ -41,6 +49,13 @@ public class PartnerOrdersFrame extends JFrame implements ActionListener
 	    goBackButton = new JButton("Go Back");
 	    goBackButton.setBounds(JButton.RIGHT, JButton.SOUTH, 80, 20);
 	    goBackButton.addActionListener(this);
+	    
+		confirmPickupButton.setBounds(50, 600, 700, 30);
+		confirmPickupButton.addActionListener(this);
+		confirmDeliveryButton.setBounds(50, 600, 700, 30);
+		confirmDeliveryButton.addActionListener(this);
+		fulfillOrderButton.setBounds(50, 600, 700, 30);
+		fulfillOrderButton.addActionListener(this);
 		
         setLayoutManager(); 
 	    populateArrays();
@@ -225,12 +240,45 @@ public class PartnerOrdersFrame extends JFrame implements ActionListener
 		    populateArrays();
 			setUniversalPageSettings();
 		}	
+		if(e.getSource() == confirmPickupButton)
+		{
+			handlePickup(tempOrder);
+		}	
+		if(e.getSource() == confirmDeliveryButton)
+		{
+			handleDeliver(tempOrder);
+		}	
+		if(e.getSource() == fulfillOrderButton)
+		{
+			handleFulfill(tempOrder);
+		}	
 	}
 	
 	public void viewOrderPage(Order aOrder)
 	{	
 		container.removeAll();
 		this.setSize(800, 720);
+		
+		 tempOrder = aOrder;
+		if(session.sessionAccount.getAccessLevel().equals(30))
+		{
+			if(aOrder.getOrderStatus().equals("Awaiting Pickup"))
+			{
+				 container.add(confirmPickupButton);
+			}		
+			else if(aOrder.getOrderStatus().equals("Delivery in progress"))
+			{
+				 container.add(confirmDeliveryButton);
+			}	
+		}
+		else if(session.sessionAccount.getAccessLevel().equals(40))
+		{
+			if(aOrder.getOrderStatus().equals("Awaiting Fulfillment"))
+			{
+				 container.add(fulfillOrderButton);
+			}	
+		}
+
 		viewOrderTitleLabel = new JLabel("Order # " + aOrder.toString());
 		viewOrderTitleLabel.setBounds(50, 50, 1000, 30);
 		viewOrderTitleLabel.setFont(new Font("Lucida", Font.BOLD, 22));
@@ -247,6 +295,40 @@ public class PartnerOrdersFrame extends JFrame implements ActionListener
     	container.add(viewOrderTitleLabel);
 		container.add(goBackButton);	
 		super.update(getGraphics());
+	}
+	
+	public void handlePickup(Order aOrder)
+	{
+		aOrder.setDeliveredBy( (Transport) session.sessionAccount.getPartner());
+		aOrder.setOrderStatus("Delivery in progress");
+        JOptionPane.showMessageDialog(this, "Order has been picked up.");
+        viewOrderPage(aOrder);
+	}
+	
+	public void handleDeliver(Order aOrder)
+	{
+		aOrder.setOrderStatus("Delivered");
+        JOptionPane.showMessageDialog(this, "Order has been delivered.");
+        viewOrderPage(aOrder);
+	}
+	
+	public void handleFulfill(Order aOrder)
+	{
+		WarehouseOrder whOrder = (WarehouseOrder) aOrder;
+		for(int i = 0; i < whOrder.getItemList().size(); i++)
+		{
+			for(int j = 0; j < whOrder.getfulfilledBy().getItemList().size(); j++)
+			{
+				if(whOrder.getItemList().get(i).getItemNum().equals(whOrder.getfulfilledBy().getItemList().get(j).getItemNum()))
+				{
+					//Remove Order Qty from WH Inventory Qty
+					whOrder.getfulfilledBy().getItemList().get(j).addQty(-whOrder.getItemList().get(i).getQty());
+				}
+			}
 
+		}
+        aOrder.setOrderStatus("Awaiting Pickup");
+        JOptionPane.showMessageDialog(this, "Order has been fulfilled.");
+        viewOrderPage(aOrder);
 	}
 }

@@ -23,7 +23,7 @@ public abstract class Order implements Serializable
 		Random rand = new Random();
 		orderIdentifier = "unknown";
 		orderNumber = rand.nextInt(1000);
-		orderStatus = "New Order";
+		orderStatus = "Awaiting Fulfillment";
 		itemList = new ArrayList<Item>();
 		deliveredBy = null;
 	}

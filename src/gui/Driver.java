@@ -116,7 +116,7 @@ public class Driver
 		
 		//Create new store orders
 		StoreOrder order1 = staff1.createStoreOrder(wh1);
-		order1.setOrderStatus("New Order");
+		order1.setOrderStatus("Awaiting Fulfillment");
 		
 		StoreOrder order2 = staff1.createStoreOrder(wh1);
 		order2.setOrderStatus("Awaiting Pickup");
@@ -126,7 +126,7 @@ public class Driver
 
 		// Create new warehouse orders
 		WarehouseOrder whorder1 = staff2.createWarehouseOrder(TaraManufacturing);
-		whorder1.setOrderStatus("Fulfillment in progress");	
+		whorder1.setOrderStatus("Awaiting Fulfillment");	
 		
 		WarehouseOrder whorder2 = staff3.createWarehouseOrder(TaraManufacturing);
 		whorder2.setOrderStatus("Delivery in progress");
