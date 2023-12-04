@@ -3,11 +3,23 @@ package software;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
-
-import hardware.Department;
 import hardware.Item;
-import hardware.Partner;
 import hardware.Transport;
+
+
+/* Class Description
+ * Order class is the is associated with Stores, Warehouses, Suppliers and Transport.
+ * Orders are created by Stores or Warehouses & fulfilled by Warehouses or Suppliers. 
+ * Orders are transported by a transport object. 
+ * Orders represent an inventory transaction across system objects. 
+ * 
+ * Orders will have any one of the following statuses at any given time:
+ * 1) Awaiting Fulfillment
+ * 2) Awaiting Pickup
+ * 3) Delivery in progress
+ * 4) Delivered
+ * 5) Complete
+ */
 
 public abstract class Order implements Serializable 
 {
@@ -27,6 +39,8 @@ public abstract class Order implements Serializable
 		itemList = new ArrayList<Item>();
 		deliveredBy = null;
 	}
+	
+/************* Basic Getter and Setter Methods *************/
 	
 	public Integer getOrderNum()
 	{
@@ -98,6 +112,9 @@ public abstract class Order implements Serializable
 		return deliveredBy;
 	}
 	
+	
+/****************** Abstract Methods ******************/
+
 	public abstract String getOrderedByString();
 	public abstract String getfulfilledByString();
 	

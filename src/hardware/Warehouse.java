@@ -4,6 +4,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
+/* Class Description
+ * Warehouse extends department. These objects represent physical warehouse locations
+ * where a large amount of inventory is displayed, and sold. 
+ * 
+ *  Warehouses replenish their inventory from Suppliers.
+ *  Warehouses provide inventory to any number of Stores. 
+ */
+
 public class Warehouse extends Department implements Serializable 
 {
 	private static final long serialVersionUID = -6698773854835608666L;
@@ -13,9 +21,11 @@ public class Warehouse extends Department implements Serializable
 	{
 		Random rand = new Random();
 		inventory = new ArrayList<Item>();
-		identifier = "WH";
-		idNum = rand.nextInt(10000);
+		identifier = "WH"; // Unique Warehouse object identifier, for simplifying interactions with Department objects.
+		idNum = rand.nextInt(10000); // Random ID number is generated to represent this store. Eventually ID's will be sequential and tracked. 
 	}
+	
+/************* Inventory Management Methods *************/
 	
 	public void addItemToInventory(Item aItem)
 	{

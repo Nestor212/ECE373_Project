@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import hardware.*;
 import users.*;
 
-/*
- * Client creates data for the system to utilize. 
+/* Class Description
+ * Driver creates data for the system to utilize. 
  * Run this once to instantiate system data, 
- * then SupplyManagerDriver.java can be used to load the saved data.
+ * then 'SupplyManagerClient.java' can be used to load the saved data.
  */
 
 public class Driver 
@@ -17,82 +17,65 @@ public class Driver
 	
 	public static void main(String[] args)
 	{	
-		Company ArizonaInc;
-		Store s1;
-		Warehouse wh1;
-		Warehouse wh2;
-		Corporate c1;
+		// Create Company
+		Company ArizonaInc = new Company("ArizonaInc");
 		
-		Supplier TaraManufacturing;
-		Transport MohammedFreight;
-		
-		// User Accounts
-		Admin master;
-		InventoryStaff staff1;
-		InventoryStaff staff2;
-		InventoryStaff staff3;
-		SupplierStaff supplyStaff1;
-		TransportStaff transportStaff1;
-		
-		ArizonaInc = new Company();
-		
-		c1 = new Corporate();
+		// Create Departments
+		Corporate c1 = new Corporate();
 		c1.setLocation("Some Address, New York NY");
-		
-		s1 = new Store();
+		Store s1 = new Store();
 		s1.setLocation("Some Address, Tucson AZ");	
-		
-		wh1 = new Warehouse();
+		Warehouse wh1 = new Warehouse();
 		wh1.setLocation("Some Address, Phoenix AZ");
-		
-		wh2 = new Warehouse();
+		Warehouse wh2 = new Warehouse();
 		wh2.setLocation("Some Address, Dallas TX");
-
-		TaraManufacturing = new Supplier();
-		TaraManufacturing.setName("Tara Manufacturing");
 		
-		MohammedFreight = new Transport();
+		// Create Partners
+		Supplier TaraManufacturing = new Supplier();
+		TaraManufacturing.setName("Tara Manufacturing");
+		Transport MohammedFreight = new Transport();
 		MohammedFreight.setName("Mohammed Freight");
-				
+		
+		// Add Departments and Partners to Company lists
 		ArizonaInc.setCorporateoffice(c1);
 		ArizonaInc.addStore(s1);
 		ArizonaInc.addWarehouse(wh1);
 		ArizonaInc.addWarehouse(wh2);
 		ArizonaInc.addSupplier(TaraManufacturing);
 		ArizonaInc.addTransport(MohammedFreight);
-				
+			
 		// Admin Account Created - Belongs to Corporate
-		master = new Admin(c1);
+		Admin master = new Admin(c1);
 		master.setName("Nestor Garcia");
 		master.setUsername("master");
 		master.setPassword("test");
 		
 		// Staff Account Created - Belongs to Store
-		staff1 = new InventoryStaff(s1);
+		InventoryStaff staff1 = new InventoryStaff(s1);
 		staff1.setName("John Doe");
 		staff1.setUsername("storetest");
 		staff1.setPassword("test");
 		
 		// Staff Account Created - Belongs to Warehouse 1
-		staff2 = new InventoryStaff(wh1);
+		InventoryStaff staff2 = new InventoryStaff(wh1);
 		staff2.setName("Jane Doe");
 		staff2.setUsername("whtest1");
 		staff2.setPassword("test");
 		
-		// Staff Account Created - Belongs to Warehouse 1
-		staff3 = new InventoryStaff(wh2);
+		// Staff Account Created - Belongs to Warehouse 2
+		InventoryStaff staff3 = new InventoryStaff(wh2);
 		staff3.setName("Michael West");
 		staff3.setUsername("whtest2");
 		staff3.setPassword("test");
 		
 		// Supplier Staff Account Created - Belongs to Supplier
-		supplyStaff1 = new SupplierStaff(TaraManufacturing);
+		SupplierStaff supplyStaff1 = new SupplierStaff(TaraManufacturing);
 		supplyStaff1.setName("Tom Smith");
 		supplyStaff1.setUsername("supplytest");
 		supplyStaff1.setPassword("test");
 		
 		// Transport Staff Account Created - Belongs to Transport
-		transportStaff1 = new TransportStaff(MohammedFreight);
+		TransportStaff transportStaff1 = new TransportStaff(MohammedFreight);
 		transportStaff1.setName("Andrew Jones");
 		transportStaff1.setUsername("transporttest");
 		transportStaff1.setPassword("test");
@@ -101,7 +84,6 @@ public class Driver
 		TaraManufacturing.addItems(generateItems(6, 1200));
 
 		// Add to Store Inventory
-		
 		for(int i = 0; i < TaraManufacturing.getItemList().size(); i++)
 		{
 			// Add to store inventory
@@ -129,8 +111,7 @@ public class Driver
 		whorder1.setOrderStatus("Awaiting Fulfillment");	
 		
 		WarehouseOrder whorder2 = staff3.createWarehouseOrder(TaraManufacturing);
-		whorder2.setOrderStatus("Delivery in progress");
-		whorder2.setDeliveredBy(MohammedFreight);
+		MohammedFreight.confirmPickup(whorder2);;
 
 		for(int i = 0; i < s1.getInventory().size(); i = i + 2)
 		{
@@ -142,14 +123,16 @@ public class Driver
 			// Add to warehouse orders
 			whorder1.addItemToOrder(wh1.getInventory().get(i).cloneItem(20));
 			whorder2.addItemToOrder(wh2.getInventory().get(i).cloneItem(40));		
-		}	
+		}
 		
+		// Save Company data created by this driver.
 		Company.saveData(ArizonaInc);
 		
+		// Instantiate a session of the GUI 
 		SupplyManagerGUI session = new SupplyManagerGUI();
 	}	
 	
-	
+	// Generate a list of random predefined items for testing
 	public static ArrayList<Item> generateItems(int numItems, int qtyEA)
 	{
 		ArrayList<Item> virtualItems = new ArrayList<Item>(20); 
@@ -168,7 +151,6 @@ public class Driver
 			Item item3 = new Item(itemName3, 40.99 + i, 9.99 + i, qtyEA + i);
 			virtualItems.add(item3);
 		}
-		
 		return virtualItems;
 	}
 }

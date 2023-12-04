@@ -8,6 +8,19 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+/* Class Description
+ * Home Frame is main window for the user. 
+ * This window tailors the layout and functions based on the account type,
+ * which is defined by the session.account access level. 
+ * 
+ * Main buttons displayed instantiate a new Frame found in the GUI package, 
+ * that pertains to button description. (ex. 'Reports' button instantiates 'ReportsFrame.java')
+ * 
+ * If home frame is exited or closed the entire system is saved and closed. 
+ * 
+ * All other frames windows will be discarded when exited, and home Frame will remain.  
+ */
+
 public class HomeFrame extends JFrame implements ActionListener 
 { 
 	private static final long serialVersionUID = 9195283884703151569L;

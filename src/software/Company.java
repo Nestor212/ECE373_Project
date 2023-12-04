@@ -17,25 +17,36 @@ import hardware.Transport;
 import hardware.Warehouse;
 import users.Account;
 
+/* Class Description
+ * This class is a representation of the company at the top level. 
+ * It can have any number of stores and warehouse objects, partners, however,
+ * it will only have one corporate object at any given time. 
+ * 
+ * All system information is associated back to this company object and therefore, 
+ * can be extracted and manipulated through this object.
+ */
+
 public class Company implements Serializable 
 {
 	private static final long serialVersionUID = -5713405951321122768L;
-	private String name;
-	private ArrayList<Store> storeList;
-	private ArrayList<Warehouse> warehouseList;
-	private ArrayList<Supplier> supplierList;
-	private ArrayList<Transport> transportList;
-	private Corporate corporateOffice;
+	private String name; // Name of the company
+	private ArrayList<Store> storeList; // List of all the store objects in the company
+	private ArrayList<Warehouse> warehouseList; // List of all the warehouse objects in the company
+	private ArrayList<Supplier> supplierList; // List of all the supplier objects in the company
+	private ArrayList<Transport> transportList; // List of all the transport objects in the company
+	private Corporate corporateOffice; // The corporate office associated with this company.
 	
-	public Company()
+	public Company(String companyName)
 	{
-		name = "unknown";
+		name = companyName;
 		storeList = new ArrayList<Store>();
 		warehouseList = new ArrayList<Warehouse>();
 		supplierList = new ArrayList<Supplier>();
 		transportList = new ArrayList<Transport>();
 		corporateOffice = new Corporate();
 	}
+
+/************* Basic Getter and Setter Methods *************/
 	
 	public void setname(String aName)
 	{
@@ -114,22 +125,12 @@ public class Company implements Serializable
 	{
 		transportList.remove(aTransport);
 	}
-	public Transport findTransport(String aName)
-	{
-		for(int i = 0; i < transportList.size(); i++)
-		{
-			if(transportList.get(i).getName() == aName)
-			{
-				return transportList.get(i);
-			}
-		}
-		System.out.println("Transport: " + aName + " not found.");
-		return null;
-	}
 	public ArrayList<Transport> getTransportList()
 	{
 		return transportList;
 	}
+	
+/************* Save and Load Methods *************/
 	
 	public static void saveData(Company e)
 	{
@@ -139,7 +140,7 @@ public class Company implements Serializable
 		try 
 		{
 			System.out.println("Saving");
-			fileOut = new FileOutputStream("Company.ser");
+			fileOut = new FileOutputStream(e.getName() + ".ser");
 			objOut = new ObjectOutputStream(fileOut);
 			objOut.writeObject(e);
 			objOut.close();
@@ -150,8 +151,7 @@ public class Company implements Serializable
 			i.printStackTrace();
 		}
 	}
-	
-	public static Company loadData()
+	public static Company loadData(String companyName)
 	{
 		FileInputStream fileIn = null;
 		ObjectInputStream objIn = null;
@@ -160,7 +160,7 @@ public class Company implements Serializable
 		try 
 		{
 			System.out.println("Loading");
-			fileIn = new FileInputStream("Company.ser");
+			fileIn = new FileInputStream(companyName + ".ser");
 			objIn = new ObjectInputStream(fileIn);
 			company = (Company) objIn.readObject();
 			objIn.close();
@@ -175,7 +175,9 @@ public class Company implements Serializable
 		}
 		return company;
 	}
-	
+
+/************* Functionality Support Methods *************/
+
 	// Return boolean based on results, then GUI will redirect based on response
 	public Account login(String username, String password)
 	{
@@ -189,6 +191,21 @@ public class Company implements Serializable
 		return null;	
 	}
 	
+	// Input name of a Transportation company as a String, return the Transport object if found. 
+	public Transport findTransport(String aName)
+	{
+		for(int i = 0; i < transportList.size(); i++)
+		{
+			if(transportList.get(i).getName() == aName)
+			{
+				return transportList.get(i);
+			}
+		}
+		System.out.println("Transport: " + aName + " not found.");
+		return null;
+	}
+	
+	// Input username of an Account as a String, return the account object if found. 
 	public Account findAccountUsername(String username)
 	{
 		// Parse through accounts to find 
@@ -247,6 +264,7 @@ public class Company implements Serializable
 		return null;
 	}
 	
+	// Input name of an Account as a String, return the account object if found. 
 	public Account findAccountName(String name)
 	{
 		// Parse through accounts to find 
@@ -305,6 +323,7 @@ public class Company implements Serializable
 		return null;
 	}
 	
+	// Input location of a Department as a String, return the Department object if found. 
 	public Department findDepartment(String aLocation)
 	{
 		if(aLocation.equals("Corporate"))
@@ -331,6 +350,7 @@ public class Company implements Serializable
 		return null;
 	}
 	
+	// Input partner ID of a Partner as a String, return the Partner object if found. 
 	public Partner findPartner(Integer aPartnerID)
 	{
 		// Parse Suppliers

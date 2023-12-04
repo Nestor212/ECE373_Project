@@ -1,10 +1,13 @@
 package software;
 
 import java.io.Serializable;
-
-import hardware.Department;
 import hardware.Store;
 import hardware.Warehouse;
+
+/* Class Description
+ * Store orders extend Orders, and represent orders that are placed by stores
+ * and fulfilled by warehouses. 
+ */
 
 public class StoreOrder extends Order implements Serializable
 {
@@ -21,40 +24,40 @@ public class StoreOrder extends Order implements Serializable
 		fulfilledByWH.addOrder(this);
 	}
 	
+/************* Basic Getter and Setter Methods *************/
+
 	public void setOrderedBy(Store aStore)
 	{
 		orderedBy = aStore; 
 	}
-	public String getOrderedByString()
-	{
-		return orderedBy.toString();
-	}
-	
 	public void setFulfilledBy(Warehouse aWH)
 	{
 		fulfilledBy = aWH;
+	}
+	public Store getOrderedBy() {
+		return orderedBy;
+	}
+	public Warehouse getfulfilledBy() {
+		return fulfilledBy;
+	}
+	
+/****************** Abstract Methods Defined ******************/
+	
+	public String getOrderedByString()
+	{
+		return orderedBy.toString();
 	}
 	public String getfulfilledByString()
 	{
 		return fulfilledBy.toString();
 	}
-
 	@Override
 	public String getPickupAddressString() {
 
 		return fulfilledBy.getLocation();
 	}
-
 	@Override
 	public String getDeliveryAddressString() {
 		return orderedBy.getLocation();
-	}
-
-	public Store getOrderedBy() {
-		return orderedBy;
-	}
-
-	public Warehouse getfulfilledBy() {
-		return fulfilledBy;
 	}
 }

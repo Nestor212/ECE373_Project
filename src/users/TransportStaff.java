@@ -13,27 +13,21 @@ public class TransportStaff extends Account implements Serializable
 	{
 		this.accessLevel = 30;
 		partner = aTransport;
+		department = null;
 		aTransport.addAccount(this);
 	}
-	
-	public void confirmPickup(Order aOrder)
-	{
-		// TO DO update order status
-	}
-	public void confirmDelivery(Order aOrder)
-	{
-		// TO DO update order status
-	}
+	 
+/************* Abstract Methods Defined *************/
 
+// Transport cannot create orders at this stage, therefore return null.
+	
 	@Override
 	public StoreOrder createStoreOrder(Warehouse aWH) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public WarehouseOrder createWarehouseOrder(Supplier aSupplier) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

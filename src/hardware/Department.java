@@ -5,14 +5,19 @@ import java.util.ArrayList;
 import software.Order;
 import users.Account;
 
+/* Class Description
+ * The Department class extends to 3 sub-classes,
+ * that make up the varying departments of a given company.
+ */
+
 public abstract class Department implements Serializable
 {
 	private static final long serialVersionUID = -8089280143770671094L;
-	private String location;
-	protected int idNum;
-	protected String identifier;
-	private ArrayList<Account> accounts;
-	protected ArrayList<Order> orders;
+	private String location; // Physical Address/ Location of the department object.
+	protected int idNum;	 // Unique ID number of a department.
+	protected String identifier; // Top level identifier string of department type, for simplifying object interaction.
+	private ArrayList<Account> accounts; // List of system accounts belonging to a department object.
+	protected ArrayList<Order> orders;   // List of orders associated with a department object.
 	
 	public Department()
 	{
@@ -22,6 +27,8 @@ public abstract class Department implements Serializable
 		orders = new ArrayList<Order>();
 	}
 	
+/************* Basic Getter and Setter Methods *************/
+
 	public void setLocation(String aLocation)
 	{
 		location = aLocation;

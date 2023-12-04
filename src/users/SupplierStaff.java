@@ -17,15 +17,16 @@ public class SupplierStaff extends Account implements Serializable
 		aSupplier.addAccount(this);
 	}
 
+/************* Abstract Methods Defined *************/
+
+// SupplierAccount cannot create orders at this stage, therefore return null.	
+	
 	@Override
 	public StoreOrder createStoreOrder(Warehouse aWH) {
-		// TODO Auto-generated method stub
 		return null;
 	}
-
 	@Override
 	public WarehouseOrder createWarehouseOrder(Supplier aSupplier) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

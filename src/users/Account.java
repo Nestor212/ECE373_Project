@@ -10,6 +10,20 @@ import hardware.Warehouse;
 import software.StoreOrder;
 import software.WarehouseOrder;
 
+/* Class Description
+ * Abstract method that instantiates all basic information pertaining to an account in the system. 
+ * 
+ * accessLevel sets up the account type, later used to taylor the GUI appearance and functionality 
+ * fot a specific account type.
+ * 
+ * Access Levvels:
+ * 
+ * 10 - Admin Account
+ * 20 - Inventory Staff Account
+ * 30 - Transport Account
+ * 40 - Supplier Account
+ */
+
 public abstract class Account implements Serializable 
 {
 	private static final long serialVersionUID = 2460363224194696666L;
@@ -33,6 +47,8 @@ public abstract class Account implements Serializable
 		email = "unknown@unknown.com";
 	}
 	
+/************* Basic Getter and Setter Methods *************/
+
 	public void setName(String aName)
 	{
 		name = aName;
@@ -99,7 +115,8 @@ public abstract class Account implements Serializable
 		return partner;
 	}
 	
-	
+/************* Abstract Methods for creating orders *************/
+
 	abstract public StoreOrder createStoreOrder(Warehouse aWH);
 	abstract public WarehouseOrder createWarehouseOrder(Supplier aSupplier);
 }

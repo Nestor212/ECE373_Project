@@ -6,6 +6,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/* The loginFrame is responsible for displaying the login window that takes in the user input username and password, 
+ * then interacts with the session Company to check if these are valid credentials. 
+ * 
+ * If successful, this object will be discarded and the Home Frame will be generated. 
+ * 
+ * After 3 failed login attempts, this objects will disable the login functionality for some amount of time (5 seconds for demo purposes)
+ */
+
 public class LoginFrame extends JFrame implements ActionListener 
 {		
 	private static final long serialVersionUID = -5971805714815431922L;
