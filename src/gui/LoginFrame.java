@@ -1,6 +1,7 @@
 package gui;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,6 +22,11 @@ public class LoginFrame extends JFrame implements ActionListener
     JButton loginButton = new JButton("LOGIN");
     JButton resetButton = new JButton("RESET");
     JCheckBox showPassword = new JCheckBox("Show Password");
+    
+    private int failedAttempts = 0;
+    private static final int MAX_ATTEMPTS = 3;
+    private static final int LOCKOUT_TIME = 5000; // Lockout time in milliseconds (5 seconds)
+    private Timer lockoutTimer;
     
     LoginFrame(SupplyManagerGUI aSession) 
     {
@@ -113,6 +119,10 @@ public class LoginFrame extends JFrame implements ActionListener
             else 
             {
                 JOptionPane.showMessageDialog(this, "Invalid Username or Password");
+                ++failedAttempts;
+                if (failedAttempts >= MAX_ATTEMPTS) {
+                    lockoutAccount();
+                }
             }
         }
         //Coding Part of RESET button
@@ -121,5 +131,21 @@ public class LoginFrame extends JFrame implements ActionListener
             userTextField.setText("");
             passwordField.setText("");
         }
+    }
+    
+    private void lockoutAccount() {
+    	JOptionPane.showMessageDialog(this, "You are on a temporarily locked for 5 seconds");
+        loginButton.setEnabled(false);
+        lockoutTimer = new Timer(LOCKOUT_TIME, new ActionListener() {
+        	
+            
+            public void actionPerformed(ActionEvent e) {
+                failedAttempts = 0;
+                loginButton.setEnabled(true);
+                lockoutTimer.stop();
+            }
+         
+        });
+        lockoutTimer.start();
     }
 }

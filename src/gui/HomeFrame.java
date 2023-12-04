@@ -232,7 +232,7 @@ public class HomeFrame extends JFrame implements ActionListener
             ReportsFrame reportsFrame = new ReportsFrame(session);
             reportsFrame.setTitle("Reports Manager - Arizona Incorporated");
             reportsFrame.setVisible(true);
-            reportsFrame.setBounds(200, 100, 370, 600);
+            reportsFrame.setBounds(200, 100, 400, 600);
             reportsFrame.setDefaultCloseOperation(ReportsFrame.DISPOSE_ON_CLOSE);
             reportsFrame.setResizable(true);   
 		}
