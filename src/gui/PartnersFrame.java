@@ -16,6 +16,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import hardware.Supplier;
 import hardware.Transport;
+import java.lang.Math;
+
 
 /* Class Description
  * An extension of JFrame, this frame generates a window displaying all system Partner objects
@@ -216,10 +218,17 @@ public class PartnersFrame extends JFrame implements ActionListener
 				{
 					if(Float.parseFloat(amount.getText()) <= session.company.findPartner(aPartnerID).getAccountBalance())
 					{
-						session.company.findPartner(aPartnerID).makePayment(Float.parseFloat(amount.getText()));
-			            JOptionPane.showMessageDialog(null, "Partner has been paid. Remaining balance is: " + 
-			            							  dollarsUS.format(session.company.findPartner(aPartnerID).getAccountBalance()), "Success", JOptionPane.INFORMATION_MESSAGE);
-			            
+						if(Math.abs(Float.parseFloat(amount.getText()) - session.company.findPartner(aPartnerID).getAccountBalance()) < 0.01)
+						{
+							session.company.findPartner(aPartnerID).payInFull();
+				            JOptionPane.showMessageDialog(null, "Partner has paid in full.", "Success", JOptionPane.INFORMATION_MESSAGE);
+						}
+						else
+						{
+							session.company.findPartner(aPartnerID).makePayment(Float.parseFloat(amount.getText()));
+				            JOptionPane.showMessageDialog(null, "Partner has been paid. Remaining balance is: " + 
+				            							  dollarsUS.format(session.company.findPartner(aPartnerID).getAccountBalance()), "Success", JOptionPane.INFORMATION_MESSAGE);
+						}
 			            clearArrays();
 			            populateArrays();
 			            setLocationAndSize();

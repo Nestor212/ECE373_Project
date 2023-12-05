@@ -65,6 +65,11 @@ public abstract class Partner implements Serializable
 	{
 		accountBalance = accountBalance - aNum;
 	}
+	public void payInFull()
+	{
+		accountBalance = (float) 0.0;
+	}
+	
 	
 	public void addAccount(Account aAccount)
 	{

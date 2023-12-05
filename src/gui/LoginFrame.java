@@ -168,7 +168,6 @@ public class LoginFrame extends JFrame implements ActionListener
                 loginButton.setEnabled(true);
                 lockoutTimer.stop();
             }
-         
         });
         lockoutTimer.start();
     }

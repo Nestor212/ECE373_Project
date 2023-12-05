@@ -407,7 +407,7 @@ public class DepartmentOrdersFrame extends JFrame implements ActionListener
 		
 		this.setSize(800, 720);
 		viewOrderTitleLabel = new JLabel("Order # " + aOrder.toString());
-		viewOrderTitleLabel.setBounds(50, 50, 1000, 30);
+		viewOrderTitleLabel.setBounds(50, 50, 800, 30);
 		viewOrderTitleLabel.setFont(new Font("Lucida", Font.BOLD, 22));
     	container.add(viewOrderTitleLabel);
 		container.add(goBackButton);		
