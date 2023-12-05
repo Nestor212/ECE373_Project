@@ -28,7 +28,7 @@ public class HomeFrame extends JFrame implements ActionListener
 		
 	Container container = getContentPane();
 	
-	JLabel imageUofA = new JLabel(new ImageIcon("uofa200.jpg"));
+	JLabel imageUofA = new JLabel(new ImageIcon("supplyChain120.jpg"));
 	
 	private JMenuBar menuBar;		//the horizontal container
 	
@@ -130,7 +130,7 @@ public class HomeFrame extends JFrame implements ActionListener
         homeTitle.setVerticalAlignment(SwingConstants.TOP);
 		container.add(homeTitle);
 		
-    	imageUofA.setBounds(1142, 2, 200, 84);
+    	imageUofA.setBounds(1222, 2, 120, 62);
     	container.add(imageUofA);
     }
     
