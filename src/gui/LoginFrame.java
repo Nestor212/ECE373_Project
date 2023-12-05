@@ -1,12 +1,12 @@
 package gui;
 
 import javax.swing.*;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/* The loginFrame is responsible for displaying the login window that takes in the user input username and password, 
+/* Class Description
+ * The loginFrame is responsible for displaying the login window that takes in the user input username and password, 
  * then interacts with the session Company to check if these are valid credentials. 
  * 
  * If successful, this object will be discarded and the Home Frame will be generated. 
@@ -80,7 +80,8 @@ public class LoginFrame extends JFrame implements ActionListener
         showPassword.addActionListener(this);
     }
 
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public void actionPerformed(ActionEvent e) 
     {
         //Coding Part of LOGIN button
@@ -88,9 +89,8 @@ public class LoginFrame extends JFrame implements ActionListener
         {
             String userText;
             String pwdText;
-            //char[] pwdText = passwordField.getPassword();
             userText = userTextField.getText();
-           pwdText = passwordField.getText(); 
+            pwdText = passwordField.getText(); 
           
             
             session.sessionAccount = session.company.login(userText, pwdText);

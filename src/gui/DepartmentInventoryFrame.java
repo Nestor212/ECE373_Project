@@ -13,9 +13,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-
 import hardware.Item;
-import users.Admin;
 
 /* Class Description
  * An extension of JFrame, this frame generates a window displaying the inventory associated with the 
@@ -45,9 +43,8 @@ public class DepartmentInventoryFrame extends JFrame implements ActionListener
 	ArrayList<JLabel> retailPrices;
 	ArrayList<JLabel> supplierPrices;
 	
-	private JMenuBar menuBar;		//the horizontal container
-	
 	//File Menu Declarations
+	private JMenuBar menuBar;		//the horizontal container
 	private JMenu fileMenu;
 	private JMenuItem fileAdjQty;
 

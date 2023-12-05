@@ -52,7 +52,7 @@ public class SupplyInventoryFrame extends JFrame implements ActionListener
 	private JMenu fileMenu;
 	private JMenuItem fileAddNewItem;
 	private JMenuItem fileDeleteItem;
-
+	private JMenuItem fileAdjQty;
 
 	public SupplyInventoryFrame(SupplyManagerGUI aSession)
 	{      
@@ -69,10 +69,13 @@ public class SupplyInventoryFrame extends JFrame implements ActionListener
 		fileMenu = new JMenu("File");
 		fileAddNewItem = new JMenuItem("Add New Item");
 		fileDeleteItem = new JMenuItem("Delete Item");
+		fileAdjQty = new JMenuItem("Adjust Qty");
 		fileAddNewItem.addActionListener(this);
 		fileDeleteItem.addActionListener(this);
+		fileAdjQty.addActionListener(this);
 		fileMenu.add(fileAddNewItem);
 		fileMenu.add(fileDeleteItem);
+		fileMenu.add(fileAdjQty);		
 		
 	    menuBar.add(fileMenu);
 		setJMenuBar(menuBar);		
@@ -161,7 +164,11 @@ public class SupplyInventoryFrame extends JFrame implements ActionListener
 		else if(e.getSource().equals(fileDeleteItem))
 		{
 			handleDelete();
-		}		
+		}	
+		else if(e.getSource().equals(fileAdjQty))
+		{
+			handleAdjQty();	
+		}
 	}
 	
 	public void handleAddNew()
@@ -262,6 +269,56 @@ public class SupplyInventoryFrame extends JFrame implements ActionListener
 		{
             JOptionPane.showMessageDialog(null, "Error Deleting Item", "Error", JOptionPane.ERROR_MESSAGE);
 
+		}
+	}
+	
+	public void handleAdjQty()
+	{
+		JTextField itemNumber = new JTextField();
+		JTextField adjustment = new JTextField();
+		
+		Object[] fields = 
+		{
+			"Enter Item Number:", itemNumber,
+			"Adjustemnt Qty:", adjustment,
+		};
+	
+		int x = JOptionPane.showConfirmDialog(null, fields, "Adjust Inventory" , JOptionPane.OK_CANCEL_OPTION);
+		if(x == JOptionPane.OK_OPTION) 
+		{
+			if(itemNumber.getText().isBlank())
+			{
+                JOptionPane.showMessageDialog(null, "Item Number field is empty.", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+			else if(adjustment.getText().isBlank())
+			{
+                JOptionPane.showMessageDialog(null, "Adjustment Qty field is empty.", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+			else
+			{
+				Item i1 = null;
+				for(int i = 0; i < thisSupplier.getItemList().size(); i++)
+				{
+					if(thisSupplier.getItemList().get(i).getItemNum().equals(Integer.parseInt(itemNumber.getText())))
+					{
+						i1 = thisSupplier.getItemList().get(i);
+					}
+				}
+				if(i1 != null)
+				{
+					i1.addQty(Integer.parseInt(adjustment.getText()));
+					
+	                JOptionPane.showMessageDialog(null, "Item #: " + i1.getItemNum() + " has been updated", "Success", JOptionPane.INFORMATION_MESSAGE);
+	                clearArrays();
+	                populateArrays();
+	                setLocationAndSize();
+	                addComponentsToContainer();
+				}
+				else
+				{
+	                JOptionPane.showMessageDialog(null, "Error finding item", "Error", JOptionPane.ERROR_MESSAGE);
+				}				               
+			}
 		}
 	}
 }
