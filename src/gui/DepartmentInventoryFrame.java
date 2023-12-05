@@ -7,7 +7,15 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+
+import hardware.Item;
+import users.Admin;
 
 /* Class Description
  * An extension of JFrame, this frame generates a window displaying the inventory associated with the 
@@ -36,10 +44,25 @@ public class DepartmentInventoryFrame extends JFrame implements ActionListener
 	ArrayList<JLabel> itemQtys;
 	ArrayList<JLabel> retailPrices;
 	ArrayList<JLabel> supplierPrices;
+	
+	private JMenuBar menuBar;		//the horizontal container
+	
+	//File Menu Declarations
+	private JMenu fileMenu;
+	private JMenuItem fileAdjQty;
 
 	public DepartmentInventoryFrame(SupplyManagerGUI aSession)
 	{      
 		session = aSession;
+		
+//***** File Menu + Drop-down Options ****\\
+		menuBar = new JMenuBar();
+		fileMenu = new JMenu("File");
+		fileAdjQty = new JMenuItem("Adjust Qty");
+		fileAdjQty.addActionListener(this);
+		fileMenu.add(fileAdjQty);		
+	    menuBar.add(fileMenu);
+		setJMenuBar(menuBar);
 		
 		titleLabel = new JLabel("Inventory - " + session.sessionAccount.getDepartment().toString());
 		itemNumbers = new ArrayList<JLabel>(100);
@@ -53,8 +76,17 @@ public class DepartmentInventoryFrame extends JFrame implements ActionListener
         setLayoutManager();
         setLocationAndSize();
         addComponentsToContainer();
-        addActionEvent();
     }
+	
+	
+	public void clearArrays()
+	{
+		itemNumbers.clear();
+		itemNames.clear();
+		itemQtys.clear();
+		retailPrices.clear();
+		supplierPrices.clear();
+	}
 	
 	public void populateInventoryArray()
 	{
@@ -100,8 +132,8 @@ public class DepartmentInventoryFrame extends JFrame implements ActionListener
     
     public void addComponentsToContainer() 
     {
-    	//container.add(sb);
-    	container.add(titleLabel);
+    	container.removeAll();
+		container.add(titleLabel);
         container.add(itemNumLabel);
         container.add(itemNameLabel);
         container.add(QtyLabel);
@@ -116,16 +148,65 @@ public class DepartmentInventoryFrame extends JFrame implements ActionListener
 	        container.add(retailPrices.get(i));
 	        container.add(supplierPrices.get(i));	
 		}
+		super.update(getGraphics());
     }
 
-    public void addActionEvent() 
-    {
-//        ordersButton.addActionListener(this);
-//        reportsButton.addActionListener(this);
-    }
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+	public void actionPerformed(ActionEvent e) 
+	{
+		if(e.getSource().equals(fileAdjQty))
+		{
+			handleAdjQty();	
+		}		
+	}
+	
+	public void handleAdjQty()
+	{
+		JTextField itemNumber = new JTextField();
+		JTextField adjustment = new JTextField();
 		
+		Object[] fields = 
+		{
+			"Enter Item Number:", itemNumber,
+			"Adjustemnt Qty:", adjustment,
+		};
+	
+		int x = JOptionPane.showConfirmDialog(null, fields, "Adjust Inventory" , JOptionPane.OK_CANCEL_OPTION);
+		if(x == JOptionPane.OK_OPTION) 
+		{
+			if(itemNumber.getText().isBlank())
+			{
+                JOptionPane.showMessageDialog(null, "Item Number field is empty.", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+			else if(adjustment.getText().isBlank())
+			{
+                JOptionPane.showMessageDialog(null, "Adjustment Qty field is empty.", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+			else
+			{
+				Item i1 = null;
+				for(int i = 0; i < session.sessionAccount.getDepartment().getInventory().size(); i++)
+				{
+					if(session.sessionAccount.getDepartment().getInventory().get(i).getItemNum().equals(Integer.parseInt(itemNumber.getText())))
+					{
+						i1 = session.sessionAccount.getDepartment().getInventory().get(i);
+					}
+				}
+				if(i1 != null)
+				{
+					i1.addQty(Integer.parseInt(adjustment.getText()));
+					
+	                JOptionPane.showMessageDialog(null, "Item #: " + i1.getItemNum() + " has been updated", "Success", JOptionPane.INFORMATION_MESSAGE);
+	                clearArrays();
+	                populateInventoryArray();
+	                setLocationAndSize();
+	                addComponentsToContainer();
+				}
+				else
+				{
+	                JOptionPane.showMessageDialog(null, "Error finding item", "Error", JOptionPane.ERROR_MESSAGE);
+				}				               
+			}
+		}
 	}
 }

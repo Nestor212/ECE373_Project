@@ -25,8 +25,7 @@ public class LoginFrame extends JFrame implements ActionListener
     JLabel userLabel = new JLabel("USERNAME");
     JLabel passwordLabel = new JLabel("PASSWORD");
     JTextField userTextField = new JTextField();
-    JTextField passwordField = new JTextField();
-    //JPasswordField passwordField = new JPasswordField();
+    JPasswordField passwordField = new JPasswordField();
     JButton loginButton = new JButton("LOGIN");
     JButton resetButton = new JButton("RESET");
     JCheckBox showPassword = new JCheckBox("Show Password");
@@ -52,7 +51,7 @@ public class LoginFrame extends JFrame implements ActionListener
 
     public void setLocationAndSize() 
     {
-    	imageUofA.setBounds(35, 10, 300, 156);;
+    	imageUofA.setBounds(35, 20, 300, 156);;
         userLabel.setBounds(50, 200, 100, 30);
         passwordLabel.setBounds(50, 270, 100, 30);
         userTextField.setBounds(150, 200, 150, 30);
@@ -91,7 +90,8 @@ public class LoginFrame extends JFrame implements ActionListener
             String pwdText;
             //char[] pwdText = passwordField.getPassword();
             userText = userTextField.getText();
-            pwdText = passwordField.getText(); 
+           pwdText = passwordField.getText(); 
+          
             
             session.sessionAccount = session.company.login(userText, pwdText);
             
@@ -133,6 +133,22 @@ public class LoginFrame extends JFrame implements ActionListener
                 }
             }
         }
+
+        if (e.getSource() == showPassword) {
+            JCheckBox checkBox = (JCheckBox) e.getSource();
+            if (checkBox.isSelected()) {
+                passwordField.setEchoChar((char) 0); // Show password
+            } else {
+                passwordField.setEchoChar('*'); // Hide password
+            }
+        }
+
+        // Coding Part of RESET button
+        if (e.getSource() == resetButton) {
+            userTextField.setText("");
+            passwordField.setText("");
+        }
+    
         //Coding Part of RESET button
         if (e.getSource() == resetButton) 
         {
