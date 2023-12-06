@@ -280,7 +280,7 @@ public class SupplyInventoryFrame extends JFrame implements ActionListener
 		Object[] fields = 
 		{
 			"Enter Item Number:", itemNumber,
-			"Adjustemnt Qty:", adjustment,
+			"Adjustment Qty:", adjustment,
 		};
 	
 		int x = JOptionPane.showConfirmDialog(null, fields, "Adjust Inventory" , JOptionPane.OK_CANCEL_OPTION);
