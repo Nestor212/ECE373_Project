@@ -16,9 +16,9 @@ import java.awt.event.WindowEvent;
  * Main buttons displayed instantiate a new Frame found in the GUI package, 
  * that pertains to button description. (ex. 'Reports' button instantiates 'ReportsFrame.java')
  * 
- * If home frame is exited or closed the entire system is saved and closed. 
+ * If home frame is exited or closed, the entire system is saved and closed. 
  * 
- * All other frames windows will be discarded when exited, and home Frame will remain.  
+ * All other frames' windows will be discarded when exited, and home Frame will remain.  
  */
 
 public class HomeFrame extends JFrame implements ActionListener 
