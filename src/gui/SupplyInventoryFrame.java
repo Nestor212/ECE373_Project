@@ -190,15 +190,15 @@ public class SupplyInventoryFrame extends JFrame implements ActionListener
 		{
 			if(itemName.getText().isBlank())
 			{
-                JOptionPane.showMessageDialog(null, "Item Name field is empty.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Item Name Field is Empty.", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 			else if(ohQty.getText().isBlank())
 			{
-                JOptionPane.showMessageDialog(null, "On Hand Qty field is empty.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "On-Hand Qty Field is Empty.", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 			else if(unitPrice.getText().isBlank())
 			{
-                JOptionPane.showMessageDialog(null, "Unit Price field is empty.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Unit Price Field is Empty.", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 			else
 			{
@@ -214,7 +214,7 @@ public class SupplyInventoryFrame extends JFrame implements ActionListener
                 addComponentsToContainer();
                 success = true;
                 
-                JOptionPane.showMessageDialog(null, "Item has been added. Item Number is: " + i1.getItemNum(), "Success", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Item Has Been Added. Item Number is: " + i1.getItemNum(), "Success", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 			if(!success)
@@ -239,11 +239,11 @@ public class SupplyInventoryFrame extends JFrame implements ActionListener
 		{
 			if(itemNum.getText().isBlank())
 			{
-                JOptionPane.showMessageDialog(null, "Item Name field is empty.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Item Name Field is Empty.", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 			else
 			{
-				for(int i =0; i < thisSupplier.getItemList().size(); i++)
+				for(int i = 0; i < thisSupplier.getItemList().size(); i++)
 				{
 					if(thisSupplier.getItemList().get(i).getItemNum().equals(Integer.valueOf(itemNum.getText()))) 
 					{
@@ -259,7 +259,7 @@ public class SupplyInventoryFrame extends JFrame implements ActionListener
 			                addComponentsToContainer();
 			                success = true;
 			                
-			                JOptionPane.showMessageDialog(null, "Item has been Successfully Deleted", "Success", JOptionPane.INFORMATION_MESSAGE);
+			                JOptionPane.showMessageDialog(null, "Item Has Been Successfully Deleted", "Success", JOptionPane.INFORMATION_MESSAGE);
 						}
 					}
 				}
@@ -288,11 +288,11 @@ public class SupplyInventoryFrame extends JFrame implements ActionListener
 		{
 			if(itemNumber.getText().isBlank())
 			{
-                JOptionPane.showMessageDialog(null, "Item Number field is empty.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Item Number Field is Empty.", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 			else if(adjustment.getText().isBlank())
 			{
-                JOptionPane.showMessageDialog(null, "Adjustment Qty field is empty.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Adjustment Qty Field is Empty.", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 			else
 			{
@@ -308,7 +308,7 @@ public class SupplyInventoryFrame extends JFrame implements ActionListener
 				{
 					i1.addQty(Integer.parseInt(adjustment.getText()));
 					
-	                JOptionPane.showMessageDialog(null, "Item #: " + i1.getItemNum() + " has been updated", "Success", JOptionPane.INFORMATION_MESSAGE);
+	                JOptionPane.showMessageDialog(null, "Item #: " + i1.getItemNum() + " Has Been Updated", "Success", JOptionPane.INFORMATION_MESSAGE);
 	                clearArrays();
 	                populateArrays();
 	                setLocationAndSize();
@@ -316,7 +316,7 @@ public class SupplyInventoryFrame extends JFrame implements ActionListener
 				}
 				else
 				{
-	                JOptionPane.showMessageDialog(null, "Error finding item", "Error", JOptionPane.ERROR_MESSAGE);
+	                JOptionPane.showMessageDialog(null, "Error Finding Item", "Error", JOptionPane.ERROR_MESSAGE);
 				}				               
 			}
 		}
