@@ -158,7 +158,7 @@ public class LoginFrame extends JFrame implements ActionListener
     }
     
     private void lockoutAccount() {
-    	JOptionPane.showMessageDialog(this, "You are on a temporarily locked for 5 seconds");
+    	JOptionPane.showMessageDialog(this, "Your account is temporarily locked for 5 seconds");
         loginButton.setEnabled(false);
         lockoutTimer = new Timer(LOCKOUT_TIME, new ActionListener() {
         	
